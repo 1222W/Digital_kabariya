@@ -1,0 +1,303 @@
+import 'package:digital_kabaria_app/Common/app_loader.dart';
+import 'package:digital_kabaria_app/Common/custom_app_bar.dart';
+import 'package:digital_kabaria_app/Common/custom_button.dart';
+import 'package:digital_kabaria_app/Common/custom_text_form_field.dart';
+import 'package:digital_kabaria_app/Utils/app_colors.dart';
+import 'package:digital_kabaria_app/Utils/sized_box_extension.dart';
+import 'package:digital_kabaria_app/view/Admin%20Side%20View/admin_side_view.dart';
+import 'package:digital_kabaria_app/view/Auth%20View/Auth%20State/auth_state.dart';
+import 'package:digital_kabaria_app/view/Auth%20View/banned_account_view.dart';
+import 'package:digital_kabaria_app/view/Auth%20View/sign_up_view.dart';
+import 'package:digital_kabaria_app/view/User%20View/user_home_view.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
+import 'package:page_transition/page_transition.dart';
+
+class LoginView extends StatefulWidget {
+  const LoginView({super.key});
+
+  @override
+  State<LoginView> createState() => _LoginViewState();
+}
+
+var emailValidation =
+    RegExp(r'^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$');
+
+class _LoginViewState extends State<LoginView> {
+  // ------------ States and Variables ------------- //
+
+  final authState = Get.put(AuthStateController());
+  final formKey = GlobalKey<FormState>();
+
+  @override
+  void dispose() {
+    super.dispose();
+    authState.emailCTRL.value.clear();
+    authState.passwordCTRL.value.clear();
+    authState.rememberMe.value = false;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Obx(() {
+      return ModalProgressHUD(
+        inAsyncCall: false,
+        progressIndicator: const AppLoader(),
+        blur: 2,
+        child: Scaffold(
+          appBar: const CustomAppBar(
+            flag: false,
+          ),
+          body: Form(
+            key: formKey,
+            autovalidateMode: authState.autoValidate.value
+                ? AutovalidateMode.always
+                : AutovalidateMode.disabled,
+            child: ListView(
+              padding: EdgeInsets.all(20.sp),
+              physics: const BouncingScrollPhysics(),
+              children: [
+                // Align(
+                //   alignment: Alignment.topLeft,
+                //   child: Image.asset(
+                //     "assets/images/app_logo_dk.png",
+                //     height: 75.h,
+                //   ),
+                // ),
+                // 20.h.sizedBoxHeight,
+
+                //
+                Center(
+                  child: Text(
+                    "Welcome Back! Access your account".tr,
+                    style: TextStyle(
+                      fontSize: 20.sp,
+                      color: AppColors.blackColor,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                ),
+                30.h.sizedBoxHeight,
+                //
+                Text(
+                  "Email".tr,
+                  style: TextStyle(
+                    fontSize: 12.sp,
+                    color: AppColors.blackColor,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+                5.h.sizedBoxHeight,
+                // Email
+                CustomTextFormField(
+                  controller: authState.emailCTRL.value,
+                  hintText: "Enter Email".tr,
+                  onChanged: (value) {
+                    authState.updateLoginButton();
+                  },
+                  validator: (String? value) {
+                    if ((value!.isNotEmpty ||
+                            authState.emailCTRL.value.text.isNotEmpty) &&
+                        emailValidation
+                            .hasMatch(authState.emailCTRL.value.text)) {
+                      return null;
+                    } else {
+                      return 'Invalid Email Format (xyz@gmail.com)';
+                    }
+                  },
+                ),
+                20.h.sizedBoxHeight,
+                Text(
+                  "Password".tr,
+                  style: TextStyle(
+                    fontSize: 12.sp,
+                    color: AppColors.blackColor,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+                5.h.sizedBoxHeight,
+                // Password
+                GetBuilder<AuthStateController>(builder: (authState) {
+                  return CustomTextFormField(
+                    controller: authState.passwordCTRL.value,
+                    hintText: "Enter Password".tr,
+                    obscureText: authState.obsecurePassword,
+                    validator: (String? value) {
+                      if (value!.isNotEmpty ||
+                          authState.passwordCTRL.value.text.isNotEmpty) {
+                        return null;
+                      } else {
+                        return 'Password Required'.tr;
+                      }
+                    },
+                    onChanged: (value) {
+                      authState.updateLoginButton();
+                    },
+                    suffixIcon: IconButton(
+                        onPressed: () {
+                          authState.togglePassword();
+                        },
+                        icon: Icon(
+                          authState.obsecurePassword
+                              ? Icons.visibility_outlined
+                              : Icons.visibility_off,
+                          size: 20.sp,
+                          color: authState.obsecurePassword
+                              ? AppColors.blackColor.withOpacity(.30)
+                              : AppColors.brownColor,
+                        )),
+                  );
+                }),
+                //
+
+                30.h.sizedBoxHeight,
+                //
+                Center(
+                  child: InkWell(
+                    onTap: () {
+                      authState.autoValidate.value = false;
+
+                      resetPasswordDialogue(context);
+                    },
+                    child: Text(
+                      "Reset Password?".tr,
+                      style: TextStyle(
+                          fontSize: 14.sp,
+                          color: AppColors.brownColor,
+                          fontWeight: FontWeight.w500,
+                          decorationColor: AppColors.brownColor,
+                          decoration: TextDecoration.underline),
+                    ),
+                  ),
+                ),
+                20.h.sizedBoxHeight,
+                //
+                Obx(() {
+                  return CustomButton(
+                    text: "Login".tr,
+                    onPressed: authState.enableLoginButton
+                        ? () {
+                            if (formKey.currentState!.validate()) {
+                              if (authState.emailCTRL.value.text ==
+                                  "ban@gmail.com") {
+                                Navigator.push(
+                                    context,
+                                    PageTransition(
+                                        child: const BannedAccountView(),
+                                        type: PageTransitionType.fade));
+                              } else if (authState.emailCTRL.value.text ==
+                                  "admin@gmail.com") {
+                                Navigator.push(
+                                    context,
+                                    PageTransition(
+                                        child: const AdminSideView(),
+                                        type: PageTransitionType.fade));
+                              } else {
+                                Navigator.push(
+                                    context,
+                                    PageTransition(
+                                        child: const UserHomeView(),
+                                        type: PageTransitionType.fade));
+                              }
+                            } else {
+                              authState.autoValidate.value = true;
+                            }
+                          }
+                        : null,
+                  );
+                }),
+                //
+                20.h.sizedBoxHeight,
+
+                CustomButton(
+                  text: "Create Account".tr,
+                  textColor: AppColors.brownColor,
+                  btnColor: AppColors.whiteColor,
+                  border: const BorderSide(color: AppColors.brownColor),
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        PageTransition(
+                            child: const SignUpView(),
+                            type: PageTransitionType.fade));
+                  },
+                ),
+                10.h.sizedBoxHeight,
+              ],
+            ),
+          ),
+        ),
+      );
+    });
+  }
+}
+
+// Reset Password Dialogue
+void resetPasswordDialogue(
+  BuildContext context,
+) {
+  TextEditingController phoneNumberController = TextEditingController();
+  showDialog(
+    context: context,
+    builder: (context) {
+      return AlertDialog(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(40)),
+        backgroundColor: AppColors.whiteColor,
+        elevation: 0,
+        contentPadding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 40.h),
+        content: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Center(
+                child: Text(
+                  'Reset Password!',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: AppColors.blackColor,
+                    fontSize: 18.sp,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: 10.h,
+              ),
+              Text(
+                'Enter Email:',
+                textAlign: TextAlign.start,
+                style: TextStyle(
+                  color: AppColors.blackColor.withOpacity(.50),
+                  fontSize: 12.sp,
+                  fontWeight: FontWeight.w500,
+                  height: 0,
+                ),
+              ),
+              SizedBox(
+                height: 5.h,
+              ),
+              // DATE PICKER
+
+              CustomTextFormField(
+                controller: phoneNumberController,
+                hintText: "Enter Email Address",
+                keyboardType: TextInputType.emailAddress,
+              ),
+
+              SizedBox(
+                height: 15.h,
+              ),
+              Center(
+                  child: CustomButton(
+                text: "Continue",
+                onPressed: () {},
+              )),
+            ],
+          ),
+        ),
+      );
+    },
+  );
+}
