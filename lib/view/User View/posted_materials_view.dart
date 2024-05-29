@@ -1,6 +1,6 @@
-import 'package:digital_kabaria_app/Common/custom_button.dart';
-import 'package:digital_kabaria_app/Utils/app_colors.dart';
-import 'package:digital_kabaria_app/Utils/sized_box_extension.dart';
+import 'package:digital_kabaria_app/common/custom_button.dart';
+import 'package:digital_kabaria_app/utils/app_colors.dart';
+import 'package:digital_kabaria_app/utils/sized_box_extension.dart';
 import 'package:flutter/material.dart';
 // import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';

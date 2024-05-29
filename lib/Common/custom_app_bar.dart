@@ -1,6 +1,6 @@
-import 'package:digital_kabaria_app/Common/custom_button.dart';
-import 'package:digital_kabaria_app/Utils/app_colors.dart';
-import 'package:digital_kabaria_app/Utils/sized_box_extension.dart';
+import 'package:digital_kabaria_app/common/custom_button.dart';
+import 'package:digital_kabaria_app/utils/app_colors.dart';
+import 'package:digital_kabaria_app/utils/sized_box_extension.dart';
 import 'package:digital_kabaria_app/languages_proivder.dart';
 import 'package:digital_kabaria_app/view/User%20View/user_profile.dart';
 import 'package:flutter/cupertino.dart';

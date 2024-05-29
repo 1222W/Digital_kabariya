@@ -1,11 +1,17 @@
-import 'package:digital_kabaria_app/Utils/app_colors.dart';
-import 'package:digital_kabaria_app/Utils/languages.dart';
+import 'package:digital_kabaria_app/utils/app_colors.dart';
+import 'package:digital_kabaria_app/utils/languages.dart';
+import 'package:digital_kabaria_app/firebase_options.dart';
 import 'package:digital_kabaria_app/view/Auth%20View/login_view.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(const MyApp());
 }
 

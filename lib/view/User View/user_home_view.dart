@@ -1,6 +1,6 @@
-import 'package:digital_kabaria_app/Common/custom_app_bar.dart';
-import 'package:digital_kabaria_app/Utils/app_colors.dart';
-import 'package:digital_kabaria_app/Utils/sized_box_extension.dart';
+import 'package:digital_kabaria_app/common/custom_app_bar.dart';
+import 'package:digital_kabaria_app/utils/app_colors.dart';
+import 'package:digital_kabaria_app/utils/sized_box_extension.dart';
 
 import 'package:digital_kabaria_app/view/User%20View/User%20State/user_state.dart';
 import 'package:digital_kabaria_app/view/User%20View/bids_view.dart';

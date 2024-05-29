@@ -1,6 +1,6 @@
 // ignore_for_file: library_private_types_in_public_api
 
-import 'package:digital_kabaria_app/Utils/app_colors.dart';
+import 'package:digital_kabaria_app/utils/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -16,6 +16,7 @@ class CustomTextFormField extends StatelessWidget {
   final Function(String)? onChanged;
   final String? Function(String?)? validator;
   final TextEditingController? controller;
+  final String? errorText;
   const CustomTextFormField(
       {Key? key,
       this.hintText,
@@ -28,12 +29,14 @@ class CustomTextFormField extends StatelessWidget {
       this.obscureText = false,
       this.onChanged,
       this.validator,
+      this.errorText,
       this.maxLines = 1})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      
       keyboardType: keyboardType,
       controller: controller,
       obscureText: obscureText,
@@ -42,6 +45,7 @@ class CustomTextFormField extends StatelessWidget {
       onChanged: onChanged,
       validator: validator,
       decoration: InputDecoration(
+        errorText: errorText,
         hintText: hintText ?? 'HintText',
         labelText: flag ? hintText : null,
         fillColor: AppColors.whiteColor,

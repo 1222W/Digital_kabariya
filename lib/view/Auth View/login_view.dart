@@ -1,9 +1,9 @@
-import 'package:digital_kabaria_app/Common/app_loader.dart';
-import 'package:digital_kabaria_app/Common/custom_app_bar.dart';
-import 'package:digital_kabaria_app/Common/custom_button.dart';
-import 'package:digital_kabaria_app/Common/custom_text_form_field.dart';
-import 'package:digital_kabaria_app/Utils/app_colors.dart';
-import 'package:digital_kabaria_app/Utils/sized_box_extension.dart';
+import 'package:digital_kabaria_app/common/app_loader.dart';
+import 'package:digital_kabaria_app/common/custom_app_bar.dart';
+import 'package:digital_kabaria_app/common/custom_button.dart';
+import 'package:digital_kabaria_app/common/custom_text_form_field.dart';
+import 'package:digital_kabaria_app/utils/app_colors.dart';
+import 'package:digital_kabaria_app/utils/sized_box_extension.dart';
 import 'package:digital_kabaria_app/view/Admin%20Side%20View/admin_side_view.dart';
 import 'package:digital_kabaria_app/view/Auth%20View/Auth%20State/auth_state.dart';
 import 'package:digital_kabaria_app/view/Auth%20View/banned_account_view.dart';
@@ -34,15 +34,14 @@ class _LoginViewState extends State<LoginView> {
   @override
   void dispose() {
     super.dispose();
-    authState.emailCTRL.value.clear();
-    authState.passwordCTRL.value.clear();
+    authState.emailCTRL.clear();
+    authState.passwordCTRL.clear();
     authState.rememberMe.value = false;
   }
 
   @override
   Widget build(BuildContext context) {
-    return Obx(() {
-      return ModalProgressHUD(
+       return ModalProgressHUD(
         inAsyncCall: false,
         progressIndicator: const AppLoader(),
         blur: 2,
@@ -51,10 +50,9 @@ class _LoginViewState extends State<LoginView> {
             flag: false,
           ),
           body: Form(
-            key: formKey,
-            autovalidateMode: authState.autoValidate.value
-                ? AutovalidateMode.always
-                : AutovalidateMode.disabled,
+            // autovalidateMode: authState.autoValidate.value
+            //     ? AutovalidateMode.always
+            //     : AutovalidateMode.disabled,
             child: ListView(
               padding: EdgeInsets.all(20.sp),
               physics: const BouncingScrollPhysics(),
@@ -91,23 +89,13 @@ class _LoginViewState extends State<LoginView> {
                 ),
                 5.h.sizedBoxHeight,
                 // Email
-                CustomTextFormField(
-                  controller: authState.emailCTRL.value,
-                  hintText: "Enter Email".tr,
-                  onChanged: (value) {
-                    authState.updateLoginButton();
-                  },
-                  validator: (String? value) {
-                    if ((value!.isNotEmpty ||
-                            authState.emailCTRL.value.text.isNotEmpty) &&
-                        emailValidation
-                            .hasMatch(authState.emailCTRL.value.text)) {
-                      return null;
-                    } else {
-                      return 'Invalid Email Format (xyz@gmail.com)';
-                    }
-                  },
-                ),
+               Obx(() => CustomTextFormField(
+                      controller: authState.emailCTRL,
+                      hintText: "Email Address",
+                      flag: true,
+                      onChanged: authState.validateEmail,
+                      errorText: authState.emailError.value,
+                    )),
                 20.h.sizedBoxHeight,
                 Text(
                   "Password".tr,
@@ -119,37 +107,30 @@ class _LoginViewState extends State<LoginView> {
                 ),
                 5.h.sizedBoxHeight,
                 // Password
-                GetBuilder<AuthStateController>(builder: (authState) {
-                  return CustomTextFormField(
-                    controller: authState.passwordCTRL.value,
-                    hintText: "Enter Password".tr,
-                    obscureText: authState.obsecurePassword,
-                    validator: (String? value) {
-                      if (value!.isNotEmpty ||
-                          authState.passwordCTRL.value.text.isNotEmpty) {
-                        return null;
-                      } else {
-                        return 'Password Required'.tr;
-                      }
-                    },
-                    onChanged: (value) {
-                      authState.updateLoginButton();
-                    },
-                    suffixIcon: IconButton(
+                 Obx(() => CustomTextFormField(
+                      controller: authState.passwordCTRL,
+                      hintText: "Password",
+                      flag: true,
+                      obscureText: authState.obsecurePassword,
+                      onChanged: authState.validatePassword,
+                      errorText: authState.passwordError.value,
+                      suffixIcon: IconButton(
                         onPressed: () {
                           authState.togglePassword();
                         },
                         icon: Icon(
                           authState.obsecurePassword
-                              ? Icons.visibility_outlined
-                              : Icons.visibility_off,
+                          
+                              ? Icons.visibility_off
+                              : Icons.visibility_outlined,
                           size: 20.sp,
                           color: authState.obsecurePassword
                               ? AppColors.blackColor.withOpacity(.30)
                               : AppColors.brownColor,
-                        )),
-                  );
-                }),
+                        ),
+                      ),
+                    )),
+
                 //
 
                 30.h.sizedBoxHeight,
@@ -175,37 +156,40 @@ class _LoginViewState extends State<LoginView> {
                 20.h.sizedBoxHeight,
                 //
                 Obx(() {
-                  return CustomButton(
+                  return authState.isLoading.value ?AppLoader(): CustomButton(
                     text: "Login".tr,
-                    onPressed: authState.enableLoginButton
-                        ? () {
-                            if (formKey.currentState!.validate()) {
-                              if (authState.emailCTRL.value.text ==
-                                  "ban@gmail.com") {
-                                Navigator.push(
-                                    context,
-                                    PageTransition(
-                                        child: const BannedAccountView(),
-                                        type: PageTransitionType.fade));
-                              } else if (authState.emailCTRL.value.text ==
-                                  "admin@gmail.com") {
-                                Navigator.push(
-                                    context,
-                                    PageTransition(
-                                        child: const AdminSideView(),
-                                        type: PageTransitionType.fade));
-                              } else {
-                                Navigator.push(
-                                    context,
-                                    PageTransition(
-                                        child: const UserHomeView(),
-                                        type: PageTransitionType.fade));
-                              }
-                            } else {
-                              authState.autoValidate.value = true;
-                            }
-                          }
-                        : null,
+                    onPressed:authState.enableLoginButton? (){
+                      authState.login(emailAddress: authState.emailCTRL.value.text, password: authState.passwordCTRL.value.text);
+                    }:null
+                    // onPressed: authState.enableLoginButton
+                    //     ? () {
+                    //         if (formKey.currentState!.validate()) {
+                    //           if (authState.emailCTRL.value.text ==
+                    //               "ban@gmail.com") {
+                    //             Navigator.push(
+                    //                 context,
+                    //                 PageTransition(
+                    //                     child: const BannedAccountView(),
+                    //                     type: PageTransitionType.fade));
+                    //           } else if (authState.emailCTRL.value.text ==
+                    //               "admin@gmail.com") {
+                    //             Navigator.push(
+                    //                 context,
+                    //                 PageTransition(
+                    //                     child: const AdminSideView(),
+                    //                     type: PageTransitionType.fade));
+                    //           } else {
+                    //             Navigator.push(
+                    //                 context,
+                    //                 PageTransition(
+                    //                     child: const UserHomeView(),
+                    //                     type: PageTransitionType.fade));
+                    //           }
+                    //         } else {
+                    //           authState.autoValidate.value = true;
+                    //         }
+                    //       }
+                    //     : null,
                   );
                 }),
                 //
@@ -230,7 +214,7 @@ class _LoginViewState extends State<LoginView> {
           ),
         ),
       );
-    });
+   
   }
 }
 
