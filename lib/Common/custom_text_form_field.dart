@@ -62,7 +62,7 @@ class CustomTextFormField extends StatelessWidget {
             fontWeight: FontWeight.w500),
         labelStyle: TextStyle(
             fontSize: 14.sp,
-            color: AppColors.brownColor,
+            color: AppColors.appColor,
             fontWeight: FontWeight.w500),
         hintStyle: hintStyle ??
             TextStyle(
@@ -79,12 +79,12 @@ class CustomTextFormField extends StatelessWidget {
         focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10.sp),
             borderSide: const BorderSide(
-              color: AppColors.brownColor,
+              color: AppColors.appColor,
             )),
         focusedErrorBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10.sp),
             borderSide: const BorderSide(
-              color: AppColors.brownColor,
+              color: AppColors.appColor,
             )),
         errorBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10.sp),

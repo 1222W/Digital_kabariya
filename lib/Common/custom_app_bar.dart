@@ -99,7 +99,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                                                           .selectedLanguage
                                                           .value ==
                                                       languages[index]
-                                                  ? AppColors.brownColor
+                                                  ? AppColors.appColor
                                                   : AppColors.blackColor
                                                       .withOpacity(.1),
                                               borderRadius:

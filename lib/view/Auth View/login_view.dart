@@ -50,9 +50,9 @@ class _LoginViewState extends State<LoginView> {
             flag: false,
           ),
           body: Form(
-            // autovalidateMode: authState.autoValidate.value
-            //     ? AutovalidateMode.always
-            //     : AutovalidateMode.disabled,
+            autovalidateMode: 
+                 AutovalidateMode.always,
+                
             child: ListView(
               padding: EdgeInsets.all(20.sp),
               physics: const BouncingScrollPhysics(),
@@ -87,7 +87,7 @@ class _LoginViewState extends State<LoginView> {
                     fontWeight: FontWeight.w600,
                   ),
                 ),
-                5.h.sizedBoxHeight,
+                10.h.sizedBoxHeight,
                 // Email
                Obx(() => CustomTextFormField(
                       controller: authState.emailCTRL,
@@ -105,7 +105,7 @@ class _LoginViewState extends State<LoginView> {
                     fontWeight: FontWeight.w600,
                   ),
                 ),
-                5.h.sizedBoxHeight,
+              10.h.sizedBoxHeight,
                 // Password
                  Obx(() => CustomTextFormField(
                       controller: authState.passwordCTRL,
@@ -126,7 +126,7 @@ class _LoginViewState extends State<LoginView> {
                           size: 20.sp,
                           color: authState.obsecurePassword
                               ? AppColors.blackColor.withOpacity(.30)
-                              : AppColors.brownColor,
+                              : AppColors.appColor,
                         ),
                       ),
                     )),
@@ -146,9 +146,9 @@ class _LoginViewState extends State<LoginView> {
                       "Reset Password?".tr,
                       style: TextStyle(
                           fontSize: 14.sp,
-                          color: AppColors.brownColor,
+                          color: AppColors.appColor,
                           fontWeight: FontWeight.w500,
-                          decorationColor: AppColors.brownColor,
+                          decorationColor: AppColors.appColor,
                           decoration: TextDecoration.underline),
                     ),
                   ),
@@ -159,7 +159,7 @@ class _LoginViewState extends State<LoginView> {
                   return authState.isLoading.value ?AppLoader(): CustomButton(
                     text: "Login".tr,
                     onPressed:authState.enableLoginButton? (){
-                      authState.login(emailAddress: authState.emailCTRL.value.text, password: authState.passwordCTRL.value.text);
+                      authState.login(context, emailAddress: authState.emailCTRL.value.text, password: authState.passwordCTRL.value.text,screen: UserHomeView());
                     }:null
                     // onPressed: authState.enableLoginButton
                     //     ? () {
@@ -197,9 +197,9 @@ class _LoginViewState extends State<LoginView> {
 
                 CustomButton(
                   text: "Create Account".tr,
-                  textColor: AppColors.brownColor,
+                  textColor: AppColors.appColor,
                   btnColor: AppColors.whiteColor,
-                  border: const BorderSide(color: AppColors.brownColor),
+                  border: const BorderSide(color: AppColors.appColor),
                   onPressed: () {
                     Navigator.push(
                         context,

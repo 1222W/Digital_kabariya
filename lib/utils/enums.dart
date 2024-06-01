@@ -1,0 +1,1 @@
+enum ROLENAME {user,kabriya,organization,admin}

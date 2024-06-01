@@ -8,7 +8,7 @@ class AppLoader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CircleAvatar(
-          backgroundColor: AppColors.brownColor,
+          backgroundColor: AppColors.appColor,
       radius: 25,
      child: Center(
       child: Padding(

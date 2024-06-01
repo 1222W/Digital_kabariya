@@ -61,7 +61,7 @@ class _BuyScrapsViewState extends State<BuyScrapsView> {
                     // padding: EdgeInsets.all(15.sp),
                     margin: EdgeInsets.only(bottom: 10.h),
                     decoration: BoxDecoration(
-                        color: AppColors.brownColor.withOpacity(.10),
+                        color: AppColors.appColor.withOpacity(.10),
                         border: Border.all(
                             color: AppColors.blackColor.withOpacity(.1)),
                         borderRadius: BorderRadius.circular(8.sp)),

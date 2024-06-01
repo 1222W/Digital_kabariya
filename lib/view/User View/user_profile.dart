@@ -45,7 +45,7 @@ class _UserProfileState extends State<UserProfile> {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return const Center(
                 child: CircularProgressIndicator(
-                  color: AppColors.brownColor,
+                  color: AppColors.appColor,
                 ),
               );
             } else if (snapshot.hasError) {
@@ -95,7 +95,7 @@ IconButton(
                   width: 40.w,
                   decoration: const BoxDecoration(
                     shape: BoxShape.circle,
-                    color: AppColors.brownColor
+                    color: AppColors.appColor
                   ),
                   child: Center(
                     child: Icon(Icons.arrow_back, color: AppColors.whiteColor, size: 20.sp,),

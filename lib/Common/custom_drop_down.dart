@@ -47,7 +47,7 @@ class _CustomDropDownState extends State<CustomDropDown> {
               children: <Widget>[
                 Text(
                   widget.selectedItem,
-                  style: const TextStyle(color: AppColors.brownColor),
+                  style: const TextStyle(color: AppColors.appColor),
                 ),
                 Icon(widget.isDropdownOpen
                     ? Icons.arrow_drop_up

@@ -25,7 +25,7 @@ class _BidsViewState extends State<BidsView> {
           //   child: Container(
           //     height: 50.h,
           //     width: 150.w,
-          //     color: AppColors.brownColor,
+          //     color: AppColors.appColor,
           //     child: Center(
           //         child: Text(
           //       "Bids",
@@ -51,7 +51,7 @@ class _BidsViewState extends State<BidsView> {
                     // padding: EdgeInsets.all(15.sp),
                     margin: EdgeInsets.only(bottom: 10.h),
                     decoration: BoxDecoration(
-                        color: AppColors.brownColor.withOpacity(.10),
+                        color: AppColors.appColor.withOpacity(.10),
                         border: Border.all(
                             color: AppColors.blackColor.withOpacity(.1)),
                         borderRadius: BorderRadius.circular(8.sp)),
@@ -79,7 +79,7 @@ class _BidsViewState extends State<BidsView> {
                               Text(
                                 "1000 PKR",
                                 style: TextStyle(
-                                    color: AppColors.brownColor,
+                                    color: AppColors.appColor,
                                     fontSize: 18.sp,
                                     fontWeight: FontWeight.bold),
                               ),

@@ -56,7 +56,7 @@ class _AdminSideViewState extends State<AdminSideView>
                     buildDashboardData(
                         dataName: "Overall Users",
                         data: "9",
-                        dataColor: AppColors.brownColor),
+                        dataColor: AppColors.appColor),
                     buildDashboardData(
                         dataName: "Active Users",
                         data: "9",
@@ -71,7 +71,7 @@ class _AdminSideViewState extends State<AdminSideView>
             10.h.sizedBoxHeight,
             GetBuilder<AdminState>(builder: (myVideoState) {
               return TabBar(
-                  indicatorColor: AppColors.brownColor,
+                  indicatorColor: AppColors.appColor,
                   overlayColor: MaterialStateProperty.all(
                       AppColors.tealColor.withOpacity(.10)),
                   onTap: myVideoState.updateCurrenttab,
@@ -81,13 +81,13 @@ class _AdminSideViewState extends State<AdminSideView>
                   tabs: [
                     buildTab(
                         tabColor: _tabController.index == 0
-                            ? AppColors.brownColor
+                            ? AppColors.appColor
                             : AppColors.blackColor.withOpacity(.3),
                         tabIcon: Icons.person,
                         tabName: "Users"),
                     buildTab(
                         tabColor: _tabController.index == 1
-                            ? AppColors.brownColor
+                            ? AppColors.appColor
                             : AppColors.blackColor.withOpacity(.3),
                         tabIcon: Icons.report,
                         tabName: "Complaints")

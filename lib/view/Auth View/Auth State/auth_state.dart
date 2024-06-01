@@ -1,6 +1,7 @@
 import 'dart:developer';
-
 import 'package:digital_kabaria_app/common/app_toast_message.dart';
+import 'package:digital_kabaria_app/utils/custom_navigation.dart';
+import 'package:digital_kabaria_app/utils/utils.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
@@ -65,7 +66,7 @@ class AuthStateController extends GetxController {
 
   final autoValidate = false.obs;
 
-  login({required String emailAddress, required String password}) async {
+  login(context,{required String emailAddress, required String password,required Widget screen}) async {
     updateLoginButton();
     if (enableLoginButton) {
       
@@ -74,11 +75,12 @@ class AuthStateController extends GetxController {
       final credential = await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: emailAddress, password: password);
           setLoading(false);
-      ShowtoastMessage.showSuccessbar(message: "User Sign in SuccessFully!");
+      pushReplacement(context, screen);
+      Utils.successBar("User Sign in SuccessFully!",context);
     } on FirebaseAuthException catch (e) {
           setLoading(false);
 
-      ShowtoastMessage.showErrorbar(message: e.toString());
+      Utils.flushBarErrorMessage( e.toString(),context);
 
       if (e.code == 'user-not-found') {
         print('No user found for that email.');

@@ -1,6 +1,8 @@
 import 'package:digital_kabaria_app/common/custom_button.dart';
 import 'package:digital_kabaria_app/utils/app_colors.dart';
+import 'package:digital_kabaria_app/utils/custom_navigation.dart';
 import 'package:digital_kabaria_app/utils/sized_box_extension.dart';
+import 'package:digital_kabaria_app/view/product/add_product_screen.dart';
 import 'package:flutter/material.dart';
 // import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -25,7 +27,7 @@ class _PostedMaterialViewState extends State<PostedMaterialView> {
             //   child: Container(
             //     height: 50.h,
             //     width: 150.w,
-            //     color: AppColors.brownColor,
+            //     color: AppColors.appColor,
             //     child: Center(
             //         child: Text(
             //       "Sell Scraps",
@@ -51,7 +53,7 @@ class _PostedMaterialViewState extends State<PostedMaterialView> {
                       // padding: EdgeInsets.all(15.sp),
                       margin: EdgeInsets.only(bottom: 10.h),
                       decoration: BoxDecoration(
-                          color: AppColors.brownColor.withOpacity(.10),
+                          color: AppColors.appColor.withOpacity(.10),
                           border: Border.all(
                               color: AppColors.blackColor.withOpacity(.1)),
                           borderRadius: BorderRadius.circular(8.sp)),
@@ -79,7 +81,7 @@ class _PostedMaterialViewState extends State<PostedMaterialView> {
                                 Text(
                                   "1000 PKR",
                                   style: TextStyle(
-                                      color: AppColors.brownColor,
+                                      color: AppColors.appColor,
                                       fontSize: 18.sp,
                                       fontWeight: FontWeight.bold),
                                 ),
@@ -134,7 +136,9 @@ class _PostedMaterialViewState extends State<PostedMaterialView> {
           btnColor: AppColors.whiteColor,
           textColor: AppColors.blackColor,
           border: BorderSide(color: AppColors.blackColor.withOpacity(.5)),
-          onPressed: () {},
+          onPressed: () {
+            push(context,AddPostScreen());
+          },
         ));
   }
 }
@@ -201,7 +205,7 @@ void deletePostedMaterial(
                     btnColor: AppColors.whiteColor,
                     textColor: AppColors.blackColor,
                     border:
-                        BorderSide(color: AppColors.brownColor.withOpacity(.5)),
+                        BorderSide(color: AppColors.appColor.withOpacity(.5)),
                     onPressed: () {
                       Navigator.pop(context);
                     },

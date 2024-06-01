@@ -29,7 +29,7 @@ class _ViewBidsByUsersState extends State<ViewBidsByUsers> {
             child: Container(
               height: 50.h,
               width: 150.w,
-              color: AppColors.brownColor,
+              color: AppColors.appColor,
               child: Center(
                   child: Text(
                 "Company Bids",
@@ -55,7 +55,7 @@ class _ViewBidsByUsersState extends State<ViewBidsByUsers> {
                     // padding: EdgeInsets.all(15.sp),
                     margin: EdgeInsets.only(bottom: 10.h),
                     decoration: BoxDecoration(
-                        color: AppColors.brownColor.withOpacity(.10),
+                        color: AppColors.appColor.withOpacity(.10),
                         border: Border.all(
                             color: AppColors.blackColor.withOpacity(.1)),
                         borderRadius: BorderRadius.circular(8.sp)),

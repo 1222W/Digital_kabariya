@@ -8,8 +8,11 @@ import 'package:digital_kabaria_app/common/custom_drop_down.dart';
 import 'package:digital_kabaria_app/common/custom_text_form_field.dart';
 import 'package:digital_kabaria_app/controllers/sign_up/sign_up_controller.dart';
 import 'package:digital_kabaria_app/utils/app_colors.dart';
+import 'package:digital_kabaria_app/utils/enums.dart';
 import 'package:digital_kabaria_app/utils/sized_box_extension.dart';
 import 'package:digital_kabaria_app/view/Auth%20View/Auth%20State/auth_state.dart';
+import 'package:digital_kabaria_app/view/User%20View/approval/approval_screen.dart';
+import 'package:digital_kabaria_app/view/User%20View/user_home_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -35,6 +38,7 @@ class _SignUpViewState extends State<SignUpView> {
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 15.w),
           child: Form(
+            autovalidateMode: AutovalidateMode.always,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -76,10 +80,10 @@ class _SignUpViewState extends State<SignUpView> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         CustomDropDown(
-                          dropdownItems: const [
-                            "User",
-                            "Kabariya",
-                            "Organization"
+                          dropdownItems: [
+                            ROLENAME.user.name,
+                            ROLENAME.kabriya.name,
+                            ROLENAME.organization.name
                           ],
                           selectedItem: controller.selectedDropdownItem.value ??
                               "Sign Up As!",
@@ -121,30 +125,53 @@ class _SignUpViewState extends State<SignUpView> {
                           size: 20.sp,
                           color: controller.obsecurePassword.value
                               ? AppColors.blackColor.withOpacity(.30)
-                              : AppColors.brownColor,
+                              : AppColors.appColor,
                         ),
                       ),
                     )),
                 14.h.sizedBoxHeight,
                 20.h.sizedBoxHeight,
                 Obx(
-                  () =>controller.isLoading.value?const Center(child: AppLoader(),): CustomButton(
-                      text: "Create Account",
-                      onPressed: controller.enableSignUpButton
-                          ? () async {
-                              await controller.signUp(
-                                  emailAddress: controller.emailCTRL.text,
-                                  password: controller.passwordCTRL.value.text,
-                                  fullName: controller.fullNameCTRL.text,
-                                  phoneNumber: controller.phoneCTRL.text,
-                                  role: controller.selectedDropdownItem.value
-                                      .toString());
-                            }
-                          : null
-                      // onPressed:controller.enableSignUpButton
-                      //     ? controller.signUp
-                      //     : null,
-                      ),
+                  () => controller.isLoading.value
+                      ? const Center(
+                          child: AppLoader(),
+                        )
+                      : CustomButton(
+                          text: "Create Account",
+                          onPressed: controller.enableSignUpButton
+                              ? () async {
+                                  if (controller.selectedDropdownItem.value ==
+                                      ROLENAME.organization.name) {
+                                    await controller.signUp(context,
+                                        screen: const RequestApprovalScreen(),
+                                        emailAddress: controller.emailCTRL.text,
+                                        password:
+                                            controller.passwordCTRL.value.text,
+                                        fullName: controller.fullNameCTRL.text,
+                                        phoneNumber: controller.phoneCTRL.text,
+                                        role: controller
+                                            .selectedDropdownItem.value
+                                            .toString(),
+                                        isVerify: false.toString());
+                                  } else {
+                                    await controller.signUp(context,
+                                        screen: const UserHomeView(),
+                                        emailAddress: controller.emailCTRL.text,
+                                        password:
+                                            controller.passwordCTRL.value.text,
+                                        fullName: controller.fullNameCTRL.text,
+                                        phoneNumber: controller.phoneCTRL.text,
+                                        role: controller
+                                            .selectedDropdownItem.value
+                                            .toString(),
+                                        isVerify: true.toString());
+                                  }
+                                }
+                              : null
+                          // onPressed:controller.enableSignUpButton
+                          //     ? controller.signUp
+                          //     : null,
+                          ),
                 ),
                 10.h.sizedBoxHeight,
                 Row(
@@ -168,9 +195,9 @@ class _SignUpViewState extends State<SignUpView> {
                         "Log In",
                         style: TextStyle(
                           fontSize: 14.sp,
-                          color: AppColors.brownColor,
+                          color: AppColors.appColor,
                           decoration: TextDecoration.underline,
-                          decorationColor: AppColors.brownColor,
+                          decorationColor: AppColors.appColor,
                           fontWeight: FontWeight.w600,
                         ),
                       ),

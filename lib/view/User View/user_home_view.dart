@@ -48,7 +48,7 @@ final List<Widget> pages = [
       //         child: Container(
       //           height: 50.h,
       //           width: 150.w,
-      //           color: AppColors.brownColor,
+      //           color: AppColors.appColor,
       //           child: Center(
       //               child: Text(
       //             "Home",
@@ -143,7 +143,7 @@ final List<Widget> pages = [
     // floatingActionButton:  CustomButton(
     //       text: "Sell?",
     //       btnWidth: 100,
-    //       btnColor: AppColors.brownColor,
+    //       btnColor: AppColors.appColor,
     //       textColor: AppColors.whiteColor,
           
     //       border: BorderSide(color: AppColors.blackColor.withOpacity(.5)),
@@ -157,12 +157,12 @@ final List<Widget> pages = [
           onTap: userState.updateSelectedIndex,
           type: BottomNavigationBarType.fixed,
           // showSelectedLabels: false,
-          selectedItemColor: AppColors.brownColor,
+          selectedItemColor: AppColors.appColor,
           backgroundColor: AppColors.whiteColor,
           elevation: 20,
-          selectedLabelStyle: TextStyle(color: AppColors.brownColor, fontSize: 12.sp, fontWeight: FontWeight.w600),
+          selectedLabelStyle: TextStyle(color: AppColors.appColor, fontSize: 12.sp, fontWeight: FontWeight.w600),
           unselectedLabelStyle: TextStyle(color: AppColors.blackColor.withOpacity(.5), fontSize: 10.sp, fontWeight: FontWeight.w500),
-        selectedIconTheme: IconThemeData(color: AppColors.brownColor, size: 35.sp),
+        selectedIconTheme: IconThemeData(color: AppColors.appColor, size: 35.sp),
         unselectedIconTheme: IconThemeData(color: AppColors.blackColor.withOpacity(.5), size: 25.sp),
         landscapeLayout: BottomNavigationBarLandscapeLayout.centered,
           items: [
@@ -206,7 +206,7 @@ class UserHomeBoxWidget extends StatelessWidget {
         padding: EdgeInsets.all(15.sp),
         // margin: EdgeInsets.only(right: 10.w, left: 5.w),
         decoration: BoxDecoration(
-            color: AppColors.brownColor.withOpacity(.05),
+            color: AppColors.appColor.withOpacity(.05),
             border: Border.all(color: AppColors.blackColor.withOpacity(.25)),
             borderRadius: BorderRadius.circular(6.sp)),
         child: Column(
