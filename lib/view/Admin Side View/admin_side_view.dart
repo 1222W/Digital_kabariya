@@ -97,7 +97,7 @@ class _AdminSideViewState extends State<AdminSideView>
                             ? AppColors.appColor
                             : AppColors.blackColor.withOpacity(.3),
                         tabIcon: Icons.group,
-                        tabName: "Agency"),
+                        tabName: "Approvals"),
                   ]);
             }),
             // ================== Tab Bar View For Videos ===================== //
