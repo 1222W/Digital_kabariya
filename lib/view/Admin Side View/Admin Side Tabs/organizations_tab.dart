@@ -1,6 +1,3 @@
-import 'dart:convert';
-import 'dart:developer';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:digital_kabaria_app/common/custom_button.dart';
 import 'package:digital_kabaria_app/controllers/users/users_controller.dart';
@@ -12,20 +9,22 @@ import 'package:digital_kabaria_app/view/Admin%20Side%20View/admin_side_view.dar
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:get/get_connect/http/src/utils/utils.dart';
+import 'package:get/get_core/src/get_main.dart';
 
-class UsersTab extends StatefulWidget {
-  const UsersTab({super.key});
+class OrganizationTabs extends StatefulWidget {
+  const OrganizationTabs({super.key});
 
   @override
-  State<UsersTab> createState() => _UsersTabState();
+  State<OrganizationTabs> createState() => _UsersTabState();
 }
 
-class _UsersTabState extends State<UsersTab> {
+class _UsersTabState extends State<OrganizationTabs> {
   UsersController controller = Get.put(UsersController());
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(
-        stream: controller.getUsersData(),
+        stream: controller.getAgencyData(),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           QuerySnapshot? userData = snapshot.data;
           if (snapshot.hasError) {
@@ -47,6 +46,7 @@ class _UsersTabState extends State<UsersTab> {
                 itemCount: getUser.length,
                 itemBuilder: (context, index) {
                   UsersModel user = getUser[index];
+                  final id = data[index].id;
                   // final farmerDetails = dashboardData[index];
                   return Container(
                       // height: 50.h,
@@ -64,7 +64,7 @@ class _UsersTabState extends State<UsersTab> {
                                 spreadRadius: 2.5)
                           ]),
                       child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.end,
+                        crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           buildHorizotalData(
                               key: "Full Name:", value: user.fullName),
@@ -73,7 +73,31 @@ class _UsersTabState extends State<UsersTab> {
                           buildHorizotalData(key: "Role", value: user.role),
                           10.h.sizedBoxHeight,
 
-                          CustomButton(btnHeight: 40,btnWidth: 100,onPressed: (){},text: AppStrings.block,),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              CustomButton(
+                                btnHeight: 40,
+                                btnWidth: 100,
+                                onPressed: () {
+                                  controller.updateValue(
+                                      id: id, key: "is_verify", value: false);
+                                },
+                                text: AppStrings.deny,
+                                btnColor: AppColors.redColor,
+                              ),
+                              CustomButton(
+                                btnHeight: 40,
+                                btnWidth: 100,
+                                onPressed: () {
+                                  controller.updateValue(
+                                      id: id, key: "is_verify", value: true);
+                                },
+                                text: AppStrings.accept,
+                                btnColor: AppColors.greenColor,
+                              ),
+                            ],
+                          ),
                           // 10.h.sizedBoxHeight,
                         ],
                       ));
@@ -82,5 +106,3 @@ class _UsersTabState extends State<UsersTab> {
         });
   }
 }
-
-

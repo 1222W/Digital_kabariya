@@ -103,7 +103,7 @@ class SignUpController extends GetxController {
     required String fullName,
     required String phoneNumber,
     required String role,
-    required String isVerify,
+    required bool isVerify,
     required Widget screen,
   }) async {
     validateForm();

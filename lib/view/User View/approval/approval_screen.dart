@@ -1,16 +1,41 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:digital_kabaria_app/common/custom_button.dart';
 import 'package:digital_kabaria_app/utils/app_colors.dart';
 import 'package:digital_kabaria_app/utils/app_strings.dart';
 import 'package:digital_kabaria_app/utils/app_text.dart';
 import 'package:digital_kabaria_app/utils/custom_navigation.dart';
+import 'package:digital_kabaria_app/utils/firebase_data.dart';
 import 'package:digital_kabaria_app/utils/sized_box_extension.dart';
+import 'package:digital_kabaria_app/utils/utils.dart';
 import 'package:digital_kabaria_app/view/Auth%20View/login_view.dart';
+import 'package:digital_kabaria_app/view/User%20View/user_home_view.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class RequestApprovalScreen extends StatelessWidget {
+class RequestApprovalScreen extends StatefulWidget {
   const RequestApprovalScreen({super.key});
 
+  @override
+  State<RequestApprovalScreen> createState() => _RequestApprovalScreenState();
+}
+
+class _RequestApprovalScreenState extends State<RequestApprovalScreen> {
+  @override
+  void initState() {
+    checkApproval();
+    super.initState();
+  }
+
+  checkApproval(){
+   final id = FirebaseAuth.instance.currentUser!.uid;
+    FirebaseFirestore.instance.collection(Collection.user).doc(id).snapshots().listen((event) {
+      if (event.get("is_verify")) {
+        pushReplacement(context, const UserHomeView());
+        Utils.successBar("Admin Approved SuccessFully!", context);
+      }
+    });
+  }
   @override
   Widget build(BuildContext context) {
     return  Scaffold(

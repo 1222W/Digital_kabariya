@@ -3,6 +3,7 @@ import 'package:digital_kabaria_app/common/custom_app_bar.dart';
 import 'package:digital_kabaria_app/common/custom_button.dart';
 import 'package:digital_kabaria_app/common/custom_text_form_field.dart';
 import 'package:digital_kabaria_app/utils/app_colors.dart';
+import 'package:digital_kabaria_app/utils/custom_navigation.dart';
 import 'package:digital_kabaria_app/utils/sized_box_extension.dart';
 import 'package:digital_kabaria_app/view/Admin%20Side%20View/admin_side_view.dart';
 import 'package:digital_kabaria_app/view/Auth%20View/Auth%20State/auth_state.dart';
@@ -41,180 +42,190 @@ class _LoginViewState extends State<LoginView> {
 
   @override
   Widget build(BuildContext context) {
-       return ModalProgressHUD(
-        inAsyncCall: false,
-        progressIndicator: const AppLoader(),
-        blur: 2,
-        child: Scaffold(
-          appBar: const CustomAppBar(
-            flag: false,
-          ),
-          body: Form(
-            autovalidateMode: 
-                 AutovalidateMode.always,
-                
-            child: ListView(
-              padding: EdgeInsets.all(20.sp),
-              physics: const BouncingScrollPhysics(),
-              children: [
-                // Align(
-                //   alignment: Alignment.topLeft,
-                //   child: Image.asset(
-                //     "assets/images/app_logo_dk.png",
-                //     height: 75.h,
-                //   ),
-                // ),
-                // 20.h.sizedBoxHeight,
+    return ModalProgressHUD(
+      inAsyncCall: false,
+      progressIndicator: const AppLoader(),
+      blur: 2,
+      child: Scaffold(
+        appBar: const CustomAppBar(
+          flag: false,
+        ),
+        body: Form(
+          autovalidateMode: AutovalidateMode.always,
+          child: ListView(
+            padding: EdgeInsets.all(20.sp),
+            physics: const BouncingScrollPhysics(),
+            children: [
+              // Align(
+              //   alignment: Alignment.topLeft,
+              //   child: Image.asset(
+              //     "assets/images/app_logo_dk.png",
+              //     height: 75.h,
+              //   ),
+              // ),
+              // 20.h.sizedBoxHeight,
 
-                //
-                Center(
-                  child: Text(
-                    "Welcome Back! Access your account".tr,
-                    style: TextStyle(
-                      fontSize: 20.sp,
-                      color: AppColors.blackColor,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                ),
-                30.h.sizedBoxHeight,
-                //
-                Text(
-                  "Email".tr,
+              //
+              Center(
+                child: Text(
+                  "Welcome Back! Access your account".tr,
                   style: TextStyle(
-                    fontSize: 12.sp,
+                    fontSize: 20.sp,
                     color: AppColors.blackColor,
                     fontWeight: FontWeight.w600,
                   ),
                 ),
-                10.h.sizedBoxHeight,
-                // Email
-               Obx(() => CustomTextFormField(
-                      controller: authState.emailCTRL,
-                      hintText: "Email Address",
-                      flag: true,
-                      onChanged: authState.validateEmail,
-                      errorText: authState.emailError.value,
-                    )),
-                20.h.sizedBoxHeight,
-                Text(
-                  "Password".tr,
-                  style: TextStyle(
-                    fontSize: 12.sp,
-                    color: AppColors.blackColor,
-                    fontWeight: FontWeight.w600,
-                  ),
+              ),
+              30.h.sizedBoxHeight,
+              //
+              Text(
+                "Email".tr,
+                style: TextStyle(
+                  fontSize: 12.sp,
+                  color: AppColors.blackColor,
+                  fontWeight: FontWeight.w600,
                 ),
+              ),
               10.h.sizedBoxHeight,
-                // Password
-                 Obx(() => CustomTextFormField(
-                      controller: authState.passwordCTRL,
-                      hintText: "Password",
-                      flag: true,
-                      obscureText: authState.obsecurePassword,
-                      onChanged: authState.validatePassword,
-                      errorText: authState.passwordError.value,
-                      suffixIcon: IconButton(
-                        onPressed: () {
-                          authState.togglePassword();
-                        },
-                        icon: Icon(
-                          authState.obsecurePassword
-                          
-                              ? Icons.visibility_off
-                              : Icons.visibility_outlined,
-                          size: 20.sp,
-                          color: authState.obsecurePassword
-                              ? AppColors.blackColor.withOpacity(.30)
-                              : AppColors.appColor,
-                        ),
+              // Email
+              Obx(() => CustomTextFormField(
+                    controller: authState.emailCTRL,
+                    hintText: "Email Address",
+                    flag: true,
+                    onChanged: authState.validateEmail,
+                    errorText: authState.emailError.value,
+                  )),
+              20.h.sizedBoxHeight,
+              Text(
+                "Password".tr,
+                style: TextStyle(
+                  fontSize: 12.sp,
+                  color: AppColors.blackColor,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+              10.h.sizedBoxHeight,
+              // Password
+              Obx(() => CustomTextFormField(
+                    controller: authState.passwordCTRL,
+                    hintText: "Password",
+                    flag: true,
+                    obscureText: authState.obsecurePassword,
+                    onChanged: authState.validatePassword,
+                    errorText: authState.passwordError.value,
+                    suffixIcon: IconButton(
+                      onPressed: () {
+                        authState.togglePassword();
+                      },
+                      icon: Icon(
+                        authState.obsecurePassword
+                            ? Icons.visibility_off
+                            : Icons.visibility_outlined,
+                        size: 20.sp,
+                        color: authState.obsecurePassword
+                            ? AppColors.blackColor.withOpacity(.30)
+                            : AppColors.appColor,
                       ),
-                    )),
-
-                //
-
-                30.h.sizedBoxHeight,
-                //
-                Center(
-                  child: InkWell(
-                    onTap: () {
-                      authState.autoValidate.value = false;
-
-                      resetPasswordDialogue(context);
-                    },
-                    child: Text(
-                      "Reset Password?".tr,
-                      style: TextStyle(
-                          fontSize: 14.sp,
-                          color: AppColors.appColor,
-                          fontWeight: FontWeight.w500,
-                          decorationColor: AppColors.appColor,
-                          decoration: TextDecoration.underline),
                     ),
+                  )),
+
+              //
+
+              30.h.sizedBoxHeight,
+              //
+              Center(
+                child: InkWell(
+                  onTap: () {
+                    authState.autoValidate.value = false;
+
+                    resetPasswordDialogue(context);
+                  },
+                  child: Text(
+                    "Reset Password?".tr,
+                    style: TextStyle(
+                        fontSize: 14.sp,
+                        color: AppColors.appColor,
+                        fontWeight: FontWeight.w500,
+                        decorationColor: AppColors.appColor,
+                        decoration: TextDecoration.underline),
                   ),
                 ),
-                20.h.sizedBoxHeight,
-                //
-                Obx(() {
-                  return authState.isLoading.value ?AppLoader(): CustomButton(
-                    text: "Login".tr,
-                    onPressed:authState.enableLoginButton? (){
-                      authState.login(context, emailAddress: authState.emailCTRL.value.text, password: authState.passwordCTRL.value.text,screen: UserHomeView());
-                    }:null
-                    // onPressed: authState.enableLoginButton
-                    //     ? () {
-                    //         if (formKey.currentState!.validate()) {
-                    //           if (authState.emailCTRL.value.text ==
-                    //               "ban@gmail.com") {
-                    //             Navigator.push(
-                    //                 context,
-                    //                 PageTransition(
-                    //                     child: const BannedAccountView(),
-                    //                     type: PageTransitionType.fade));
-                    //           } else if (authState.emailCTRL.value.text ==
-                    //               "admin@gmail.com") {
-                    //             Navigator.push(
-                    //                 context,
-                    //                 PageTransition(
-                    //                     child: const AdminSideView(),
-                    //                     type: PageTransitionType.fade));
-                    //           } else {
-                    //             Navigator.push(
-                    //                 context,
-                    //                 PageTransition(
-                    //                     child: const UserHomeView(),
-                    //                     type: PageTransitionType.fade));
-                    //           }
-                    //         } else {
-                    //           authState.autoValidate.value = true;
-                    //         }
-                    //       }
-                    //     : null,
-                  );
-                }),
-                //
-                20.h.sizedBoxHeight,
+              ),
+              20.h.sizedBoxHeight,
+              //
+              Obx(() {
+                return authState.isLoading.value
+                    ? const AppLoader()
+                    : CustomButton(
+                        text: "Login".tr,
+                        onPressed: authState.enableLoginButton
+                            ? () {
+                                if (authState.emailCTRL.value.text ==
+                                    "admin@gmail.com") {
+                                  push(context, const AdminSideView());
+                                } else {
+                                  authState.login(context,
+                                      emailAddress:
+                                          authState.emailCTRL.value.text,
+                                      password:
+                                          authState.passwordCTRL.value.text,
+                                      );
+                                }
+                              }
+                            : null
+                        // onPressed: authState.enableLoginButton
+                        //     ? () {
+                        //         if (formKey.currentState!.validate()) {
+                        //           if (authState.emailCTRL.value.text ==
+                        //               "ban@gmail.com") {
+                        //             Navigator.push(
+                        //                 context,
+                        //                 PageTransition(
+                        //                     child: const BannedAccountView(),
+                        //                     type: PageTransitionType.fade));
+                        //           } else if (authState.emailCTRL.value.text ==
+                        //               "admin@gmail.com") {
+                        //             Navigator.push(
+                        //                 context,
+                        //                 PageTransition(
+                        //                     child: const AdminSideView(),
+                        //                     type: PageTransitionType.fade));
+                        //           } else {
+                        //             Navigator.push(
+                        //                 context,
+                        //                 PageTransition(
+                        //                     child: const UserHomeView(),
+                        //                     type: PageTransitionType.fade));
+                        //           }
+                        //         } else {
+                        //           authState.autoValidate.value = true;
+                        //         }
+                        //       }
+                        //     : null,
+                        );
+              }),
+              //
+              20.h.sizedBoxHeight,
 
-                CustomButton(
-                  text: "Create Account".tr,
-                  textColor: AppColors.appColor,
-                  btnColor: AppColors.whiteColor,
-                  border: const BorderSide(color: AppColors.appColor),
-                  onPressed: () {
-                    Navigator.push(
-                        context,
-                        PageTransition(
-                            child: const SignUpView(),
-                            type: PageTransitionType.fade));
-                  },
-                ),
-                10.h.sizedBoxHeight,
-              ],
-            ),
+              CustomButton(
+                text: "Create Account".tr,
+                textColor: AppColors.appColor,
+                btnColor: AppColors.whiteColor,
+                border: const BorderSide(color: AppColors.appColor),
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      PageTransition(
+                          child: const SignUpView(),
+                          type: PageTransitionType.fade));
+                },
+              ),
+              10.h.sizedBoxHeight,
+            ],
           ),
         ),
-      );
-   
+      ),
+    );
   }
 }
 

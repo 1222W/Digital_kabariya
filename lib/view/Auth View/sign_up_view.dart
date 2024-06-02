@@ -72,6 +72,7 @@ class _SignUpViewState extends State<SignUpView> {
                       controller: controller.phoneCTRL,
                       hintText: "Phone No",
                       flag: true,
+                      keyboardType: TextInputType.number,
                       onChanged: controller.validatePhone,
                       errorText: controller.phoneError.value,
                     )),
@@ -120,8 +121,8 @@ class _SignUpViewState extends State<SignUpView> {
                         },
                         icon: Icon(
                           controller.obsecurePassword.value
-                              ? Icons.visibility_outlined
-                              : Icons.visibility_off,
+                              ? Icons.visibility_off
+                              : Icons.visibility,
                           size: 20.sp,
                           color: controller.obsecurePassword.value
                               ? AppColors.blackColor.withOpacity(.30)
@@ -152,7 +153,7 @@ class _SignUpViewState extends State<SignUpView> {
                                         role: controller
                                             .selectedDropdownItem.value
                                             .toString(),
-                                        isVerify: false.toString());
+                                        isVerify: false);
                                   } else {
                                     await controller.signUp(context,
                                         screen: const UserHomeView(),
@@ -164,7 +165,7 @@ class _SignUpViewState extends State<SignUpView> {
                                         role: controller
                                             .selectedDropdownItem.value
                                             .toString(),
-                                        isVerify: true.toString());
+                                        isVerify: true);
                                   }
                                 }
                               : null

@@ -2,6 +2,7 @@ import 'package:digital_kabaria_app/common/custom_app_bar.dart';
 import 'package:digital_kabaria_app/utils/app_colors.dart';
 import 'package:digital_kabaria_app/utils/sized_box_extension.dart';
 import 'package:digital_kabaria_app/view/Admin%20Side%20View/Admin%20Side%20State/my_videos_state.dart';
+import 'package:digital_kabaria_app/view/Admin%20Side%20View/Admin%20Side%20Tabs/organizations_tab.dart';
 import 'package:digital_kabaria_app/view/Admin%20Side%20View/Admin%20Side%20Tabs/users_tab.dart';
 import 'package:digital_kabaria_app/view/Admin%20Side%20View/Admin%20Side%20Tabs/complaints_tab.dart';
 import 'package:flutter/material.dart';
@@ -25,7 +26,7 @@ class _AdminSideViewState extends State<AdminSideView>
   void initState() {
     super.initState();
     _tabController = TabController(
-        length: 2, vsync: this, initialIndex: adminState.currentTabIndex.value);
+        length: 3, vsync: this, initialIndex: adminState.currentTabIndex.value);
   }
 
   @override
@@ -90,14 +91,22 @@ class _AdminSideViewState extends State<AdminSideView>
                             ? AppColors.appColor
                             : AppColors.blackColor.withOpacity(.3),
                         tabIcon: Icons.report,
-                        tabName: "Complaints")
+                        tabName: "Complaints"),
+                    buildTab(
+                        tabColor: _tabController.index == 2
+                            ? AppColors.appColor
+                            : AppColors.blackColor.withOpacity(.3),
+                        tabIcon: Icons.group,
+                        tabName: "Agency"),
                   ]);
             }),
             // ================== Tab Bar View For Videos ===================== //
             Expanded(
-                child: TabBarView(
-                    controller: _tabController,
-                    children: const [UsersTab(), ComplaintsTab()]))
+                child: TabBarView(controller: _tabController, children: const [
+              UsersTab(),
+              ComplaintsTab(),
+              OrganizationTabs()
+            ]))
           ],
         ),
       ),
