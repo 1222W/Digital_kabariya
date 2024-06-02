@@ -82,9 +82,9 @@ class _SignUpViewState extends State<SignUpView> {
                       children: [
                         CustomDropDown(
                           dropdownItems: [
-                            ROLENAME.user.name,
-                            ROLENAME.kabriya.name,
-                            ROLENAME.organization.name
+                            ROLENAME.Seller.name,
+                            ROLENAME.Collector.name,
+                            ROLENAME.Buyer.name
                           ],
                           selectedItem: controller.selectedDropdownItem.value ??
                               "Sign Up As!",
@@ -142,7 +142,7 @@ class _SignUpViewState extends State<SignUpView> {
                           onPressed: controller.enableSignUpButton
                               ? () async {
                                   if (controller.selectedDropdownItem.value ==
-                                      ROLENAME.organization.name) {
+                                      ROLENAME.Buyer.name) {
                                     await controller.signUp(context,
                                         screen: const RequestApprovalScreen(),
                                         emailAddress: controller.emailCTRL.text,

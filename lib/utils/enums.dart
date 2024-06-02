@@ -1,1 +1,1 @@
-enum ROLENAME {user,kabriya,organization,admin}
+enum ROLENAME {Seller,Collector,Buyer,admin}
