@@ -2,17 +2,20 @@ import 'package:digital_kabaria_app/common/app_loader.dart';
 import 'package:digital_kabaria_app/common/custom_app_bar.dart';
 import 'package:digital_kabaria_app/common/custom_button.dart';
 import 'package:digital_kabaria_app/common/custom_text_form_field.dart';
+import 'package:digital_kabaria_app/controllers/sign_up/reset_password_controller.dart';
 import 'package:digital_kabaria_app/utils/app_colors.dart';
 import 'package:digital_kabaria_app/utils/custom_navigation.dart';
 import 'package:digital_kabaria_app/utils/sized_box_extension.dart';
+import 'package:digital_kabaria_app/utils/utils.dart';
 import 'package:digital_kabaria_app/view/Admin%20Side%20View/admin_side_view.dart';
-import 'package:digital_kabaria_app/view/Auth%20View/Auth%20State/auth_state.dart';
-import 'package:digital_kabaria_app/view/Auth%20View/banned_account_view.dart';
-import 'package:digital_kabaria_app/view/Auth%20View/sign_up_view.dart';
-import 'package:digital_kabaria_app/view/User%20View/user_home_view.dart';
+import 'package:digital_kabaria_app/view/Seller%20View/Auth%20View/Auth%20State/auth_state.dart';
+import 'package:digital_kabaria_app/view/Seller%20View/Auth%20View/banned_account_view.dart';
+import 'package:digital_kabaria_app/view/Seller%20View/Auth%20View/sign_up_view.dart';
+import 'package:digital_kabaria_app/view/Seller%20View/user_home_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:get/get_connect/http/src/utils/utils.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:page_transition/page_transition.dart';
 
@@ -28,7 +31,6 @@ var emailValidation =
 
 class _LoginViewState extends State<LoginView> {
   // ------------ States and Variables ------------- //
-
   final authState = Get.put(AuthStateController());
   final formKey = GlobalKey<FormState>();
 
@@ -39,6 +41,7 @@ class _LoginViewState extends State<LoginView> {
     authState.passwordCTRL.clear();
     authState.rememberMe.value = false;
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -233,8 +236,11 @@ class _LoginViewState extends State<LoginView> {
 void resetPasswordDialogue(
   BuildContext context,
 ) {
-  TextEditingController phoneNumberController = TextEditingController();
+   TextEditingController emailController = TextEditingController();
+  final resetState = Get.put(ResetPasswordController());
+
   showDialog(
+    barrierDismissible: false,
     context: context,
     builder: (context) {
       return AlertDialog(
@@ -276,7 +282,7 @@ void resetPasswordDialogue(
               // DATE PICKER
 
               CustomTextFormField(
-                controller: phoneNumberController,
+                controller: emailController,
                 hintText: "Enter Email Address",
                 keyboardType: TextInputType.emailAddress,
               ),
@@ -285,10 +291,16 @@ void resetPasswordDialogue(
                 height: 15.h,
               ),
               Center(
-                  child: CustomButton(
+                  child:Obx((){
+                    return resetState.isLoading.value ? AppLoader():CustomButton(
                 text: "Continue",
-                onPressed: () {},
-              )),
+                onPressed: () {
+                  resetState.resetPassword(context,email: emailController.text);
+
+                },
+              );
+           
+                  }),)
             ],
           ),
         ),

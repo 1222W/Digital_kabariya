@@ -2,7 +2,7 @@ import 'package:digital_kabaria_app/common/custom_app_bar.dart';
 import 'package:digital_kabaria_app/common/custom_button.dart';
 import 'package:digital_kabaria_app/utils/app_colors.dart';
 import 'package:digital_kabaria_app/utils/sized_box_extension.dart';
-import 'package:digital_kabaria_app/view/User%20View/buy_scraps_view.dart';
+import 'package:digital_kabaria_app/view/Seller%20View/buy_scraps_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';

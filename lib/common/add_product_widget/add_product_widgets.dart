@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 
 class ProductImageContainer extends StatelessWidget {
   void Function()? onTap;
-   ProductImageContainer({super.key,this.onTap});
+ImageProvider<Object>? backgroundImage;
+   ProductImageContainer({super.key,this.onTap,this.backgroundImage});
 
   @override
   Widget build(BuildContext context) {
@@ -14,13 +15,11 @@ class ProductImageContainer extends StatelessWidget {
         color: Colors.black,
         strokeWidth: 1,
         borderType: BorderType.Circle,
-        child: const CircleAvatar(
+        child:  CircleAvatar(
+          backgroundImage: backgroundImage,
           radius: 40,
           backgroundColor: Colors.transparent,
-          child: Icon(
-            Icons.camera_alt,
-            size: 30,
-          ),
+          
         ),
       ),
     );

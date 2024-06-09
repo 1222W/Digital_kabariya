@@ -14,12 +14,11 @@ class SignUpController extends GetxController {
   final passwordCTRL = TextEditingController().obs;
   final fullNameCTRL = TextEditingController();
   final obsecurePassword = true.obs;
-  var isLoading =  false.obs;
+  var isLoading = false.obs;
 
-  void setLoading(bool loading){
-  isLoading.value = loading;
+  void setLoading(bool loading) {
+    isLoading.value = loading;
   }
-
 
   final fullNameError = RxnString(null);
   final emailError = RxnString(null);
@@ -97,7 +96,8 @@ class SignUpController extends GetxController {
   }
 
   bool get enableSignUpButton => _enableSignUpButton.value;
-  signUp(context,{
+  signUp(
+    context, {
     required String emailAddress,
     required String password,
     required String fullName,
@@ -112,12 +112,12 @@ class SignUpController extends GetxController {
         setLoading(true);
         CollectionReference users =
             FirebaseFirestore.instance.collection('users');
-        final credential =
-            await FirebaseAuth.instance.createUserWithEmailAndPassword(
+
+          await FirebaseAuth.instance.createUserWithEmailAndPassword(
           email: emailAddress,
-          password: password,
+          password: password
         );
-      final userId =  FirebaseAuth.instance.currentUser!.uid;
+        final userId =  FirebaseAuth.instance.currentUser!.uid;
         final documentReference = await users.doc(userId).set({
           'full_name': fullName,
           'email_address': emailAddress,
@@ -126,17 +126,28 @@ class SignUpController extends GetxController {
           "is_verify": isVerify,
         });
         setLoading(false);
-      pushUntil(context, screen);
-        Utils.successBar("User created successfully",context);
+        pushUntil(context, screen);
+        Utils.successBar("User created successfully", context);
       } on FirebaseAuthException catch (e) {
         setLoading(false);
-      Utils.flushBarErrorMessage(e.toString(), context);
+
+        Utils.flushBarErrorMessage(e.toString(), context);
         print(e.toString());
       } catch (e) {
+        setLoading(false);
         print("e $e");
       }
     } else {
       ShowtoastMessage.showToast("Please correct the errors in the form");
+    }
+  }
+final auth = FirebaseAuth.instance;
+  sendEmailVerificationLink(context)async{
+    try {
+      await auth.currentUser?.sendEmailVerification();
+      Utils.successBar("Please check your Gmail for the email verification link.", context);
+    } catch (e) {
+      print(e.toString());
     }
   }
 

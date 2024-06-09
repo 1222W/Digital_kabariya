@@ -10,9 +10,13 @@ import 'package:digital_kabaria_app/controllers/sign_up/sign_up_controller.dart'
 import 'package:digital_kabaria_app/utils/app_colors.dart';
 import 'package:digital_kabaria_app/utils/enums.dart';
 import 'package:digital_kabaria_app/utils/sized_box_extension.dart';
-import 'package:digital_kabaria_app/view/Auth%20View/Auth%20State/auth_state.dart';
-import 'package:digital_kabaria_app/view/User%20View/approval/approval_screen.dart';
-import 'package:digital_kabaria_app/view/User%20View/user_home_view.dart';
+import 'package:digital_kabaria_app/view/Collector%20View/collector_bottom_nav_view.dart';
+import 'package:digital_kabaria_app/view/Company%20View/company_bottom_view.dart';
+import 'package:digital_kabaria_app/view/Seller%20View/Auth%20View/Auth%20State/auth_state.dart';
+import 'package:digital_kabaria_app/view/Seller%20View/approval/approval_screen.dart';
+import 'package:digital_kabaria_app/view/Seller%20View/home_view/seller_home_view.dart';
+import 'package:digital_kabaria_app/view/Seller%20View/user_home_view.dart';
+import 'package:digital_kabaria_app/view/Seller%20View/verification/verification_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -141,10 +145,11 @@ class _SignUpViewState extends State<SignUpView> {
                           text: "Create Account",
                           onPressed: controller.enableSignUpButton
                               ? () async {
+                          
                                   if (controller.selectedDropdownItem.value ==
-                                      ROLENAME.Buyer.name) {
+                                      ROLENAME.Seller.name) {
                                     await controller.signUp(context,
-                                        screen: const RequestApprovalScreen(),
+                                        screen: const VerfificationScreen(),
                                         emailAddress: controller.emailCTRL.text,
                                         password:
                                             controller.passwordCTRL.value.text,
@@ -153,10 +158,26 @@ class _SignUpViewState extends State<SignUpView> {
                                         role: controller
                                             .selectedDropdownItem.value
                                             .toString(),
-                                        isVerify: false);
-                                  } else {
+                                        isVerify: true);
+                                  } else if (controller
+                                          .selectedDropdownItem.value ==
+                                      ROLENAME.Collector.name) {
                                     await controller.signUp(context,
-                                        screen: const UserHomeView(),
+                                        screen: const VerfificationScreen(),
+                                        emailAddress: controller.emailCTRL.text,
+                                        password:
+                                            controller.passwordCTRL.value.text,
+                                        fullName: controller.fullNameCTRL.text,
+                                        phoneNumber: controller.phoneCTRL.text,
+                                        role: controller
+                                            .selectedDropdownItem.value
+                                            .toString(),
+                                        isVerify: true);
+                                  } else if (controller
+                                          .selectedDropdownItem.value ==
+                                      ROLENAME.Buyer.name) {
+                                    await controller.signUp(context,
+                                        screen: const VerfificationScreen(),
                                         emailAddress: controller.emailCTRL.text,
                                         password:
                                             controller.passwordCTRL.value.text,

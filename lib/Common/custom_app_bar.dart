@@ -2,14 +2,14 @@ import 'package:digital_kabaria_app/common/custom_button.dart';
 import 'package:digital_kabaria_app/utils/app_colors.dart';
 import 'package:digital_kabaria_app/utils/sized_box_extension.dart';
 import 'package:digital_kabaria_app/languages_proivder.dart';
-import 'package:digital_kabaria_app/view/User%20View/user_profile.dart';
+import 'package:digital_kabaria_app/view/Seller%20View/user_profile.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:page_transition/page_transition.dart';
 
-import '../view/User View/User State/user_state.dart';
+import '../view/Seller View/User State/user_state.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final bool flag;
@@ -31,19 +31,22 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
         elevation: 0,
         scrolledUnderElevation: 0,
         leading: Padding(
-          padding: EdgeInsets.all(5.w),
+          padding: EdgeInsets.only(left:10.w),
           child: Image.asset(
             "assets/images/app_logo_dk.png",
             // height: 50.h,
           ),
         ),
-        title: Text(
-          "Digital Kabariya".tr,
-          style: TextStyle(
-              color: AppColors.blackColor,
-              letterSpacing: 1,
-              fontSize: 14.sp,
-              fontWeight: FontWeight.w600),
+        title: Padding(
+          padding: const EdgeInsets.only(top:5.0),
+          child: Text(
+            "Digital Kabariya".tr,
+            style: TextStyle(
+                color: AppColors.blackColor,
+                letterSpacing: 1,
+                fontSize: 14.sp,
+                fontWeight: FontWeight.w600),
+          ),
         ),
         actions: flag
             ? []

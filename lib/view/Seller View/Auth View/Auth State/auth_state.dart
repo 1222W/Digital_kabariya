@@ -5,14 +5,18 @@ import 'package:digital_kabaria_app/model/users.model.dart';
 import 'package:digital_kabaria_app/utils/custom_navigation.dart';
 import 'package:digital_kabaria_app/utils/firebase_data.dart';
 import 'package:digital_kabaria_app/utils/utils.dart';
-import 'package:digital_kabaria_app/view/User%20View/approval/approval_screen.dart';
-import 'package:digital_kabaria_app/view/User%20View/user_home_view.dart';
+import 'package:digital_kabaria_app/view/Collector%20View/collector_bottom_nav_view.dart';
+import 'package:digital_kabaria_app/view/Company%20View/company_bottom_view.dart';
+import 'package:digital_kabaria_app/view/Seller%20View/approval/approval_screen.dart';
+import 'package:digital_kabaria_app/view/Seller%20View/home_view/seller_home_view.dart';
+import 'package:digital_kabaria_app/view/Seller%20View/user_home_view.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
+import '../../../../utils/enums.dart';
+
 class AuthStateController extends GetxController {
-  // Auth Text Editing Controllers
   final emailCTRL = TextEditingController();
   final passwordCTRL = TextEditingController();
   final recoverEmailCTRL = TextEditingController().obs;
@@ -83,9 +87,11 @@ class AuthStateController extends GetxController {
     if (enableLoginButton) {
       try {
         setLoading(true);
-        final credential = await FirebaseAuth.instance
+
+        final credential =  FirebaseAuth.instance
             .signInWithEmailAndPassword(
                 email: emailAddress, password: password);
+
         String id = FirebaseAuth.instance.currentUser!.uid;
         final user = await FirebaseFirestore.instance
             .collection(Collection.user)
@@ -94,17 +100,22 @@ class AuthStateController extends GetxController {
         UsersModel userModel = UsersModel.fromJson(user.data()!);
         setLoading(false);
         if (userModel.isVerify) {
-          
-          pushReplacement(context, const UserHomeView());
+          if (userModel.role == ROLENAME.Seller.name) {
+            pushReplacement(context, const SellerHomeView());
+          } else if (userModel.role == ROLENAME.Collector.name) {
+            pushReplacement(context, const CollectorBottomNavBar());
+          } else if (userModel.role == ROLENAME.Buyer.name) {
+            pushReplacement(context, const CompanyBottomBar());
+          }
         } else {
           pushReplacement(context, const RequestApprovalScreen());
         }
         Utils.successBar("User Sign in SuccessFully!", context);
+
       } on FirebaseAuthException catch (e) {
+        log(e.toString());
         setLoading(false);
-
         Utils.flushBarErrorMessage(e.toString(), context);
-
         if (e.code == 'user-not-found') {
           print('No user found for that email.');
         } else if (e.code == 'wrong-password') {

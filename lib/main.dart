@@ -2,13 +2,17 @@ import 'package:digital_kabaria_app/utils/app_colors.dart';
 import 'package:digital_kabaria_app/utils/languages.dart';
 import 'package:digital_kabaria_app/firebase_options.dart';
 import 'package:digital_kabaria_app/view/Admin%20Side%20View/admin_side_view.dart';
-import 'package:digital_kabaria_app/view/Auth%20View/login_view.dart';
-import 'package:digital_kabaria_app/view/User%20View/approval/approval_screen.dart';
+import 'package:digital_kabaria_app/view/Collector%20View/collector_bottom_nav_view.dart';
+import 'package:digital_kabaria_app/view/Seller%20View/Auth%20View/login_view.dart';
+import 'package:digital_kabaria_app/view/Seller%20View/approval/approval_screen.dart';
+import 'package:digital_kabaria_app/view/Seller%20View/home_view/seller_home_view.dart';
+import 'package:digital_kabaria_app/view/Seller%20View/splash/splash_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
+import 'view/Company View/company_bottom_view.dart';
 import 'view/product/add_product_screen.dart';
 
 void main() async {
@@ -40,7 +44,7 @@ class MyApp extends StatelessWidget {
           scaffoldBackgroundColor: AppColors.whiteColor,
           useMaterial3: true,
         ),
-        home: const LoginView(),
+        home: const SplashScreen(),
       ),
     );
   }

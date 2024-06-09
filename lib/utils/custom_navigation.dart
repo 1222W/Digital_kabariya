@@ -9,7 +9,7 @@ push(context, screen) {
 
 pushReplacement(context, screen) {
   Navigator.pushReplacement(
-      context, CupertinoPageRoute(builder: (context) => screen));
+      context, PageTransition(child: screen, type: PageTransitionType.fade));
 }
 
 pushUntil(context, screen) {

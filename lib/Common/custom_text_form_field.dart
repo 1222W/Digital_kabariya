@@ -17,11 +17,13 @@ class CustomTextFormField extends StatelessWidget {
   final String? Function(String?)? validator;
   final TextEditingController? controller;
   final String? errorText;
+  final bool readOnly;
   const CustomTextFormField(
       {Key? key,
       this.hintText,
       this.hintStyle,
       this.suffixIcon,
+      this.readOnly = false,
       this.prefixIcon,
       this.controller,
       this.keyboardType,
@@ -36,7 +38,7 @@ class CustomTextFormField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      
+      readOnly: readOnly,
       keyboardType: keyboardType,
       controller: controller,
       obscureText: obscureText,

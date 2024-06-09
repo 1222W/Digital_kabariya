@@ -1,3 +1,4 @@
+import 'package:digital_kabaria_app/common/custom_app_bar.dart';
 import 'package:digital_kabaria_app/common/custom_button.dart';
 import 'package:digital_kabaria_app/utils/app_colors.dart';
 import 'package:digital_kabaria_app/utils/custom_navigation.dart';
@@ -22,23 +23,6 @@ class _PostedMaterialViewState extends State<PostedMaterialView> {
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // ClipPath(
-            //   clipper: OvalRightBorderClipper(),
-            //   child: Container(
-            //     height: 50.h,
-            //     width: 150.w,
-            //     color: AppColors.appColor,
-            //     child: Center(
-            //         child: Text(
-            //       "Sell Scraps",
-            //       style: TextStyle(
-            //           color: AppColors.whiteColor,
-            //           fontSize: 18.sp,
-            //           fontWeight: FontWeight.w500),
-            //     )),
-            //   ),
-            // ),
-            // 10.h.sizedBoxHeight,
             Expanded(
               child: ListView(
                 physics: const BouncingScrollPhysics(),
