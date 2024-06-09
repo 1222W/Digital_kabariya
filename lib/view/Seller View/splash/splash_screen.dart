@@ -5,6 +5,7 @@ import 'package:digital_kabaria_app/view/Seller%20View/Auth%20View/login_view.da
 import 'package:flutter/material.dart';
 
 class SplashScreen extends StatefulWidget {
+  
   const SplashScreen({super.key});
 
   @override
