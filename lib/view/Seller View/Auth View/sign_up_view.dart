@@ -186,7 +186,7 @@ class _SignUpViewState extends State<SignUpView> {
                                         role: controller
                                             .selectedDropdownItem.value
                                             .toString(),
-                                        isVerify: true);
+                                        isVerify: false);
                                   }
                                 }
                               : null

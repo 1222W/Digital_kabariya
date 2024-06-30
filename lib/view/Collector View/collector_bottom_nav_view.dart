@@ -26,7 +26,7 @@ class _CollectorBottomNavBarState extends State<CollectorBottomNavBar> {
     const HomeView(),
     const PostedMaterialView(),
     const BidsView(),
-    const SellerProfileView()
+     SellerProfileView()
   ];
   @override
   Widget build(BuildContext context) {

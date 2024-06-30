@@ -26,7 +26,7 @@ class _CollectorBottomNavBarState extends State<CompanyBottomBar> {
     const HomeView(),
     const BidsView(),
     const BuyScrapsView(),
-    const SellerProfileView()
+     SellerProfileView()
   ];
   @override
   Widget build(BuildContext context) {

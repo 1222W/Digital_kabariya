@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:digital_kabaria_app/common/custom_button.dart';
 import 'package:digital_kabaria_app/utils/app_colors.dart';
@@ -29,32 +31,43 @@ class VerfificationScreen extends StatefulWidget {
 
 class _RequestApprovalScreenState extends State<VerfificationScreen> {
   final controller = Get.put(SignUpController());
+  User? user;
+  late Timer timer;
 
   @override
   void initState() {
-    checkApproval();
     super.initState();
+    user = FirebaseAuth.instance.currentUser;
+    user?.reload();
+    checkApproval();
+    timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      checkApproval();
+    });
   }
 
-  checkApproval() {
-    final id = FirebaseAuth.instance.currentUser!.uid;
-    final userEmail = FirebaseAuth.instance.currentUser!.emailVerified;
-    if (userEmail == true) {
-      // pushReplacement(context, User)
-      if (controller.selectedDropdownItem.value == ROLENAME.Seller) {
-        pushReplacement(context, SellerHomeView());
-      } else if (controller.selectedDropdownItem.value == ROLENAME.Collector) {
-        pushReplacement(context, CollectorBottomNavBar());
-      } else if (controller.selectedDropdownItem.value == ROLENAME.Buyer) {
-        pushReplacement(context, CompanyBottomBar());
+  @override
+  void dispose() {
+    timer.cancel();
+    super.dispose();
+  }
+
+  checkApproval() async {
+    user = FirebaseAuth.instance.currentUser;
+    await user?.reload();
+    final userEmailVerified = user?.emailVerified ?? false;
+
+    if (userEmailVerified) {
+      // Check role and navigate accordingly
+      final id = user?.uid;
+      if (id != null) {
+        final userDoc = await FirebaseFirestore.instance.collection(Collection.user).doc(id).get();
+        final role = userDoc.data()?['role'];
+
+       
+          pushReplacement(context, const LoginView());
+        
       }
     }
-    // FirebaseFirestore.instance.collection(Collection.user).doc(id).snapshots().listen((event) {
-    //   if (event.get("is_verify")) {
-    //     pushReplacement(context, const UserHomeView());
-    //     Utils.successBar("Admin Approved SuccessFully!", context);
-    //   }
-    // });
   }
 
   @override
@@ -87,9 +100,23 @@ class _RequestApprovalScreenState extends State<VerfificationScreen> {
                 text: "Resend Email",
                 onPressed: () {
                   controller.sendEmailVerificationLink(context);
-                  // pushUntil(context,const LoginView());
                 },
-              )
+              ),
+              10.h.sizedBoxHeight,
+              InkWell(
+                onTap: (){
+                  push(context,const LoginView());
+                },
+                child: const AppText(
+                  textAlign: TextAlign.center,
+                  textDecoration: TextDecoration.underline,
+                  text:
+                      "Go to Back",
+                  fontSize: 14,
+                  fontWeight: FontWeight.w600,
+                  color: AppColors.blackColor,
+                ),
+              ),
             ],
           ),
         ),

@@ -127,6 +127,7 @@ class SignUpController extends GetxController {
         });
         setLoading(false);
         pushUntil(context, screen);
+        sendEmailVerificationLink(context);
         Utils.successBar("User created successfully", context);
       } on FirebaseAuthException catch (e) {
         setLoading(false);

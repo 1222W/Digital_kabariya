@@ -8,12 +8,14 @@ import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
+import 'package:get/get_connect/http/src/utils/utils.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:google_maps_place_picker_mb/google_maps_place_picker.dart';
 import 'package:image_picker/image_picker.dart';
 
 class AddProductController extends GetxController {
-  late LatLng center;
+  
+  LatLng center = LatLng(40.7128, -74.0060);
   PickResult? selectedPlace;
   String? address;
   String appBarTitle = 'Pick a Location';
@@ -28,6 +30,10 @@ class AddProductController extends GetxController {
   final productNumberError = RxnString(null);
   final productSecondNumberError = RxnString(null);
   final productPriceError = RxnString(null);
+  final isLoading = false.obs;
+  void setLoading(value) {
+    isLoading.value = value;
+  }
   void validateName(String value) {
     if (value.isEmpty) {
       productNameError.value = "Please enter product Name";
@@ -136,6 +142,7 @@ class AddProductController extends GetxController {
   }) async {
     checkValidations();
     try {
+      setLoading(true);
       final currentUser = FirebaseAuth.instance.currentUser!.uid;
       final db = FirebaseFirestore.instance;
       final storage = FirebaseStorage.instance;
@@ -170,10 +177,24 @@ class AddProductController extends GetxController {
         "voice": voiceDownloadUrl,
       };
       print("dataa ${data}");
-       db.collection("products").doc(currentUser).set(data);
+       clear();
+       db.collection("products").doc().set(data);
        Utils.successBar("Product Added SuccessFully!", context);
+       setLoading(false);
     } catch (e) {
+       setLoading(false);
+
       print(e);
     }
   }
+  clear(){
+    productName.clear();
+    productDescription.clear();
+    productNumber.clear();
+    productSecondNumber.clear();
+    productPrice.clear();
+    imgFiles.clear();
+    
+  }
 }
+

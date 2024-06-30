@@ -25,7 +25,7 @@ class _SellerHomeViewState extends State<SellerHomeView> {
   final List<Widget> pages = [
     const HomeView(),
     const PostedMaterialView(),
-    const SellerProfileView()
+     SellerProfileView()
   ];
   @override
   Widget build(BuildContext context) {
