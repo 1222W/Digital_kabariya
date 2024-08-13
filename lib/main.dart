@@ -26,7 +26,6 @@ void main() async {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
@@ -35,7 +34,7 @@ class MyApp extends StatelessWidget {
       child: GetMaterialApp(
         title: 'Digital Kabariya',
         translations: AppTranslations(),
-        locale: const Locale('en'), // Initial locale
+        locale: const Locale('en'), 
         fallbackLocale: const Locale('en'),
         debugShowCheckedModeBanner: false,
         theme: ThemeData(

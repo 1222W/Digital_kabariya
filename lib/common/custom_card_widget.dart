@@ -13,6 +13,7 @@ class CustomCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      
       decoration: BoxDecoration(
         border: Border.all(color: AppColors.greyColor),
         borderRadius: BorderRadius.circular(5.0),
