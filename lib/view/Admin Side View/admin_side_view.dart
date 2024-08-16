@@ -196,7 +196,7 @@ buildHorizotalData({
         ),
         const Spacer(),
         SizedBox(
-          width: 150.w,
+          // width: 150.w,
           child: Text(
             value,
             maxLines: 1,

@@ -4,18 +4,19 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 
 class NumberWidget extends StatelessWidget {
-  const NumberWidget({super.key});
+  final numberOne, numberTwo;
+   NumberWidget({super.key,this.numberOne,this.numberTwo});
 
   @override
   Widget build(BuildContext context) {
-    return const Row(
+    return  Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
            Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               AppText(text: AppStrings.numberOne,fontSize: 14,fontWeight: FontWeight.bold,maxLines: 2,),
-              AppText(text: "0584958373",fontSize: 14,fontWeight: FontWeight.w500,maxLines: 2,),
+              AppText(text: numberOne,fontSize: 14,fontWeight: FontWeight.w500,maxLines: 2,),
             ],
           ),
         
@@ -23,7 +24,7 @@ class NumberWidget extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               AppText(text: AppStrings.numberTwo,fontSize: 14,fontWeight: FontWeight.bold,maxLines: 2,),
-              AppText(text: "0584958373",fontSize: 14,fontWeight: FontWeight.w500,maxLines: 2,),
+              AppText(text: numberTwo,fontSize: 14,fontWeight: FontWeight.w500,maxLines: 2,),
             ],
           ),
         
@@ -33,15 +34,16 @@ class NumberWidget extends StatelessWidget {
 }
 
 class ProductAdrees extends StatelessWidget {
-  const ProductAdrees({super.key});
+  final address;
+  const ProductAdrees({super.key,this.address});
 
   @override
   Widget build(BuildContext context) {
-    return   const Column(
+    return    Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
                AppText(text: AppStrings.address,fontSize: 14,fontWeight: FontWeight.bold,maxLines: 2,),
-              AppText(text: "Lahore Pakistan",fontSize: 14,fontWeight: FontWeight.w500,maxLines: 2,),
+              AppText(text: address,fontSize: 14,fontWeight: FontWeight.w500,maxLines: 2,),
             ],
           );
         

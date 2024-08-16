@@ -28,12 +28,15 @@ class _SplashScreenState extends State<SplashScreen> {
         });
         Future.delayed(const Duration(seconds: 2), () {
           if (mounted) {
+
             pushReplacement(context, LoginView());
           }
         });
       }
     });
   }
+
+
 
   @override
   Widget build(BuildContext context) {
