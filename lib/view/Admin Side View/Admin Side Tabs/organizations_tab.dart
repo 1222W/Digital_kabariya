@@ -67,10 +67,10 @@ class _UsersTabState extends State<OrganizationTabs> {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           buildHorizotalData(
-                              key: "Full Name:", value: user.fullName),
+                              key: "Full Name:", value: user.fullName!),
                           buildHorizotalData(
-                              key: "Email:", value: user.emailAddress),
-                          buildHorizotalData(key: "Role", value: user.role),
+                              key: "Email:", value: user.emailAddress!),
+                          buildHorizotalData(key: "Role", value: user.role!),
                           10.h.sizedBoxHeight,
 
                           Row(

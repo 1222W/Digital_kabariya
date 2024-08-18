@@ -67,10 +67,10 @@ class _UsersTabState extends State<UsersTab> {
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
                           buildHorizotalData(
-                              key: "Full Name:", value: user.fullName),
+                              key: "Full Name:", value: user.fullName!),
                           buildHorizotalData(
-                              key: "Email:", value: user.emailAddress),
-                          buildHorizotalData(key: "Role", value: user.role),
+                              key: "Email:", value: user.emailAddress!),
+                          buildHorizotalData(key: "Role", value: user.role!),
                           10.h.sizedBoxHeight,
 
                           CustomButton(btnHeight: 40,btnWidth: 100,onPressed: (){},text: AppStrings.block,),

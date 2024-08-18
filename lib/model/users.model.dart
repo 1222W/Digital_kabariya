@@ -6,18 +6,18 @@ List<UsersModel> usersModelFromJson( str) => List<UsersModel>.from(str.map((x) =
 // String usersModelToJson(List<UsersModel> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
 class UsersModel {
-    String emailAddress;
-    String fullName;
-    bool isVerify;
-    String phoneNumber;
-    String role;
+    String? emailAddress;
+    String? fullName;
+    bool? isVerify;
+    String? phoneNumber;
+    String? role;
 
     UsersModel({
-        required this.emailAddress,
-        required this.fullName,
-        required this.isVerify,
-        required this.phoneNumber,
-        required this.role,
+         this.emailAddress,
+         this.fullName,
+         this.isVerify,
+         this.phoneNumber,
+         this.role,
     });
 
     factory UsersModel.fromJson(Map<String, dynamic> json) => UsersModel(

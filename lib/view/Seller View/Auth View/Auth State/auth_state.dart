@@ -1,5 +1,6 @@
 import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:digital_kabaria_app/Utils/preferences.dart';
 import 'package:digital_kabaria_app/common/app_toast_message.dart';
 import 'package:digital_kabaria_app/model/users.model.dart';
 import 'package:digital_kabaria_app/utils/custom_navigation.dart';
@@ -103,7 +104,7 @@ class AuthStateController extends GetxController {
         setLoading(false);
         if(FirebaseAuth.instance.currentUser!.emailVerified){
 
-        if (userModel.isVerify ) {
+        if (userModel.isVerify! ) {
           if (userModel.role == ROLENAME.Seller.name) {
             pushReplacement(context, const SellerHomeView());
           } else if (userModel.role == ROLENAME.Collector.name) {
@@ -138,6 +139,7 @@ class AuthStateController extends GetxController {
       setLoading(true);
       FirebaseAuth auth = FirebaseAuth.instance;
       auth.signOut();
+      Preferences.clear();
       setLoading(false);
       pushReplacement(context,const LoginView());
       Utils.flushBarErrorMessage("Logout SuccessFully!", context);
