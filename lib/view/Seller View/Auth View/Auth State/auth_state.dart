@@ -90,36 +90,43 @@ class AuthStateController extends GetxController {
     if (enableLoginButton) {
       try {
         setLoading(true);
-
-        final credential = FirebaseAuth.instance.signInWithEmailAndPassword(
-            email: emailAddress, password: password);
+        final credential = await FirebaseAuth.instance
+            .signInWithEmailAndPassword(
+                email: emailAddress, password: password);
+        // debugger();
 
         String id = FirebaseAuth.instance.currentUser!.uid;
-        final user = await FirebaseFirestore.instance
-            .collection(Collection.user)
-            .doc(id)
-            .get();
-        UsersModel userModel = UsersModel.fromJson(user.data()!);
+        if (id != null) {
+          final user = await FirebaseFirestore.instance
+              .collection(Collection.user)
+              .doc(id)
+              .get();
+          // debugger();
+
+          UsersModel userModel = UsersModel.fromJson(user.data()!);
+          // debugger();
+          if (FirebaseAuth.instance.currentUser!.emailVerified) {
+            if (userModel.isVerify!) {
+              if (userModel.role == ROLENAME.Seller.name) {
+                pushReplacement(context, const SellerHomeView());
+              } else if (userModel.role == ROLENAME.Collector.name) {
+                pushReplacement(context, const CollectorBottomNavBar());
+              } else if (userModel.role == ROLENAME.Buyer.name) {
+                pushReplacement(context, const CompanyBottomBar());
+              }
+            } else {
+              pushReplacement(context, const RequestApprovalScreen());
+            }
+          } else {
+            pushReplacement(context, const VerfificationScreen());
+          }
+        }
 
         setLoading(false);
-        if(FirebaseAuth.instance.currentUser!.emailVerified){
-
-        if (userModel.isVerify! ) {
-          if (userModel.role == ROLENAME.Seller.name) {
-            pushReplacement(context, const SellerHomeView());
-          } else if (userModel.role == ROLENAME.Collector.name) {
-            pushReplacement(context, const CollectorBottomNavBar());
-          } else if (userModel.role == ROLENAME.Buyer.name) {
-            pushReplacement(context, const CompanyBottomBar());
-          }
-        } else {
-          pushReplacement(context, const RequestApprovalScreen());
-        }
-        }else{
-          pushReplacement(context,const VerfificationScreen());
-        }
         Utils.successBar("User Sign in SuccessFully!", context);
       } on FirebaseAuthException catch (e) {
+        // debugger();
+
         log(e.toString());
         setLoading(false);
         Utils.flushBarErrorMessage(e.toString(), context);
@@ -129,7 +136,6 @@ class AuthStateController extends GetxController {
           print('Wrong password provided for that user.');
         }
         setLoading(false);
- 
       }
     }
   }
@@ -141,7 +147,7 @@ class AuthStateController extends GetxController {
       auth.signOut();
       Preferences.clear();
       setLoading(false);
-      pushReplacement(context,const LoginView());
+      pushReplacement(context, const LoginView());
       Utils.flushBarErrorMessage("Logout SuccessFully!", context);
     } catch (e) {
       setLoading(false);

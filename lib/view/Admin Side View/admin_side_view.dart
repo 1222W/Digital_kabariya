@@ -82,20 +82,20 @@ class _AdminSideViewState extends State<AdminSideView>
                   tabs: [
                     buildTab(
                         tabColor: _tabController.index == 0
-                            ? AppColors.appColor
-                            : AppColors.blackColor.withOpacity(.3),
+                            ? AppColors.whiteColor
+                            : AppColors.whiteColor.withOpacity(.3),
                         tabIcon: Icons.person,
                         tabName: "Users"),
                     buildTab(
                         tabColor: _tabController.index == 1
-                            ? AppColors.appColor
-                            : AppColors.blackColor.withOpacity(.3),
+                            ? AppColors.whiteColor
+                            : AppColors.whiteColor.withOpacity(.3),
                         tabIcon: Icons.report,
                         tabName: "Complaints"),
                     buildTab(
                         tabColor: _tabController.index == 2
-                            ? AppColors.appColor
-                            : AppColors.blackColor.withOpacity(.3),
+                            ? AppColors.whiteColor
+                            : AppColors.whiteColor.withOpacity(.3),
                         tabIcon: Icons.group,
                         tabName: "Approvals"),
                   ]);

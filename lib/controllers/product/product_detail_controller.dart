@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:digital_kabaria_app/Common/constants/constants.dart';
 import 'package:digital_kabaria_app/model/product_model.dart';
 import 'package:get/get.dart';
 
@@ -14,7 +15,10 @@ class ProductDetailController extends GetxController {
       _isLoading = true;
       update();
 
-      var docSnapshot = await FirebaseFirestore.instance.collection('products').doc(docId).get();
+      var docSnapshot = await FirebaseFirestore.instance
+          .collection('products')
+          .doc(docId)
+          .get();
 
       if (docSnapshot.exists) {
         var data = docSnapshot.data();
@@ -28,7 +32,15 @@ class ProductDetailController extends GetxController {
       _productModel = null;
     } finally {
       _isLoading = false;
-      update(); 
+      update();
+    }
+  }
+
+  Stream<QuerySnapshot>? getProductData() {
+    try {
+      return firestore.collection("products").snapshots();
+    } catch (e) {
+      print(e.toString());
     }
   }
 }

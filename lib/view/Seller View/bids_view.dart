@@ -118,7 +118,7 @@ class _BidsViewState extends State<BidsView> {
                                 Navigator.push(
                                     context,
                                     PageTransition(
-                                        child: const ViewBidsByUsers(),
+                                        child:  BidsViewScreen(),
                                         type: PageTransitionType.rightToLeft));
                               },
                             ))

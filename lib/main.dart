@@ -1,7 +1,10 @@
 import 'package:digital_kabaria_app/utils/app_colors.dart';
 import 'package:digital_kabaria_app/utils/languages.dart';
 import 'package:digital_kabaria_app/firebase_options.dart';
+import 'package:digital_kabaria_app/view/Admin%20Side%20View/admin_login_screen.dart';
 import 'package:digital_kabaria_app/view/Admin%20Side%20View/admin_side_view.dart';
+import 'package:digital_kabaria_app/view/Admin%20Side%20View/admin_splash_screen.dart';
+import 'package:digital_kabaria_app/view/Admin%20Side%20View/dashboard/dashboard_screen.dart';
 import 'package:digital_kabaria_app/view/Collector%20View/collector_bottom_nav_view.dart';
 import 'package:digital_kabaria_app/view/Seller%20View/Auth%20View/login_view.dart';
 import 'package:digital_kabaria_app/view/Seller%20View/approval/approval_screen.dart';
@@ -42,8 +45,9 @@ class MyApp extends StatelessWidget {
           fontFamily: "NunitoSans",
           scaffoldBackgroundColor: AppColors.whiteColor,
           useMaterial3: true,
+          
         ),
-        home: const SplashScreen(),
+        home:  SplashScreen(),
       ),
     );
   }

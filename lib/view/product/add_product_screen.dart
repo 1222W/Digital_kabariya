@@ -106,6 +106,7 @@ class _AddPostScreenState extends State<AddPostScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColors.whiteColor,
       resizeToAvoidBottomInset: false,
       appBar: const CustomAppBar(
         flag: true,
@@ -312,11 +313,14 @@ class _AddPostScreenState extends State<AddPostScreen> {
                       "price":controller.productPrice.text,
                       "address":controller.address,
                       "voice":_recordedFilePath,
+                      "lat":controller.center.latitude,
+                      "lng":controller.center.longitude,
                     };
                     if (formKey.currentState!.validate()) {
-                      controller.addProduct(context,imgFiles: controller.imgFiles, productName: controller.productName.text, productDescription: controller.productDescription.text, productNumber: controller.productNumber.text, productSecondNumber: controller.productSecondNumber.text, productPrice: controller.productPrice.text, address: controller.address.toString(), recordedFilePath: File(_recordedFilePath));
+                      controller.addProduct(context,imgFiles: controller.imgFiles, productName: controller.productName.text, productDescription: controller.productDescription.text, productNumber: controller.productNumber.text, productSecondNumber: controller.productSecondNumber.text, productPrice: controller.productPrice.text, address: controller.address.toString(), recordedFilePath: File(_recordedFilePath),lat: controller.center.latitude,lng: controller.center.longitude);
                     }
                   },
+                  
                 );
               }),
                 20.h.sizedBoxHeight,

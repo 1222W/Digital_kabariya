@@ -1,0 +1,51 @@
+import 'package:digital_kabaria_app/view/Admin%20Side%20View/dashboard/dashboard_home_screen.dart';
+import 'package:digital_kabaria_app/view/Admin%20Side%20View/dashboard/dashboard_logout_screen.dart';
+import 'package:digital_kabaria_app/view/Admin%20Side%20View/dashboard/dashboard_profile_screen.dart';
+import 'package:digital_kabaria_app/view/Admin%20Side%20View/dashboard/dashboard_settings_screen.dart';
+import 'package:digital_kabaria_app/view/Admin%20Side%20View/dashboard/dashboard_widgets/home_tab_widgets.dart';
+import 'package:digital_kabaria_app/view/Admin%20Side%20View/dashboard/dashboard_widgets/side_menu_widget.dart';
+import 'package:flutter/material.dart';
+
+class DashBoardScreen extends StatefulWidget {
+  const DashBoardScreen({super.key});
+
+  @override
+  State<DashBoardScreen> createState() => _DashBoardScreenState();
+}
+
+class _DashBoardScreenState extends State<DashBoardScreen> {
+  int selectedScreenIndex = 0;
+  final List<Widget> screens = [
+    const DashboardHomeScreen(),
+    const DashboardUsersScreen(),
+    const DashboardSettingsScreen(),
+    const DashboardSignOutScreen(),
+  ];
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Row(
+        children: [
+          Expanded(
+            child: Container(child: SideMenuWidget(
+              onMenuItemSelected: (int index) {
+                setState(() {
+                  selectedScreenIndex = index;
+                });
+              },
+            )),
+            flex: 2,
+          ),
+          Expanded(
+            child: screens[selectedScreenIndex],
+            flex: 8,
+          ),
+          const Expanded(
+            child: const ProfileComponentWidget(),
+            flex: 3,
+          ),
+        ],
+      ),
+    );
+  }
+}

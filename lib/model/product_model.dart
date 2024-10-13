@@ -7,7 +7,8 @@ class ProductModel {
   String price;
   String address;
   String voice;
-  String? docId; // Add this line
+  String? docId;
+  final lat,lng;
 
   ProductModel({
     required this.images,
@@ -19,6 +20,7 @@ class ProductModel {
     required this.address,
     required this.voice,
     this.docId, // Add this line
+    this.lat,this.lng,
   });
 
   factory ProductModel.fromJson(Map<String, dynamic> json, String id) => ProductModel(
@@ -30,6 +32,8 @@ class ProductModel {
     price: json["price"],
     address: json["address"],
     voice: json["voice"],
+    lat: json["lat"],
+    lng: json["lng"],
     docId: id, // Add this line
   );
 
@@ -42,5 +46,7 @@ class ProductModel {
     "price": price,
     "address": address,
     "voice": voice,
+    "lat": lat,
+    "lng": lng,
   };
 }

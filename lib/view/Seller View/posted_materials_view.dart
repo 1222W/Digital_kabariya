@@ -19,7 +19,7 @@ class _PostedMaterialViewState extends State<PostedMaterialView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        
+        backgroundColor: AppColors.whiteColor,
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

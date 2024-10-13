@@ -13,6 +13,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
+import 'bids/company_bids_view_.dart';
+import 'company_chat_screen.dart';
+
 class CompanyBottomBar extends StatefulWidget {
   const CompanyBottomBar({super.key});
 
@@ -24,9 +27,10 @@ class _CollectorBottomNavBarState extends State<CompanyBottomBar> {
   final userState = Get.put(UserState());
   final List<Widget> pages = [
     const HomeView(),
-    const BidsView(),
+    const CompanyBidsview(),
     const BuyScrapsView(),
-     SellerProfileView()
+    const CompanyChatScreen(),
+    SellerProfileView(),
   ];
   @override
   Widget build(BuildContext context) {
@@ -67,24 +71,28 @@ class _CollectorBottomNavBarState extends State<CompanyBottomBar> {
                 ),
                 label: "Home",
               ),
-              
-
-                  BottomNavigationBarItem(
+              BottomNavigationBarItem(
                   icon: Image.asset(
                     "assets/images/bidings.png",
                     height: userState.currentIndex.value == 1 ? 40.h : 25.h,
                   ),
                   label: "Bid"),
-                  BottomNavigationBarItem(
+              BottomNavigationBarItem(
                   icon: Image.asset(
                     "assets/images/buy_sell.png",
-                    height: userState.currentIndex.value == 1 ? 40.h : 25.h,
+                    height: userState.currentIndex.value == 2 ? 40.h : 25.h,
                   ),
                   label: "Buy"),
+                  BottomNavigationBarItem(
+                  icon: Image.asset(
+                    "assets/images/chat.png",
+                    height: userState.currentIndex.value == 3 ? 40.h : 25.h,
+                  ),
+                  label: "Chats"),
               BottomNavigationBarItem(
                   icon: Image.asset(
                     "assets/images/profile.png",
-                    height: userState.currentIndex.value == 2 ? 40.h : 25.h,
+                    height: userState.currentIndex.value == 4 ? 40.h : 25.h,
                   ),
                   label: "Profile"),
             ]);

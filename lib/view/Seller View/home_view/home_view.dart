@@ -53,7 +53,6 @@ class _HomeViewState extends State<HomeView> {
               final ProductModel product = products[index];
               return GestureDetector(
                 onTap: () {
-                  // Navigate to ProductDetailPage with docId
                   Get.to(() => ProductDetailPage(docId: product.docId!));
                 },
                 child: CustomCard(

@@ -139,6 +139,7 @@ class AddProductController extends GetxController {
     required String productPrice,
     required String address,
     required File recordedFilePath,
+    final lat,lng,
   }) async {
     checkValidations();
     try {
@@ -175,6 +176,8 @@ class AddProductController extends GetxController {
         "price": productPrice,
         "address": address,
         "voice": voiceDownloadUrl,
+        "lat":lat,
+        "lng":lng,
       };
       print("dataa ${data}");
        clear();
