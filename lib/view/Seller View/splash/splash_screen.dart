@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:digital_kabaria_app/Utils/preferences.dart';
 import 'package:digital_kabaria_app/model/users.model.dart';
 import 'package:digital_kabaria_app/utils/app_colors.dart';
@@ -17,7 +18,7 @@ import 'package:flutter/material.dart';
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
 
-  @override 
+  @override
   State<SplashScreen> createState() => _SplashScreenState();
 }
 
@@ -46,22 +47,36 @@ class _SplashScreenState extends State<SplashScreen> {
     });
   }
 
-  checkUser(context) async {
-    var user = await Preferences.getData();
-    if (user == null) {
+  checkUser(BuildContext context) async {
+    User? currentUser = FirebaseAuth.instance.currentUser;
+
+    if (currentUser == null) {
       pushUntil(context, const LoginView());
-    } else {
-      if (FirebaseAuth.instance.currentUser!.emailVerified) {
-        if (user['role'] == ROLENAME.Seller.name) {
-          pushUntil(context, const SellerHomeView());
-        } else if (user['role'] == ROLENAME.Collector.name) {
-          pushUntil(context, const CollectorBottomNavBar());
-        } else if (user['role'] == ROLENAME.Collector.name) {
-          pushUntil(context, const CollectorBottomNavBar());
-        }
-      }else{
-          pushUntil(context, const VerfificationScreen());
+      return;
+    }
+
+    if (!currentUser.emailVerified) {
+      pushUntil(context, const VerfificationScreen());
+      return;
+    }
+
+    DocumentSnapshot userDoc = await FirebaseFirestore.instance
+        .collection('users')
+        .doc(currentUser.uid)
+        .get();
+
+    if (userDoc.exists) {
+      var userData = userDoc.data() as Map<String, dynamic>;
+
+      if (userData['role'] == ROLENAME.Seller.name) {
+        pushUntil(context, const SellerHomeView());
+      } else if (userData['role'] == ROLENAME.Collector.name) {
+        pushUntil(context, const CollectorBottomNavBar());
+      } else if (userData['role'] == ROLENAME.Collector.name) {
+        pushUntil(context, const CollectorBottomNavBar());
       }
+    } else {
+      pushUntil(context, const LoginView());
     }
   }
 

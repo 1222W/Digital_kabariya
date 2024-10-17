@@ -15,7 +15,7 @@ class CustomTextFormField extends StatelessWidget {
   final int maxLines;
   final Function(String)? onChanged;
   final String? Function(String?)? validator;
-  final TextEditingController? controller;
+  final  controller;
   final String? errorText;
   final bool readOnly;
   const CustomTextFormField(
@@ -25,7 +25,7 @@ class CustomTextFormField extends StatelessWidget {
       this.suffixIcon,
       this.readOnly = false,
       this.prefixIcon,
-      this.controller,
+      this.controller = "",
       this.keyboardType,
       this.flag = false,
       this.obscureText = false,

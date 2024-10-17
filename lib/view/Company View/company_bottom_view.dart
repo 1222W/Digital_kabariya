@@ -1,6 +1,7 @@
 import 'package:digital_kabaria_app/common/custom_app_bar.dart';
 import 'package:digital_kabaria_app/utils/app_colors.dart';
 import 'package:digital_kabaria_app/utils/sized_box_extension.dart';
+import 'package:digital_kabaria_app/view/Company%20View/company_home_view.dart';
 
 import 'package:digital_kabaria_app/view/Seller%20View/User%20State/user_state.dart';
 import 'package:digital_kabaria_app/view/Seller%20View/bids_view.dart';
@@ -26,10 +27,10 @@ class CompanyBottomBar extends StatefulWidget {
 class _CollectorBottomNavBarState extends State<CompanyBottomBar> {
   final userState = Get.put(UserState());
   final List<Widget> pages = [
-    const HomeView(),
-    const CompanyBidsview(),
-    const BuyScrapsView(),
-    const CompanyChatScreen(),
+    const CompanyHomeView(),
+    // const CompanyBidsview(),
+    // const BuyScrapsView(),
+    // const CompanyChatScreen(),
     SellerProfileView(),
   ];
   @override
@@ -71,24 +72,24 @@ class _CollectorBottomNavBarState extends State<CompanyBottomBar> {
                 ),
                 label: "Home",
               ),
-              BottomNavigationBarItem(
-                  icon: Image.asset(
-                    "assets/images/bidings.png",
-                    height: userState.currentIndex.value == 1 ? 40.h : 25.h,
-                  ),
-                  label: "Bid"),
-              BottomNavigationBarItem(
-                  icon: Image.asset(
-                    "assets/images/buy_sell.png",
-                    height: userState.currentIndex.value == 2 ? 40.h : 25.h,
-                  ),
-                  label: "Buy"),
-                  BottomNavigationBarItem(
-                  icon: Image.asset(
-                    "assets/images/chat.png",
-                    height: userState.currentIndex.value == 3 ? 40.h : 25.h,
-                  ),
-                  label: "Chats"),
+              // BottomNavigationBarItem(
+              //     icon: Image.asset(
+              //       "assets/images/bidings.png",
+              //       height: userState.currentIndex.value == 1 ? 40.h : 25.h,
+              //     ),
+              //     label: "Bid"),
+              // BottomNavigationBarItem(
+              //     icon: Image.asset(
+              //       "assets/images/buy_sell.png",
+              //       height: userState.currentIndex.value == 2 ? 40.h : 25.h,
+              //     ),
+              //     label: "Buy"),
+              //     BottomNavigationBarItem(
+              //     icon: Image.asset(
+              //       "assets/images/chat.png",
+              //       height: userState.currentIndex.value == 3 ? 40.h : 25.h,
+              //     ),
+              //     label: "Chats"),
               BottomNavigationBarItem(
                   icon: Image.asset(
                     "assets/images/profile.png",

@@ -23,8 +23,8 @@ class SellerHomeView extends StatefulWidget {
 class _SellerHomeViewState extends State<SellerHomeView> {
   final userState = Get.put(UserState());
   final List<Widget> pages = [
-    const HomeView(),
-    const PostedMaterialView(),
+    // const HomeView(),
+     SellerProductView(),
      SellerProfileView()
   ];
   @override
@@ -59,23 +59,23 @@ class _SellerHomeViewState extends State<SellerHomeView> {
                 color: AppColors.blackColor.withOpacity(.5), size: 25.sp),
             landscapeLayout: BottomNavigationBarLandscapeLayout.centered,
             items: [
-              BottomNavigationBarItem(
-                icon: Image.asset(
-                  "assets/images/home.png",
-                  height: userState.currentIndex.value == 0 ? 40.h : 25.h,
-                ),
-                label: "Home",
-              ),
+              // BottomNavigationBarItem(
+              //   icon: Image.asset(
+              //     "assets/images/home.png",
+              //     height: userState.currentIndex.value == 0 ? 40.h : 25.h,
+              //   ),
+              //   label: "Home",
+              // ),
               BottomNavigationBarItem(
                   icon: Image.asset(
                     "assets/images/my_posts.png",
-                    height: userState.currentIndex.value == 1 ? 40.h : 25.h,
+                    height: userState.currentIndex.value == 0 ? 40.h : 25.h,
                   ),
                   label: "Sell"),
               BottomNavigationBarItem(
                   icon: Image.asset(
                     "assets/images/profile.png",
-                    height: userState.currentIndex.value == 2 ? 40.h : 25.h,
+                    height: userState.currentIndex.value == 1 ? 40.h : 25.h,
                   ),
                   label: "Profile"),
             ]);

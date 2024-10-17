@@ -13,6 +13,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
+import 'collector_product_view.dart';
+
 class CollectorBottomNavBar extends StatefulWidget {
   const CollectorBottomNavBar({super.key});
 
@@ -24,9 +26,10 @@ class _CollectorBottomNavBarState extends State<CollectorBottomNavBar> {
   final userState = Get.put(UserState());
   final List<Widget> pages = [
     const HomeView(),
-    const PostedMaterialView(),
-    const BidsView(),
-     SellerProfileView()
+    // const SellerProductView(),
+    // const BidsView(),
+    const CollectorProductView(),
+    SellerProfileView()
   ];
   @override
   Widget build(BuildContext context) {
@@ -73,12 +76,12 @@ class _CollectorBottomNavBarState extends State<CollectorBottomNavBar> {
                     height: userState.currentIndex.value == 1 ? 40.h : 25.h,
                   ),
                   label: "Sell"),
-                  BottomNavigationBarItem(
-                  icon: Image.asset(
-                    "assets/images/bidings.png",
-                    height: userState.currentIndex.value == 1 ? 40.h : 25.h,
-                  ),
-                  label: "Bid"),
+              // BottomNavigationBarItem(
+              //     icon: Image.asset(
+              //       "assets/images/bidings.png",
+              //       height: userState.currentIndex.value == 1 ? 40.h : 25.h,
+              //     ),
+              //     label: "Bid"),
               BottomNavigationBarItem(
                   icon: Image.asset(
                     "assets/images/profile.png",

@@ -1,22 +1,43 @@
-import 'dart:developer';
 import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:digital_kabaria_app/Common/constants/constants.dart';
-import 'package:digital_kabaria_app/utils/utils.dart';
+import 'package:digital_kabaria_app/Utils/utils.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
-import 'package:get/get_connect/http/src/utils/utils.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:google_maps_place_picker_mb/google_maps_place_picker.dart';
 import 'package:image_picker/image_picker.dart';
 
-class AddProductController extends GetxController {
-  
-  LatLng center = LatLng(40.7128, -74.0060);
+import '../../Common/constants/constants.dart';
+import '../../model/product_model.dart';
+
+class CollectorProductController extends GetxController {
+  final FirebaseFirestore db = FirebaseFirestore.instance;
+
+   Stream<List<ProductModel>> getProductData() {
+    return db.collection("collector_products").where("userId",isEqualTo: auth.currentUser!.uid).snapshots().map((snapshot) {
+      return snapshot.docs.map((doc) {
+        var data = doc.data() as Map<String, dynamic>;
+        return ProductModel.fromJson(data, doc.id);
+      }).toList();
+    });
+  }
+
+  deleteProduct(context,docId){
+    try {
+   return db.collection("collector_products").doc(docId).delete().then((value){
+    Utils.flushBarErrorMessage("Product Deleted SuccessFully!", context);
+   });
+      
+    } catch (e) {
+      print(e.toString());
+    }
+  }
+ LatLng center = LatLng(40.7128, -74.0060);
   PickResult? selectedPlace;
   String? address;
   String appBarTitle = 'Pick a Location';
@@ -97,7 +118,7 @@ class AddProductController extends GetxController {
     if (images == null || images.isEmpty) return;
 
     for (XFile image in images) {
-      if (imgFiles.length >= 3) break;
+      if (imgFiles.length >= 8) break;
       imgFiles.add(File(image.path));
     }
 
@@ -183,7 +204,7 @@ class AddProductController extends GetxController {
       };
       print("dataa ${data}");
        clear();
-       db.collection("products").doc().set(data);
+       db.collection("collector_products").doc().set(data);
        Utils.successBar("Product Added SuccessFully!", context);
        setLoading(false);
     } catch (e) {
@@ -203,5 +224,5 @@ class AddProductController extends GetxController {
   }
 
 
+  
 }
-

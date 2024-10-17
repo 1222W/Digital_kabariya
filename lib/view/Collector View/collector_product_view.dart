@@ -1,25 +1,22 @@
-import 'package:digital_kabaria_app/common/custom_app_bar.dart';
 import 'package:digital_kabaria_app/common/custom_button.dart';
-import 'package:digital_kabaria_app/controllers/seller_controllers/seller_product_controller.dart';
-import 'package:digital_kabaria_app/model/product_model.dart';
+import 'package:digital_kabaria_app/controllers/collector_controllers/collector_product_controller.dart';
 import 'package:digital_kabaria_app/utils/app_colors.dart';
 import 'package:digital_kabaria_app/utils/custom_navigation.dart';
 import 'package:digital_kabaria_app/utils/sized_box_extension.dart';
-import 'package:digital_kabaria_app/view/product/add_product_screen.dart';
+import 'package:digital_kabaria_app/view/Collector%20View/collector_add_product_view.dart';
 import 'package:flutter/material.dart';
-// import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
-class SellerProductView extends StatefulWidget {
-  const SellerProductView({super.key});
+class CollectorProductView extends StatefulWidget {
+  const CollectorProductView({super.key});
 
   @override
-  State<SellerProductView> createState() => _SellerProductViewState();
+  State<CollectorProductView> createState() => _SellerProductViewState();
 }
 
-class _SellerProductViewState extends State<SellerProductView> {
-SellerProductController controller = Get.put(SellerProductController());
+class _SellerProductViewState extends State<CollectorProductView> {
+CollectorProductController controller = Get.put(CollectorProductController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -123,7 +120,7 @@ SellerProductController controller = Get.put(SellerProductController());
                                     child: CustomButton(
                                       text: "Delete",
                                       onPressed: () {
-                                        deletePostedMaterial(context);
+                                        deletePostedMaterial(context,data.docId);
                                       },
                                     ))
                               ],
@@ -145,7 +142,7 @@ SellerProductController controller = Get.put(SellerProductController());
           textColor: AppColors.blackColor,
           border: BorderSide(color: AppColors.blackColor.withOpacity(.5)),
           onPressed: () {
-            push(context,AddPostScreen());
+            push(context,CollectorAddProductView());
           },
         ));
   }
@@ -154,6 +151,7 @@ SellerProductController controller = Get.put(SellerProductController());
 // deletePostedMaterial Dialogue
 void deletePostedMaterial(
   BuildContext context,
+  var docId,
 ) {
   showDialog(
     context: context,
@@ -204,7 +202,11 @@ void deletePostedMaterial(
                   Expanded(
                       child: CustomButton(
                     text: "Confirm",
-                    onPressed: () {},
+                    onPressed: () {
+                 CollectorProductController controller =     Get.put(CollectorProductController());
+                 controller.deleteProduct(context, docId);
+                 pop(context);
+                    },
                   )),
                   10.w.sizedBoxWidth,
                   Expanded(
@@ -215,6 +217,7 @@ void deletePostedMaterial(
                     border:
                         BorderSide(color: AppColors.appColor.withOpacity(.5)),
                     onPressed: () {
+                      
                       Navigator.pop(context);
                     },
                   )),

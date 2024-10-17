@@ -23,7 +23,7 @@ class _UserHomeViewState extends State<UserHomeView> {
   final userState = Get.put(UserState());
 final List<Widget> pages = [
   const BuyScrapsView(),
-  const PostedMaterialView(),
+  const SellerProductView(),
   const BidsView(),
   const DealsView()
 ];

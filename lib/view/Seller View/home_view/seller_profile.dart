@@ -1,6 +1,10 @@
+import 'dart:developer';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:digital_kabaria_app/common/app_loader.dart';
 import 'package:digital_kabaria_app/common/custom_button.dart';
 import 'package:digital_kabaria_app/common/custom_text_form_field.dart';
+import 'package:digital_kabaria_app/controllers/seller_controllers/seller_profile_controller.dart';
 import 'package:digital_kabaria_app/utils/app_colors.dart';
 import 'package:digital_kabaria_app/utils/app_text.dart';
 import 'package:digital_kabaria_app/utils/custom_navigation.dart';
@@ -12,10 +16,33 @@ import 'package:get/get.dart';
 
 import '../Auth View/Auth State/auth_state.dart';
 
-class SellerProfileView extends StatelessWidget {
-   SellerProfileView({super.key});
+class SellerProfileView extends StatefulWidget {
+  SellerProfileView({super.key});
 
+  @override
+  State<SellerProfileView> createState() => _SellerProfileViewState();
+}
+
+class _SellerProfileViewState extends State<SellerProfileView> {
   final authState = Get.put(AuthStateController());
+  var data;
+  var fullName = '';
+  var email = '';
+  var phone = '';
+
+  SellerProfileController controller = Get.put(SellerProfileController());
+  TextEditingController name = TextEditingController();
+  TextEditingController emailAddress = TextEditingController();
+  TextEditingController phoneNum = TextEditingController();
+
+  // Function to restore data from snapshot
+  isDataRestored() {
+    if (data != null) {
+      name.text = fullName ?? '';
+      emailAddress.text = email ?? '';
+      phoneNum.text = phone ?? '';
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -26,56 +53,92 @@ class SellerProfileView extends StatelessWidget {
       backgroundColor: AppColors.whiteColor,
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 15.0),
-        child: Column(
-          children: [
-            SizedBox(
-              height: height * .05,
-            ),
-            const Center(
-                child: AppText(
-              text: "Profile",
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
-            )),
-            SizedBox(
-              height: height * .08,
-            ),
-            const CustomTextFormField(
-              readOnly: true,
-              flag: false,
-              hintText: "Ahsan Khan",
-            ),
-            20.h.sizedBoxHeight,
-            const CustomTextFormField(
-              readOnly: true,
+        child: FutureBuilder(
+          future: controller.getProfile(),
+          builder: (context, snapshot) {
+            if (snapshot.hasError) {
+              return const Center(child: Text('Something went wrong'));
+            }
 
-              hintText: "ahsan@gmail.com",
-            ),
-            20.h.sizedBoxHeight,
-            const CustomTextFormField(
-              readOnly: true,
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Center(child: CircularProgressIndicator());
+            }
 
-              hintText: "032434343",
-            ),
-            20.h.sizedBoxHeight,
-            CustomButton(
-              onPressed: () {
-                push(context, SellerUpdateProfile());
-              },
-              text: "Update Profile",
-            ),
-            20.h.sizedBoxHeight,
+            if (!snapshot.hasData) {
+              return const Center(child: Text('No Data found'));
+            }
 
-            Obx((){
-              return authState.isLoading.value ?const AppLoader(): CustomButton(
-              btnColor: AppColors.redColor,
-              onPressed: () {
-                authState.logOut(context);
-              },
-              text: "Log out",
+            data = snapshot.data as DocumentSnapshot;
+            fullName = data['full_name'];
+            email = data['email_address'];
+            phone = data['phone_number'];
+
+            
+            isDataRestored();
+
+            return SingleChildScrollView(
+              child: Column(
+                children: [
+                  SizedBox(height: height * .05),
+                  const Center(
+                    child: AppText(
+                      text: "Profile",
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  SizedBox(height: height * .08),
+                  CustomTextFormField(
+                    flag: false,
+                    hintText: "Full Name",
+                    controller: name,
+                  ),
+                  20.h.sizedBoxHeight,
+                  CustomTextFormField(
+                    hintText: "Email",
+                    controller: emailAddress,
+                  ),
+                  20.h.sizedBoxHeight,
+                  CustomTextFormField(
+                    hintText: "Phone Number",
+                    controller: phoneNum,
+                  ),
+                  20.h.sizedBoxHeight,
+   Obx(() {
+  // Always access .value of the RxBool
+  return controller.isLoading.value
+      ? Center(child: AppLoader())  // Show loader if isLoading is true
+      : CustomButton(
+          onPressed: () {
+            controller.updateProfile(
+              context,
+              fullName: name.text,
+              email: emailAddress.text,
+              phone: phoneNum.text,
             );
-            })
-          ],
+          },
+          text: "Update Profile",
+        );
+}),
+
+
+                
+                  20.h.sizedBoxHeight,
+                  Obx(() {
+                    return authState.isLoading.value
+                        ? const AppLoader()
+                        : CustomButton(
+                            btnColor: AppColors.redColor,
+                            onPressed: () {
+                              authState.logOut(context);
+                            },
+                            text: "Log out",
+                          );
+                  }),
+                ],
+              ),
+            );
+          },
         ),
       ),
     );

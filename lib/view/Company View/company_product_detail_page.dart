@@ -7,6 +7,7 @@ import 'package:digital_kabaria_app/Utils/app_strings.dart';
 import 'package:digital_kabaria_app/Utils/app_text.dart';
 import 'package:digital_kabaria_app/Utils/custom_dialog.dart';
 import 'package:digital_kabaria_app/Utils/custom_navigation.dart';
+import 'package:digital_kabaria_app/controllers/company_controllers/company_product_detail_controller.dart';
 import 'package:digital_kabaria_app/controllers/product/product_detail_controller.dart';
 import 'package:digital_kabaria_app/model/product_model.dart';
 import 'package:digital_kabaria_app/view/Seller%20View/buy_scraps_view.dart';
@@ -21,20 +22,20 @@ import 'package:voice_message_package/voice_message_package.dart';
 
 import '../../Utils/preferences.dart';
 
-class ProductDetailPage extends StatefulWidget {
+class CompanyProductDetailPage extends StatefulWidget {
   final String docId;
-  ProductDetailPage({super.key, required this.docId});
+  CompanyProductDetailPage({super.key, required this.docId});
 
   @override
-  State<ProductDetailPage> createState() => _ProductDetailPageState();
+  State<CompanyProductDetailPage> createState() => _CompanyProductDetailPageState();
 }
 
-class _ProductDetailPageState extends State<ProductDetailPage> {
+class _CompanyProductDetailPageState extends State<CompanyProductDetailPage> {
   bool _isRecording = false;
   String _recordedFilePath = '';
   bool _hasRecordedFile = false;
   final FlutterSoundRecord _audioRecorder = FlutterSoundRecord();
-  final ProductDetailController controller = Get.put(ProductDetailController());
+  final CompanyProductDetailController controller = Get.put(CompanyProductDetailController());
   TextEditingController bidController = TextEditingController();
   @override
   void initState() {
@@ -63,7 +64,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
           maxLines: 2,
         ),
       ),
-      body: GetBuilder<ProductDetailController>(
+      body: GetBuilder<CompanyProductDetailController>(
         builder: (controller) {
           if (controller.isLoading) {
             return const Center(child: CircularProgressIndicator());
