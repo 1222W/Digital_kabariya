@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
 
-class UserState extends GetxController {
+class CompanyState extends GetxController {
   
   // User Home Bottom Nav State
 final currentIndex = 0.obs;

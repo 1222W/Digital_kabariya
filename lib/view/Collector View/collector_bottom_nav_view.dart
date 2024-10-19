@@ -1,4 +1,5 @@
 import 'package:digital_kabaria_app/common/custom_app_bar.dart';
+import 'package:digital_kabaria_app/controllers/collector_controllers/collector_state_controller.dart';
 import 'package:digital_kabaria_app/utils/app_colors.dart';
 import 'package:digital_kabaria_app/utils/sized_box_extension.dart';
 
@@ -23,11 +24,9 @@ class CollectorBottomNavBar extends StatefulWidget {
 }
 
 class _CollectorBottomNavBarState extends State<CollectorBottomNavBar> {
-  final userState = Get.put(UserState());
+  final collectorState = Get.put(CollectorStateController());
   final List<Widget> pages = [
     const HomeView(),
-    // const SellerProductView(),
-    // const BidsView(),
     const CollectorProductView(),
     SellerProfileView()
   ];
@@ -37,13 +36,14 @@ class _CollectorBottomNavBarState extends State<CollectorBottomNavBar> {
       appBar: const CustomAppBar(
         flag: true,
       ),
-      body: Obx(() {
-        return pages[userState.currentIndex.value];
-      }),
+      body:Obx(() {
+
+  return pages[collectorState.currentIndex.value];
+}),
       bottomNavigationBar: Obx(() {
         return BottomNavigationBar(
-            currentIndex: userState.currentIndex.value,
-            onTap: userState.updateSelectedIndex,
+            currentIndex: collectorState.currentIndex.value,
+            onTap: collectorState.updateSelectedIndex,
             type: BottomNavigationBarType.fixed,
             // showSelectedLabels: false,
             selectedItemColor: AppColors.appColor,
@@ -66,26 +66,21 @@ class _CollectorBottomNavBarState extends State<CollectorBottomNavBar> {
               BottomNavigationBarItem(
                 icon: Image.asset(
                   "assets/images/home.png",
-                  height: userState.currentIndex.value == 0 ? 40.h : 25.h,
+                  height: collectorState.currentIndex.value == 0 ? 40.h : 25.h,
                 ),
                 label: "Home",
               ),
               BottomNavigationBarItem(
                   icon: Image.asset(
                     "assets/images/my_posts.png",
-                    height: userState.currentIndex.value == 1 ? 40.h : 25.h,
+                    height: collectorState.currentIndex.value == 1 ? 40.h : 25.h,
                   ),
                   label: "Sell"),
-              // BottomNavigationBarItem(
-              //     icon: Image.asset(
-              //       "assets/images/bidings.png",
-              //       height: userState.currentIndex.value == 1 ? 40.h : 25.h,
-              //     ),
-              //     label: "Bid"),
+   
               BottomNavigationBarItem(
                   icon: Image.asset(
                     "assets/images/profile.png",
-                    height: userState.currentIndex.value == 2 ? 40.h : 25.h,
+                    height: collectorState.currentIndex.value == 2 ? 40.h : 25.h,
                   ),
                   label: "Profile"),
             ]);

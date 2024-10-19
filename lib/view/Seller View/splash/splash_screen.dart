@@ -8,6 +8,7 @@ import 'package:digital_kabaria_app/utils/app_text.dart';
 import 'package:digital_kabaria_app/utils/custom_navigation.dart';
 import 'package:digital_kabaria_app/utils/enums.dart';
 import 'package:digital_kabaria_app/view/Collector%20View/collector_bottom_nav_view.dart';
+import 'package:digital_kabaria_app/view/Company%20View/company_bottom_view.dart';
 import 'package:digital_kabaria_app/view/Seller%20View/Auth%20View/login_view.dart';
 import 'package:digital_kabaria_app/view/Seller%20View/home_view/seller_home_view.dart';
 import 'package:digital_kabaria_app/view/Seller%20View/verification/verification_screen.dart';
@@ -29,7 +30,9 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
     _toggleFade();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
     checkUser(context);
+  });
   }
 
   void _toggleFade() {
@@ -40,7 +43,9 @@ class _SplashScreenState extends State<SplashScreen> {
         });
         Future.delayed(const Duration(seconds: 2), () {
           if (mounted) {
-            pushReplacement(context, const LoginView());
+    checkUser(context);
+
+            // pushReplacement(context, const LoginView());
           }
         });
       }
@@ -67,13 +72,14 @@ class _SplashScreenState extends State<SplashScreen> {
 
     if (userDoc.exists) {
       var userData = userDoc.data() as Map<String, dynamic>;
+      
 
       if (userData['role'] == ROLENAME.Seller.name) {
         pushUntil(context, const SellerHomeView());
       } else if (userData['role'] == ROLENAME.Collector.name) {
         pushUntil(context, const CollectorBottomNavBar());
-      } else if (userData['role'] == ROLENAME.Collector.name) {
-        pushUntil(context, const CollectorBottomNavBar());
+      } else if (userData['role'] == ROLENAME.Buyer.name) {
+        pushUntil(context, const CompanyBottomBar());
       }
     } else {
       pushUntil(context, const LoginView());

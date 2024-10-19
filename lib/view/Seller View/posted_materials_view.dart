@@ -123,7 +123,7 @@ SellerProductController controller = Get.put(SellerProductController());
                                     child: CustomButton(
                                       text: "Delete",
                                       onPressed: () {
-                                        deletePostedMaterial(context);
+                                        deletePostedMaterial(context,data.docId);
                                       },
                                     ))
                               ],
@@ -154,10 +154,13 @@ SellerProductController controller = Get.put(SellerProductController());
 // deletePostedMaterial Dialogue
 void deletePostedMaterial(
   BuildContext context,
+  final docId,
 ) {
   showDialog(
     context: context,
     builder: (context) {
+SellerProductController controller = Get.put(SellerProductController());
+
       return AlertDialog(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(40)),
         backgroundColor: AppColors.whiteColor,
@@ -204,7 +207,9 @@ void deletePostedMaterial(
                   Expanded(
                       child: CustomButton(
                     text: "Confirm",
-                    onPressed: () {},
+                    onPressed: () {
+                      controller.deleteProduct(docId,context);
+                    },
                   )),
                   10.w.sizedBoxWidth,
                   Expanded(

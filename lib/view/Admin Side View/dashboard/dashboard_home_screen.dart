@@ -22,13 +22,13 @@ class _DashboardHomeScreenState extends State<DashboardHomeScreen> {
           SizedBox(
             height: height * .050,
           ),
-          Container(
+          // Container(
               
-              width: width * .60,
-              child: const CustomTextFormField(
-                prefixIcon: Icon(Icons.search,),
-                hintText: "Search",
-              )),
+          //     width: width * .60,
+          //     child: const CustomTextFormField(
+          //       prefixIcon: Icon(Icons.search,),
+          //       hintText: "Search",
+          //     )),
           SizedBox(
             height: height * .020,
           ),

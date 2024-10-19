@@ -23,7 +23,6 @@ class SellerHomeView extends StatefulWidget {
 class _SellerHomeViewState extends State<SellerHomeView> {
   final userState = Get.put(UserState());
   final List<Widget> pages = [
-    // const HomeView(),
      SellerProductView(),
      SellerProfileView()
   ];
@@ -34,8 +33,8 @@ class _SellerHomeViewState extends State<SellerHomeView> {
         flag: true,
       ),
       body: Obx(() {
-        return pages[userState.currentIndex.value];
-      }),
+  return pages[userState.currentIndex.value];
+}),
       bottomNavigationBar: Obx(() {
         return BottomNavigationBar(
             currentIndex: userState.currentIndex.value,
@@ -59,13 +58,7 @@ class _SellerHomeViewState extends State<SellerHomeView> {
                 color: AppColors.blackColor.withOpacity(.5), size: 25.sp),
             landscapeLayout: BottomNavigationBarLandscapeLayout.centered,
             items: [
-              // BottomNavigationBarItem(
-              //   icon: Image.asset(
-              //     "assets/images/home.png",
-              //     height: userState.currentIndex.value == 0 ? 40.h : 25.h,
-              //   ),
-              //   label: "Home",
-              // ),
+          
               BottomNavigationBarItem(
                   icon: Image.asset(
                     "assets/images/my_posts.png",

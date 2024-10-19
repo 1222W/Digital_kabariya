@@ -155,25 +155,25 @@ class _AddPostScreenState extends State<AddPostScreen> {
                   },
                 ),
                 20.h.sizedBoxHeight,
-                CustomCheckboxListTile(
-                  value: _isSellChecked,
-                  text: "Sell",
-                  onChanged: (bool? newValue) {
-                    setState(() {
-                      _isSellChecked = newValue ?? false;
-                    });
-                  },
-                ),
-                CustomCheckboxListTile(
-                  value: _isAlertChecked,
-                  text: "Create Alert",
-                  onChanged: (bool? newValue) {
-                    setState(() {
-                      _isAlertChecked = newValue ?? false;
-                    });
-                  },
-                ),
-                20.h.sizedBoxHeight,
+                // CustomCheckboxListTile(
+                //   value: _isSellChecked,
+                //   text: "Sell",
+                //   onChanged: (bool? newValue) {
+                //     setState(() {
+                //       _isSellChecked = newValue ?? false;
+                //     });
+                //   },
+                // ),
+                // CustomCheckboxListTile(
+                //   value: _isAlertChecked,
+                //   text: "Create Alert",
+                //   onChanged: (bool? newValue) {
+                //     setState(() {
+                //       _isAlertChecked = newValue ?? false;
+                //     });
+                //   },
+                // ),
+                // 20.h.sizedBoxHeight,
                 GetBuilder<AddProductController>(builder: (controller) {
                   return CustomTextFormField(
                     controller: controller.productName,

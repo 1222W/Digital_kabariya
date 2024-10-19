@@ -1,3 +1,4 @@
+import 'package:digital_kabaria_app/utils/app_colors.dart';
 import 'package:digital_kabaria_app/view/Admin%20Side%20View/dashboard/dashboard_home_screen.dart';
 import 'package:digital_kabaria_app/view/Admin%20Side%20View/dashboard/dashboard_logout_screen.dart';
 import 'package:digital_kabaria_app/view/Admin%20Side%20View/dashboard/dashboard_profile_screen.dart';
@@ -24,6 +25,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColors.appColor,
       body: Row(
         children: [
           Expanded(
