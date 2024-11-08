@@ -127,7 +127,7 @@ class SignUpController extends GetxController {
         };
         await users.doc(userId).set(data);
         Preferences.saveData(data);
-        print("documentReference ${data}");
+        print("documentReference $data");
         setLoading(false);
         pushUntil(context, screen);
         sendEmailVerificationLink(context);

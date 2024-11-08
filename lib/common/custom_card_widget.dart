@@ -33,7 +33,7 @@ class CustomCard extends StatelessWidget {
                     fit: BoxFit.fill)),
           ),
            Padding(
-            padding: EdgeInsets.only(left: 5, right: 5, top: 5.0),
+            padding: const EdgeInsets.only(left: 5, right: 5, top: 5.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -49,7 +49,7 @@ class CustomCard extends StatelessWidget {
                     child: Align(
                         alignment: Alignment.topRight,
                         child: AppText(
-                          text:  price.toString()+"PKR",
+                          text:  "${price}PKR",
                           fontWeight: FontWeight.bold,
                           fontSize: 12,
                           overflow: TextOverflow.ellipsis,
@@ -58,7 +58,7 @@ class CustomCard extends StatelessWidget {
             ),
           ),
            Padding(
-            padding: EdgeInsets.only(right: 5.0, left: 5.0, top: 5.0),
+            padding: const EdgeInsets.only(right: 5.0, left: 5.0, top: 5.0),
             child: Align(
               alignment: Alignment.topLeft,
               child: AppText(

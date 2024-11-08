@@ -16,7 +16,7 @@ import 'package:image_picker/image_picker.dart';
 
 class AddProductController extends GetxController {
   
-  LatLng center = LatLng(40.7128, -74.0060);
+  LatLng center = const LatLng(40.7128, -74.0060);
   PickResult? selectedPlace;
   String? address;
   String appBarTitle = 'Pick a Location';
@@ -93,7 +93,7 @@ class AddProductController extends GetxController {
 
   void pickImages() async {
     final ImagePicker picker = ImagePicker();
-    final List<XFile>? images = await picker.pickMultiImage();
+    final List<XFile> images = await picker.pickMultiImage();
     if (images == null || images.isEmpty) return;
 
     for (XFile image in images) {
@@ -181,7 +181,7 @@ class AddProductController extends GetxController {
         "lng":lng,
          "userId":auth.currentUser!.uid,
       };
-      print("dataa ${data}");
+      print("dataa $data");
        clear();
        db.collection("products").doc().set(data);
        Utils.successBar("Product Added SuccessFully!", context);

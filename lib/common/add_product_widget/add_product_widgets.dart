@@ -11,7 +11,7 @@ ImageProvider<Object>? backgroundImage;
     return InkWell(
       onTap: onTap,
       child: DottedBorder(
-        dashPattern: [5],
+        dashPattern: const [5],
         color: Colors.black,
         strokeWidth: 1,
         borderType: BorderType.Circle,

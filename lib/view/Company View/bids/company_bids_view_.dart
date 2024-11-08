@@ -67,7 +67,7 @@ class _CompanyBidsviewState extends State<CompanyBidsview> {
                         return ClipRRect(
                           borderRadius: BorderRadius.circular(8.sp),
                           child: Container(
-                            padding: EdgeInsets.all(15.0),
+                            padding: const EdgeInsets.all(15.0),
                             width: double.infinity,
                             // padding: EdgeInsets.all(15.sp),
                             margin: EdgeInsets.only(bottom: 10.h),

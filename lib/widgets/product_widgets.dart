@@ -5,7 +5,7 @@ import 'package:flutter/widgets.dart';
 
 class NumberWidget extends StatelessWidget {
   final numberOne, numberTwo;
-   NumberWidget({super.key,this.numberOne,this.numberTwo});
+   const NumberWidget({super.key,this.numberOne,this.numberTwo});
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +15,7 @@ class NumberWidget extends StatelessWidget {
            Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              AppText(text: AppStrings.numberOne,fontSize: 14,fontWeight: FontWeight.bold,maxLines: 2,),
+              const AppText(text: AppStrings.numberOne,fontSize: 14,fontWeight: FontWeight.bold,maxLines: 2,),
               AppText(text: numberOne,fontSize: 14,fontWeight: FontWeight.w500,maxLines: 2,),
             ],
           ),
@@ -23,7 +23,7 @@ class NumberWidget extends StatelessWidget {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              AppText(text: AppStrings.numberTwo,fontSize: 14,fontWeight: FontWeight.bold,maxLines: 2,),
+              const AppText(text: AppStrings.numberTwo,fontSize: 14,fontWeight: FontWeight.bold,maxLines: 2,),
               AppText(text: numberTwo,fontSize: 14,fontWeight: FontWeight.w500,maxLines: 2,),
             ],
           ),
@@ -42,7 +42,7 @@ class ProductAdrees extends StatelessWidget {
     return    Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-               AppText(text: AppStrings.address,fontSize: 14,fontWeight: FontWeight.bold,maxLines: 2,),
+               const AppText(text: AppStrings.address,fontSize: 14,fontWeight: FontWeight.bold,maxLines: 2,),
               AppText(text: address,fontSize: 14,fontWeight: FontWeight.w500,maxLines: 2,),
             ],
           );

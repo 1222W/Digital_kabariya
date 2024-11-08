@@ -58,7 +58,7 @@ class _AdminLoginScreenState extends State<AdminLoginScreen> {
                   SizedBox(
                     height: 10.h,
                   ),
-                  AppText(
+                  const AppText(
                     text: "Digital Kabaria",
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
@@ -144,7 +144,7 @@ class _AdminLoginScreenState extends State<AdminLoginScreen> {
                                         authState.passwordCTRL.value.text ==
                                             "admin@123") {
                                               Pref.setUser("admin@gmail.com");
-                                      pushUntil(context, DashBoardScreen());
+                                      pushUntil(context, const DashBoardScreen());
                                       Utils.successBar(
                                           "Login SuccessFully!", context);
                                     }

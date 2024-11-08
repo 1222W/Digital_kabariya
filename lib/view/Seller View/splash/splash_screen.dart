@@ -1,8 +1,5 @@
-import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:digital_kabaria_app/Utils/preferences.dart';
-import 'package:digital_kabaria_app/model/users.model.dart';
 import 'package:digital_kabaria_app/utils/app_colors.dart';
 import 'package:digital_kabaria_app/utils/app_text.dart';
 import 'package:digital_kabaria_app/utils/custom_navigation.dart';
@@ -13,7 +10,6 @@ import 'package:digital_kabaria_app/view/Seller%20View/Auth%20View/login_view.da
 import 'package:digital_kabaria_app/view/Seller%20View/home_view/seller_home_view.dart';
 import 'package:digital_kabaria_app/view/Seller%20View/verification/verification_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
 class SplashScreen extends StatefulWidget {

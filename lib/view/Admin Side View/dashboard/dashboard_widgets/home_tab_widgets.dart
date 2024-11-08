@@ -71,7 +71,7 @@ borderRadius: BorderRadius.circular(10.0)
             height: 200,
             child: SfSparkAreaChart (
               color: AppColors.secondaryColor,
-               data: <double>[
+               data: const <double>[
                       1, 5, -6, 0, 1, -2, 7, -7, -4, -10, 4, -6, 7, 5, 5, 5, 3
                     ],
             ),
@@ -184,10 +184,10 @@ class ProfileComponentWidget extends StatelessWidget {
       child:  Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          CircleAvatar(radius: 50,child:  Icon(Icons.person,size: 50,),backgroundColor: AppColors.whiteColor,),
-          SizedBox(height: 10.0,),
-          AppText(text:  "Admin",fontSize: 20,fontWeight: FontWeight.bold,color: AppColors.whiteColor,),
-          SizedBox(height: 10.0,),
+          const CircleAvatar(radius: 50,backgroundColor: AppColors.whiteColor,child:  Icon(Icons.person,size: 50,),),
+          const SizedBox(height: 10.0,),
+          const AppText(text:  "Admin",fontSize: 20,fontWeight: FontWeight.bold,color: AppColors.whiteColor,),
+          const SizedBox(height: 10.0,),
 
           Container(
             width: MediaQuery.of(context).size.width*0.10,
@@ -199,7 +199,7 @@ class ProfileComponentWidget extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            Icon(
+            const Icon(
               Icons.logout,
               color: AppColors.whiteColor
             ),

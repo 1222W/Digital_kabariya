@@ -1,14 +1,11 @@
-import 'dart:developer';
 
 import 'package:digital_kabaria_app/common/custom_card_widget.dart';
 import 'package:digital_kabaria_app/controllers/company_controllers/company_home_controller.dart';
 import 'package:digital_kabaria_app/model/product_model.dart';
 import 'package:digital_kabaria_app/utils/app_colors.dart';
 import 'package:digital_kabaria_app/view/Company%20View/company_product_detail_page.dart';
-import 'package:digital_kabaria_app/view/product/product_detail_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 
 class CompanyHomeView extends StatefulWidget {
   const CompanyHomeView({super.key});

@@ -16,23 +16,25 @@ import 'package:digital_kabaria_app/widgets/product_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_sound_record/flutter_sound_record.dart';
 import 'package:get/get.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:url_launcher/url_launcher_string.dart';
+// import 'package:url_launcher/url_launcher_string.dart';
 import 'package:voice_message_package/voice_message_package.dart';
 
 import '../../Utils/preferences.dart';
 
 class ProductDetailPage extends StatefulWidget {
   final String docId;
-  ProductDetailPage({super.key, required this.docId});
+  const ProductDetailPage({super.key, required this.docId});
 
   @override
   State<ProductDetailPage> createState() => _ProductDetailPageState();
 }
 
 class _ProductDetailPageState extends State<ProductDetailPage> {
-  bool _isRecording = false;
-  String _recordedFilePath = '';
-  bool _hasRecordedFile = false;
+  final bool _isRecording = false;
+  final String _recordedFilePath = '';
+  final bool _hasRecordedFile = false;
   final FlutterSoundRecord _audioRecorder = FlutterSoundRecord();
   final ProductDetailController controller = Get.put(ProductDetailController());
   TextEditingController bidController = TextEditingController();
@@ -201,7 +203,9 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                         text: "Call Number One",
                         textSize: 12.0,
                         onPressed: () {
-                          launchUrlString("tel://"+"${product.number}");
+launchUrlString("tel://'${product.number}'");
+
+
                          }),
                     ),
                     const SizedBox(width: 10,),
@@ -213,7 +217,9 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                         textSize: 12.0,
 
                                              onPressed: () {
-                          launchUrlString("tel://"+"${product.secondNum}");
+                          // launchUrlString("tel://"product.secondNum.toString());
+launchUrlString("tel://'${product.secondNum}'");
+
                                               
                          }),
                        )
@@ -245,5 +251,14 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
         },
       ),
     );
+  }
+}
+
+Future<void> makePhoneCall(String phoneNumber) async {
+  final Uri phoneUri = Uri(scheme: 'tel', path: phoneNumber);
+  if (await canLaunchUrl(phoneUri)) {
+    await launchUrl(phoneUri);
+  } else {
+    print('Could not launch $phoneUri');
   }
 }

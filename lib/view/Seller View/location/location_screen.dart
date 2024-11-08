@@ -29,47 +29,41 @@ class _LocationScreenState extends State<LocationScreen> {
       backgroundColor: AppColors.whiteColor,
       body: GetBuilder<AddProductController>(
         builder: (_) {
-          if (_.center == null) {
-            return Center(
-              child: CircularProgressIndicator(),
-            );
-          } else {
-            return Stack(
-              children: [
-                PlacePicker(
-                  apiKey: 'AIzaSyDka8c0sYp6KgWOnnwJwHsAzBxUZJTJZYY',
-                  initialPosition: _.center,
-                  useCurrentLocation: true,
-                  onPlacePicked: (result) {
-                    setState(() {
-                      _.selectedPlace = result;
-                      // _.getAddressFromLatLng(LatLng(result.geometry!.location.lat, result.geometry!.location.lng));
-                    });
-                  },
-                ),
-                if (_.address != null)
-                  Positioned(
-                    top: 300.h,
-                    left: 20,
-                    right: 20,
-                    child: Card(
-                      elevation: 5,
-                      child: Padding(
-                        padding: const EdgeInsets.all(10.0),
-                        child: Text(
-                          _.address!,
-                          style: const TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                          ),
+          return Stack(
+            children: [
+              PlacePicker(
+                apiKey: 'AIzaSyDka8c0sYp6KgWOnnwJwHsAzBxUZJTJZYY',
+                initialPosition: _.center,
+                useCurrentLocation: true,
+                onPlacePicked: (result) {
+                  setState(() {
+                    _.selectedPlace = result;
+                    // _.getAddressFromLatLng(LatLng(result.geometry!.location.lat, result.geometry!.location.lng));
+                  });
+                },
+              ),
+              if (_.address != null)
+                Positioned(
+                  top: 300.h,
+                  left: 20,
+                  right: 20,
+                  child: Card(
+                    elevation: 5,
+                    child: Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: Text(
+                        _.address!,
+                        style: const TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
                         ),
                       ),
                     ),
                   ),
-              ],
-            );
-          }
-        },
+                ),
+            ],
+          );
+                },
       ),
     );
   }

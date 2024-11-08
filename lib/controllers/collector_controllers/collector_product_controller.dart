@@ -21,7 +21,7 @@ class CollectorProductController extends GetxController {
    Stream<List<ProductModel>> getProductData() {
     return db.collection("collector_products").where("userId",isEqualTo: auth.currentUser!.uid).snapshots().map((snapshot) {
       return snapshot.docs.map((doc) {
-        var data = doc.data() as Map<String, dynamic>;
+        var data = doc.data();
         return ProductModel.fromJson(data, doc.id);
       }).toList();
     });
@@ -37,7 +37,7 @@ class CollectorProductController extends GetxController {
       print(e.toString());
     }
   }
- LatLng center = LatLng(40.7128, -74.0060);
+ LatLng center = const LatLng(40.7128, -74.0060);
   PickResult? selectedPlace;
   String? address;
   String appBarTitle = 'Pick a Location';
@@ -114,7 +114,7 @@ class CollectorProductController extends GetxController {
 
   void pickImages() async {
     final ImagePicker picker = ImagePicker();
-    final List<XFile>? images = await picker.pickMultiImage();
+    final List<XFile> images = await picker.pickMultiImage();
     if (images == null || images.isEmpty) return;
 
     for (XFile image in images) {
@@ -202,7 +202,7 @@ class CollectorProductController extends GetxController {
         "lng":lng,
          "userId":auth.currentUser!.uid,
       };
-      print("dataa ${data}");
+      print("dataa $data");
        clear();
        db.collection("collector_products").doc().set(data);
        Utils.successBar("Product Added SuccessFully!", context);

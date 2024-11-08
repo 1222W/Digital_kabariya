@@ -2,7 +2,6 @@ import 'package:another_flushbar/flushbar.dart';
 import 'package:another_flushbar/flushbar_route.dart';
 import 'package:digital_kabaria_app/utils/app_colors.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 
 class Utils {
   static snackBar(String message, BuildContext context) {

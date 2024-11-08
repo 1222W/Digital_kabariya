@@ -257,7 +257,7 @@ class _AddPostScreenState extends State<AddPostScreen> {
                 
                 GetBuilder<AddProductController>(builder: (controller){
                   if (controller.address == null ) {
-                    return SizedBox();
+                    return const SizedBox();
                     
                   }else{
 
@@ -301,7 +301,7 @@ class _AddPostScreenState extends State<AddPostScreen> {
                 ),
                 20.h.sizedBoxHeight,
               Obx((){
-                return controller.isLoading.value?Center(child: AppLoader()):  CustomButton(
+                return controller.isLoading.value?const Center(child: AppLoader()):  CustomButton(
                   text: AppStrings.submit,
                   onPressed: () {
                     var data  = {

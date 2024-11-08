@@ -1,7 +1,5 @@
-import 'dart:developer';
 
 import 'package:digital_kabaria_app/common/app_loader.dart';
-import 'package:digital_kabaria_app/common/app_toast_message.dart';
 import 'package:digital_kabaria_app/common/custom_app_bar.dart';
 import 'package:digital_kabaria_app/common/custom_button.dart';
 import 'package:digital_kabaria_app/common/custom_drop_down.dart';
@@ -10,12 +8,6 @@ import 'package:digital_kabaria_app/controllers/sign_up/sign_up_controller.dart'
 import 'package:digital_kabaria_app/utils/app_colors.dart';
 import 'package:digital_kabaria_app/utils/enums.dart';
 import 'package:digital_kabaria_app/utils/sized_box_extension.dart';
-import 'package:digital_kabaria_app/view/Collector%20View/collector_bottom_nav_view.dart';
-import 'package:digital_kabaria_app/view/Company%20View/company_bottom_view.dart';
-import 'package:digital_kabaria_app/view/Seller%20View/Auth%20View/Auth%20State/auth_state.dart';
-import 'package:digital_kabaria_app/view/Seller%20View/approval/approval_screen.dart';
-import 'package:digital_kabaria_app/view/Seller%20View/home_view/seller_home_view.dart';
-import 'package:digital_kabaria_app/view/Seller%20View/user_home_view.dart';
 import 'package:digital_kabaria_app/view/Seller%20View/verification/verification_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';

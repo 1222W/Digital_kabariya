@@ -1,15 +1,10 @@
-import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:digital_kabaria_app/Common/constants/constants.dart';
 import 'package:digital_kabaria_app/Common/constants/enums.dart';
 import 'package:digital_kabaria_app/Utils/utils.dart';
-import 'package:digital_kabaria_app/view/Seller%20View/home_view/home_view.dart';
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../Utils/custom_navigation.dart';
-import '../../view/Collector View/collector_bottom_nav_view.dart';
 
 class BidController extends GetxController {
   RxBool isLoading = false.obs;

@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 
 class AppStrings {
   static const String submit = "Submit";
@@ -12,5 +11,6 @@ class AppStrings {
   static const String numberOne = "Phone Number";
   static const String numberTwo = "Second Phone Number";
   static const String address = "Address";
+  static const String save = "Save";
   
 }

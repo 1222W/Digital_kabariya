@@ -55,10 +55,10 @@ class _AdminSplashScreenState extends State<AdminSplashScreen> {
   checkUser(context) async {
     var user = await Pref.getUser();
     if (user != null) {
-      pushUntil(context,DashBoardScreen());
+      pushUntil(context,const DashBoardScreen());
       
     }else{
-      pushUntil(context,AdminLoginScreen());
+      pushUntil(context,const AdminLoginScreen());
 
     }
    

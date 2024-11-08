@@ -9,6 +9,7 @@ import 'package:digital_kabaria_app/view/Seller%20View/deals_view.dart';
 import 'package:digital_kabaria_app/view/Seller%20View/home_view/home_view.dart';
 import 'package:digital_kabaria_app/view/Seller%20View/home_view/seller_profile.dart';
 import 'package:digital_kabaria_app/view/Seller%20View/posted_materials_view.dart';
+import 'package:digital_kabaria_app/view/rates_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -23,7 +24,8 @@ class SellerHomeView extends StatefulWidget {
 class _SellerHomeViewState extends State<SellerHomeView> {
   final userState = Get.put(UserState());
   final List<Widget> pages = [
-     SellerProductView(),
+     const SellerProductView(),
+     const RatesScreen(),
      SellerProfileView()
   ];
   @override
@@ -65,10 +67,16 @@ class _SellerHomeViewState extends State<SellerHomeView> {
                     height: userState.currentIndex.value == 0 ? 40.h : 25.h,
                   ),
                   label: "Sell"),
+                                BottomNavigationBarItem(
+                  icon: Image.asset(
+                    "assets/images/rates.png",
+                    height: userState.currentIndex.value == 1 ? 40.h : 25.h,
+                  ),
+                  label: "Rates"),
               BottomNavigationBarItem(
                   icon: Image.asset(
                     "assets/images/profile.png",
-                    height: userState.currentIndex.value == 1 ? 40.h : 25.h,
+                    height: userState.currentIndex.value == 2 ? 40.h : 25.h,
                   ),
                   label: "Profile"),
             ]);

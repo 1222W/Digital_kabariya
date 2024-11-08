@@ -42,5 +42,6 @@ class CompanyProductDetailController extends GetxController {
     } catch (e) {
       print(e.toString());
     }
+    return null;
   }
 }

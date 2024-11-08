@@ -1,8 +1,6 @@
 import 'package:digital_kabaria_app/Common/constants/constants.dart';
 import 'package:digital_kabaria_app/Utils/utils.dart';
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_rx/get_rx.dart';
 
 class SellerProfileController extends GetxController {
   getProfile() async {

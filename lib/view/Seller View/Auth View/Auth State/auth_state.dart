@@ -96,32 +96,30 @@ class AuthStateController extends GetxController {
         // debugger();
 
         String id = FirebaseAuth.instance.currentUser!.uid;
-        if (id != null) {
-          final user = await FirebaseFirestore.instance
-              .collection(Collection.user)
-              .doc(id)
-              .get();
-          // debugger();
+        final user = await FirebaseFirestore.instance
+            .collection(Collection.user)
+            .doc(id)
+            .get();
+        // debugger();
 
-          UsersModel userModel = UsersModel.fromJson(user.data()!);
-          // debugger();
-          if (FirebaseAuth.instance.currentUser!.emailVerified) {
-            if (userModel.isVerify!) {
-              if (userModel.role == ROLENAME.Seller.name) {
-                pushReplacement(context, const SellerHomeView());
-              } else if (userModel.role == ROLENAME.Collector.name) {
-                pushReplacement(context, const CollectorBottomNavBar());
-              } else if (userModel.role == ROLENAME.Buyer.name) {
-                pushReplacement(context, const CompanyBottomBar());
-              }
-            } else {
-              pushReplacement(context, const RequestApprovalScreen());
+        UsersModel userModel = UsersModel.fromJson(user.data()!);
+        // debugger();
+        if (FirebaseAuth.instance.currentUser!.emailVerified) {
+          if (userModel.isVerify!) {
+            if (userModel.role == ROLENAME.Seller.name) {
+              pushReplacement(context, const SellerHomeView());
+            } else if (userModel.role == ROLENAME.Collector.name) {
+              pushReplacement(context, const CollectorBottomNavBar());
+            } else if (userModel.role == ROLENAME.Buyer.name) {
+              pushReplacement(context, const CompanyBottomBar());
             }
           } else {
-            pushReplacement(context, const VerfificationScreen());
+            pushReplacement(context, const RequestApprovalScreen());
           }
+        } else {
+          pushReplacement(context, const VerfificationScreen());
         }
-
+      
         setLoading(false);
         Utils.successBar("User Sign in SuccessFully!", context);
       } on FirebaseAuthException catch (e) {

@@ -85,7 +85,7 @@ void showBidDialog(BuildContext context, TextEditingController controller,
               ),
               Center(child: Obx((){
 
-                return  bidController.isLoading.value?AppLoader(): CustomButton(
+                return  bidController.isLoading.value?const AppLoader(): CustomButton(
                   text: "Submit",
                   onPressed: () {
                     if (controller.text.isEmpty) {

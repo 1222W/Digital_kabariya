@@ -41,7 +41,7 @@ showLogoutDialog(context) {
                 text: "Yes",
                 onPressed: () {
                   Pref.clearPref();
-                  pushUntil(context, AdminLoginScreen());
+                  pushUntil(context, const AdminLoginScreen());
                 },
               )),
               SizedBox(
@@ -51,7 +51,7 @@ showLogoutDialog(context) {
                   child: CustomButton(
                     btnColor: AppColors.whiteColor,
                     textColor: AppColors.appColor,
-                    border: BorderSide(color: AppColors.appColor),
+                    border: const BorderSide(color: AppColors.appColor),
                 text: "No",
                 onPressed: () {
                   Navigator.pop(context);

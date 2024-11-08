@@ -53,10 +53,10 @@ class _BidsViewScreenState extends State<BidsViewScreen> {
             stream: controller.getBids(productId: widget.productId),
             builder: (context, snapshot) {
               if (snapshot.hasError) {
-                Center(child: AppText(text: "someThing went wrong",),);
+                const Center(child: AppText(text: "someThing went wrong",),);
               }
             if (snapshot.connectionState == ConnectionState.waiting) {
-              return Center(child: CircularProgressIndicator(),); 
+              return const Center(child: CircularProgressIndicator(),); 
             }
                if (!snapshot.hasData) {
             return const Center(child: Text('No Bids found'));

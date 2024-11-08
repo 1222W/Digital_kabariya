@@ -22,7 +22,7 @@ CollectorProductController controller = Get.put(CollectorProductController());
     return Scaffold(
         backgroundColor: AppColors.whiteColor,
         body: Padding(
-          padding:  EdgeInsets.all(8.0),
+          padding:  const EdgeInsets.all(8.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -63,7 +63,7 @@ CollectorProductController controller = Get.put(CollectorProductController());
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Image.network(
-                                  "${data.images.first}",
+                                  data.images.first,
                                   height: 150.h,
                                   width: double.infinity,
                                   fit: BoxFit.cover,
@@ -104,7 +104,7 @@ CollectorProductController controller = Get.put(CollectorProductController());
                                       ),
                                       10.h.sizedBoxHeight,
                                       Text(
-                                        "${data.description}",
+                                        data.description,
                                         style: TextStyle(
                                             color:
                                                 AppColors.blackColor.withOpacity(.5),
@@ -142,7 +142,7 @@ CollectorProductController controller = Get.put(CollectorProductController());
           textColor: AppColors.blackColor,
           border: BorderSide(color: AppColors.blackColor.withOpacity(.5)),
           onPressed: () {
-            push(context,CollectorAddProductView());
+            push(context,const CollectorAddProductView());
           },
         ));
   }

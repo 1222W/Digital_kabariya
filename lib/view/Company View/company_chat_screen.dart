@@ -17,7 +17,7 @@ class _CompanyChatScreenState extends State<CompanyChatScreen> {
       appBar: AppBar(
         surfaceTintColor: AppColors.whiteColor,
         backgroundColor: AppColors.whiteColor,
-        title: AppText(text: "Chats",fontWeight: FontWeight.w800,),
+        title: const AppText(text: "Chats",fontWeight: FontWeight.w800,),
       ),
       body: ListView.builder(itemBuilder: (context,index){
         return ChatCardWidget(url: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT93mIeSAhdQKfPqXBQ0FFqPZ6NL5fKPnOwHg&s",title: "Ahsan",subtitle: "Hi",);

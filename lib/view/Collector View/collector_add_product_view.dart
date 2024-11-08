@@ -259,7 +259,7 @@ class _CollectorAddProductViewState extends State<CollectorAddProductView> {
                 
                 GetBuilder<CollectorProductController>(builder: (controller){
                   if (controller.address == null ) {
-                    return SizedBox();
+                    return const SizedBox();
                     
                   }else{
 
@@ -303,7 +303,7 @@ class _CollectorAddProductViewState extends State<CollectorAddProductView> {
                 ),
                 20.h.sizedBoxHeight,
               Obx((){
-                return controller.isLoading.value?Center(child: AppLoader()):  CustomButton(
+                return controller.isLoading.value?const Center(child: AppLoader()):  CustomButton(
                   text: AppStrings.submit,
                   onPressed: () {
                     var data  = {

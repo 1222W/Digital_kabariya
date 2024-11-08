@@ -3,13 +3,8 @@ import 'package:digital_kabaria_app/controllers/collector_controllers/collector_
 import 'package:digital_kabaria_app/utils/app_colors.dart';
 import 'package:digital_kabaria_app/utils/sized_box_extension.dart';
 
-import 'package:digital_kabaria_app/view/Seller%20View/User%20State/user_state.dart';
-import 'package:digital_kabaria_app/view/Seller%20View/bids_view.dart';
-import 'package:digital_kabaria_app/view/Seller%20View/buy_scraps_view.dart';
-import 'package:digital_kabaria_app/view/Seller%20View/deals_view.dart';
 import 'package:digital_kabaria_app/view/Seller%20View/home_view/home_view.dart';
 import 'package:digital_kabaria_app/view/Seller%20View/home_view/seller_profile.dart';
-import 'package:digital_kabaria_app/view/Seller%20View/posted_materials_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';

@@ -202,7 +202,9 @@ class _CompanyProductDetailPageState extends State<CompanyProductDetailPage> {
                         text: "Call Number One",
                         textSize: 12.0,
                         onPressed: () {
-                          launchUrlString("tel://"+"${product.number}");
+     launchUrlString("tel://'${product.number}'");
+
+
                          }),
                     ),
                     const SizedBox(width: 10,),
@@ -214,7 +216,9 @@ class _CompanyProductDetailPageState extends State<CompanyProductDetailPage> {
                         textSize: 12.0,
 
                                              onPressed: () {
-                          launchUrlString("tel://"+"${product.secondNum}");
+launchUrlString("tel://'${product.secondNum}'");
+
+
                                               
                          }),
                        )

@@ -10,14 +10,16 @@ import 'package:digital_kabaria_app/utils/app_text.dart';
 import 'package:digital_kabaria_app/utils/custom_navigation.dart';
 import 'package:digital_kabaria_app/utils/sized_box_extension.dart';
 import 'package:digital_kabaria_app/view/Seller%20View/home_view/update_profile_view.dart';
+import 'package:digital_kabaria_app/view/feed_back_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
+import '../../all_feed_back_screens.dart';
 import '../Auth View/Auth State/auth_state.dart';
 
 class SellerProfileView extends StatefulWidget {
-  SellerProfileView({super.key});
+  const SellerProfileView({super.key});
 
   @override
   State<SellerProfileView> createState() => _SellerProfileViewState();
@@ -107,7 +109,7 @@ class _SellerProfileViewState extends State<SellerProfileView> {
    Obx(() {
   // Always access .value of the RxBool
   return controller.isLoading.value
-      ? Center(child: AppLoader())  // Show loader if isLoading is true
+      ? const Center(child: AppLoader())  // Show loader if isLoading is true
       : CustomButton(
           onPressed: () {
             controller.updateProfile(
@@ -135,9 +137,27 @@ class _SellerProfileViewState extends State<SellerProfileView> {
                             text: "Log out",
                           );
                   }),
+                  20.h.sizedBoxHeight,
+
+                  CustomButton(
+          onPressed: () {
+          push(context, const FeedbackScreen());
+          },
+          text: "Feed back",
+        ),
+
+                  20.h.sizedBoxHeight,
+
+        CustomButton(
+          onPressed: () {
+          push(context, const AllFeedBackScreens());
+          },
+          text: "All Feed backs",
+        )
                 ],
               ),
             );
+         
           },
         ),
       ),

@@ -8,6 +8,6 @@ class DashboardUsersScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AdminSideView();
+    return const AdminSideView();
   }
 }

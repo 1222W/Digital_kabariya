@@ -42,5 +42,6 @@ class ProductDetailController extends GetxController {
     } catch (e) {
       print(e.toString());
     }
+    return null;
   }
 }

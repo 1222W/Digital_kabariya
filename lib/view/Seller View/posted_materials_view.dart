@@ -25,7 +25,7 @@ SellerProductController controller = Get.put(SellerProductController());
     return Scaffold(
         backgroundColor: AppColors.whiteColor,
         body: Padding(
-          padding:  EdgeInsets.all(8.0),
+          padding:  const EdgeInsets.all(8.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -66,7 +66,7 @@ SellerProductController controller = Get.put(SellerProductController());
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Image.network(
-                                  "${data.images.first}",
+                                  data.images.first,
                                   height: 150.h,
                                   width: double.infinity,
                                   fit: BoxFit.cover,
@@ -107,7 +107,7 @@ SellerProductController controller = Get.put(SellerProductController());
                                       ),
                                       10.h.sizedBoxHeight,
                                       Text(
-                                        "${data.description}",
+                                        data.description,
                                         style: TextStyle(
                                             color:
                                                 AppColors.blackColor.withOpacity(.5),
@@ -145,7 +145,7 @@ SellerProductController controller = Get.put(SellerProductController());
           textColor: AppColors.blackColor,
           border: BorderSide(color: AppColors.blackColor.withOpacity(.5)),
           onPressed: () {
-            push(context,AddPostScreen());
+            push(context,const AddPostScreen());
           },
         ));
   }

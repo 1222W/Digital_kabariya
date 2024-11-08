@@ -10,12 +10,10 @@ class Preferences {
   static const USER = "user";
  static saveData(Map<String,dynamic> user)async{
    SharedPreferences sp =await SharedPreferences.getInstance();
-   if (user != null) {
-   var data =sp.setString(USER, jsonEncode(user));
-   print("data ${data}");
-     
+ var data =sp.setString(USER, jsonEncode(user));
+ print("data ${data}");
+   
    }
-  }
 
    static getData()async{
    SharedPreferences sp =await SharedPreferences.getInstance();

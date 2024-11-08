@@ -51,10 +51,10 @@ class _DashboardHomeScreenState extends State<DashboardHomeScreen> {
               },
             ),
           ),
-          SizedBox(height: 10.0,),
-          LineChartWidget(),
-           SizedBox(height: 10.0,),
-          LineGraphWidget()
+          const SizedBox(height: 10.0,),
+          const LineChartWidget(),
+           const SizedBox(height: 10.0,),
+          const LineGraphWidget()
         ],
       ),
     );

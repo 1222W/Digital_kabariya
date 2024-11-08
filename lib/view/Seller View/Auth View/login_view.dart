@@ -262,7 +262,7 @@ void resetPasswordDialogue(
               ),
               Center(
                   child:Obx((){
-                    return resetState.isLoading.value ? AppLoader():CustomButton(
+                    return resetState.isLoading.value ? const AppLoader():CustomButton(
                 text: "Continue",
                 onPressed: () {
                   resetState.resetPassword(context,email: emailController.text);

@@ -9,7 +9,7 @@ class CompanyHomeController extends GetxController {
   Stream<List<ProductModel>> getProductData() {
     return db.collection("collector_products").snapshots().map((snapshot) {
       return snapshot.docs.map((doc) {
-        var data = doc.data() as Map<String, dynamic>;
+        var data = doc.data();
         return ProductModel.fromJson(data, doc.id);
       }).toList();
     });

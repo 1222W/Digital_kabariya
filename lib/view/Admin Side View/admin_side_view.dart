@@ -73,7 +73,7 @@ class _AdminSideViewState extends State<AdminSideView>
             GetBuilder<AdminState>(builder: (myVideoState) {
               return TabBar(
                   indicatorColor: AppColors.appColor,
-                  overlayColor: MaterialStateProperty.all(
+                  overlayColor: WidgetStateProperty.all(
                       AppColors.tealColor.withOpacity(.10)),
                   onTap: myVideoState.updateCurrenttab,
                   dividerColor: AppColors.blackColor.withOpacity(.25),

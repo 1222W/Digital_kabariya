@@ -1,4 +1,3 @@
-import 'package:digital_kabaria_app/Utils/app_text.dart';
 import 'package:flutter/material.dart';
 
 class MenuModel {
@@ -11,8 +10,8 @@ class SideMenuData {
   List<MenuModel> menu  = [
   MenuModel(icon: Icons.home,text: "Home"),
   MenuModel(icon: Icons.person,text: "Users"),
-  // MenuModel(icon: Icons.settings,text: "Settings"),
-  // MenuModel(icon: Icons.home,text: "Home"),
+  MenuModel(icon: Icons.money,text: "Rates"),
+  MenuModel(icon: Icons.feed,text: "Feedback"),
   // MenuModel(icon: Icons.logout,text: "Sign out"),
 ];
   
