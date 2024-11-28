@@ -9,6 +9,7 @@ import 'package:digital_kabaria_app/view/Seller%20View/deals_view.dart';
 import 'package:digital_kabaria_app/view/Seller%20View/home_view/home_view.dart';
 import 'package:digital_kabaria_app/view/Seller%20View/home_view/seller_profile.dart';
 import 'package:digital_kabaria_app/view/Seller%20View/posted_materials_view.dart';
+import 'package:digital_kabaria_app/view/rates_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -23,9 +24,9 @@ class SellerHomeView extends StatefulWidget {
 class _SellerHomeViewState extends State<SellerHomeView> {
   final userState = Get.put(UserState());
   final List<Widget> pages = [
-    const HomeView(),
-    const PostedMaterialView(),
-    const SellerProfileView()
+     const SellerProductView(),
+     const RatesScreen(),
+     SellerProfileView()
   ];
   @override
   Widget build(BuildContext context) {
@@ -34,8 +35,8 @@ class _SellerHomeViewState extends State<SellerHomeView> {
         flag: true,
       ),
       body: Obx(() {
-        return pages[userState.currentIndex.value];
-      }),
+  return pages[userState.currentIndex.value];
+}),
       bottomNavigationBar: Obx(() {
         return BottomNavigationBar(
             currentIndex: userState.currentIndex.value,
@@ -59,19 +60,19 @@ class _SellerHomeViewState extends State<SellerHomeView> {
                 color: AppColors.blackColor.withOpacity(.5), size: 25.sp),
             landscapeLayout: BottomNavigationBarLandscapeLayout.centered,
             items: [
-              BottomNavigationBarItem(
-                icon: Image.asset(
-                  "assets/images/home.png",
-                  height: userState.currentIndex.value == 0 ? 40.h : 25.h,
-                ),
-                label: "Home",
-              ),
+          
               BottomNavigationBarItem(
                   icon: Image.asset(
                     "assets/images/my_posts.png",
-                    height: userState.currentIndex.value == 1 ? 40.h : 25.h,
+                    height: userState.currentIndex.value == 0 ? 40.h : 25.h,
                   ),
                   label: "Sell"),
+                                BottomNavigationBarItem(
+                  icon: Image.asset(
+                    "assets/images/rates.png",
+                    height: userState.currentIndex.value == 1 ? 40.h : 25.h,
+                  ),
+                  label: "Rates"),
               BottomNavigationBarItem(
                   icon: Image.asset(
                     "assets/images/profile.png",

@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:digital_kabaria_app/Common/app_toast_message.dart';
+import 'package:digital_kabaria_app/Utils/preferences.dart';
 import 'package:digital_kabaria_app/utils/custom_navigation.dart';
 import 'package:digital_kabaria_app/utils/utils.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -78,7 +79,7 @@ class SignUpController extends GetxController {
     updateSignUpButton();
   }
 
-  void updateSignUpButton() {
+  updateSignUpButton() {
     if (fullNameCTRL.text.isNotEmpty &&
         emailCTRL.text.isNotEmpty &&
         phoneCTRL.text.isNotEmpty &&
@@ -113,20 +114,23 @@ class SignUpController extends GetxController {
         CollectionReference users =
             FirebaseFirestore.instance.collection('users');
 
-          await FirebaseAuth.instance.createUserWithEmailAndPassword(
-          email: emailAddress,
-          password: password
-        );
-        final userId =  FirebaseAuth.instance.currentUser!.uid;
-        final documentReference = await users.doc(userId).set({
+        await FirebaseAuth.instance.createUserWithEmailAndPassword(
+            email: emailAddress, password: password);
+        final userId = FirebaseAuth.instance.currentUser!.uid;
+        var data = {
           'full_name': fullName,
           'email_address': emailAddress,
           'phone_number': phoneNumber,
           "role": role,
           "is_verify": isVerify,
-        });
+          "userId":userId,
+        };
+        await users.doc(userId).set(data);
+        Preferences.saveData(data);
+        print("documentReference $data");
         setLoading(false);
         pushUntil(context, screen);
+        sendEmailVerificationLink(context);
         Utils.successBar("User created successfully", context);
       } on FirebaseAuthException catch (e) {
         setLoading(false);
@@ -141,11 +145,13 @@ class SignUpController extends GetxController {
       ShowtoastMessage.showToast("Please correct the errors in the form");
     }
   }
-final auth = FirebaseAuth.instance;
-  sendEmailVerificationLink(context)async{
+
+  final auth = FirebaseAuth.instance;
+  sendEmailVerificationLink(context) async {
     try {
       await auth.currentUser?.sendEmailVerification();
-      Utils.successBar("Please check your Gmail for the email verification link.", context);
+      Utils.successBar(
+          "Please check your Gmail for the email verification link.", context);
     } catch (e) {
       print(e.toString());
     }

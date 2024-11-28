@@ -2,6 +2,7 @@ import 'dart:developer';
 import 'dart:io';
 
 import 'package:digital_kabaria_app/common/add_product_widget/add_product_widgets.dart';
+import 'package:digital_kabaria_app/common/app_loader.dart';
 import 'package:digital_kabaria_app/common/custom_app_bar.dart';
 import 'package:digital_kabaria_app/common/custom_button.dart';
 import 'package:digital_kabaria_app/common/custom_check_box.dart';
@@ -105,6 +106,7 @@ class _AddPostScreenState extends State<AddPostScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColors.whiteColor,
       resizeToAvoidBottomInset: false,
       appBar: const CustomAppBar(
         flag: true,
@@ -153,25 +155,25 @@ class _AddPostScreenState extends State<AddPostScreen> {
                   },
                 ),
                 20.h.sizedBoxHeight,
-                CustomCheckboxListTile(
-                  value: _isSellChecked,
-                  text: "Sell",
-                  onChanged: (bool? newValue) {
-                    setState(() {
-                      _isSellChecked = newValue ?? false;
-                    });
-                  },
-                ),
-                CustomCheckboxListTile(
-                  value: _isAlertChecked,
-                  text: "Create Alert",
-                  onChanged: (bool? newValue) {
-                    setState(() {
-                      _isAlertChecked = newValue ?? false;
-                    });
-                  },
-                ),
-                20.h.sizedBoxHeight,
+                // CustomCheckboxListTile(
+                //   value: _isSellChecked,
+                //   text: "Sell",
+                //   onChanged: (bool? newValue) {
+                //     setState(() {
+                //       _isSellChecked = newValue ?? false;
+                //     });
+                //   },
+                // ),
+                // CustomCheckboxListTile(
+                //   value: _isAlertChecked,
+                //   text: "Create Alert",
+                //   onChanged: (bool? newValue) {
+                //     setState(() {
+                //       _isAlertChecked = newValue ?? false;
+                //     });
+                //   },
+                // ),
+                // 20.h.sizedBoxHeight,
                 GetBuilder<AddProductController>(builder: (controller) {
                   return CustomTextFormField(
                     controller: controller.productName,
@@ -200,6 +202,7 @@ class _AddPostScreenState extends State<AddPostScreen> {
                 GetBuilder<AddProductController>(builder: (controller) {
                   return CustomTextFormField(
                     controller: controller.productNumber,
+                    keyboardType: TextInputType.number,
                     validator: (value) {
                       controller.validateNumber(value!);
                       return controller.productNumberError.value;
@@ -212,6 +215,8 @@ class _AddPostScreenState extends State<AddPostScreen> {
                 GetBuilder<AddProductController>(
                   builder: (controller) {
                     return CustomTextFormField(
+                    keyboardType: TextInputType.number,
+
                       controller: controller.productSecondNumber,
                       validator: (value) {
                         controller.validateSecondNumber(value!);
@@ -227,6 +232,8 @@ class _AddPostScreenState extends State<AddPostScreen> {
                   builder: (controller) {
                     return CustomTextFormField(
                       controller: controller.productPrice,
+                    keyboardType: TextInputType.number,
+
                       validator: (value){
                         controller.validatePrice(value!);
                         return controller.productPriceError.value;
@@ -247,8 +254,20 @@ class _AddPostScreenState extends State<AddPostScreen> {
                 ),
                 10.h.sizedBoxHeight,
                 const AppText(text: "Selected Address "),
-                AppText(text: controller.address.toString()),
+                
+                GetBuilder<AddProductController>(builder: (controller){
+                  if (controller.address == null ) {
+                    return const SizedBox();
+                    
+                  }else{
+
+                  return AppText(text: controller.address.toString());
+                  }
+                }),
+                
+
                 20.h.sizedBoxHeight,
+                if(_hasRecordedFile)
                 VoiceMessageView(
                   circlesColor: AppColors.appColor,
                   activeSliderColor: AppColors.greyColor,
@@ -272,6 +291,8 @@ class _AddPostScreenState extends State<AddPostScreen> {
                   innerPadding: 12,
                   cornerRadius: 20,
                 ),
+
+
                 20.h.sizedBoxHeight,
                 CustomButton(
                   btnWidth: 140,
@@ -279,7 +300,8 @@ class _AddPostScreenState extends State<AddPostScreen> {
                   onPressed: _isRecording ? _stopRecording : _startRecording,
                 ),
                 20.h.sizedBoxHeight,
-                CustomButton(
+              Obx((){
+                return controller.isLoading.value?const Center(child: AppLoader()):  CustomButton(
                   text: AppStrings.submit,
                   onPressed: () {
                     var data  = {
@@ -291,12 +313,16 @@ class _AddPostScreenState extends State<AddPostScreen> {
                       "price":controller.productPrice.text,
                       "address":controller.address,
                       "voice":_recordedFilePath,
+                      "lat":controller.center.latitude,
+                      "lng":controller.center.longitude,
                     };
                     if (formKey.currentState!.validate()) {
-                      controller.addProduct(context,imgFiles: controller.imgFiles, productName: controller.productName.text, productDescription: controller.productDescription.text, productNumber: controller.productNumber.text, productSecondNumber: controller.productSecondNumber.text, productPrice: controller.productPrice.text, address: controller.address.toString(), recordedFilePath: File(_recordedFilePath));
+                      controller.addProduct(context,imgFiles: controller.imgFiles, productName: controller.productName.text, productDescription: controller.productDescription.text, productNumber: controller.productNumber.text, productSecondNumber: controller.productSecondNumber.text, productPrice: controller.productPrice.text, address: controller.address.toString(), recordedFilePath: File(_recordedFilePath),lat: controller.center.latitude,lng: controller.center.longitude);
                     }
                   },
-                ),
+                  
+                );
+              }),
                 20.h.sizedBoxHeight,
               ],
             ),

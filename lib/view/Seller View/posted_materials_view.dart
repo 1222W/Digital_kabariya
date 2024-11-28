@@ -1,5 +1,7 @@
 import 'package:digital_kabaria_app/common/custom_app_bar.dart';
 import 'package:digital_kabaria_app/common/custom_button.dart';
+import 'package:digital_kabaria_app/controllers/seller_controllers/seller_product_controller.dart';
+import 'package:digital_kabaria_app/model/product_model.dart';
 import 'package:digital_kabaria_app/utils/app_colors.dart';
 import 'package:digital_kabaria_app/utils/custom_navigation.dart';
 import 'package:digital_kabaria_app/utils/sized_box_extension.dart';
@@ -7,112 +9,134 @@ import 'package:digital_kabaria_app/view/product/add_product_screen.dart';
 import 'package:flutter/material.dart';
 // import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
-class PostedMaterialView extends StatefulWidget {
-  const PostedMaterialView({super.key});
+class SellerProductView extends StatefulWidget {
+  const SellerProductView({super.key});
 
   @override
-  State<PostedMaterialView> createState() => _PostedMaterialViewState();
+  State<SellerProductView> createState() => _SellerProductViewState();
 }
 
-class _PostedMaterialViewState extends State<PostedMaterialView> {
+class _SellerProductViewState extends State<SellerProductView> {
+SellerProductController controller = Get.put(SellerProductController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        
-        body: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Expanded(
-              child: ListView(
-                physics: const BouncingScrollPhysics(),
-                padding: EdgeInsets.all(15.sp),
-                children: List.generate(
-                  5,
-                  (index) => ClipRRect(
-                    borderRadius: BorderRadius.circular(8.sp),
-                    child: Container(
-                      width: double.infinity,
+        backgroundColor: AppColors.whiteColor,
+        body: Padding(
+          padding:  const EdgeInsets.all(8.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Expanded(
+                child: StreamBuilder(
+                  stream: controller.getProductData(),
+                  builder: (context, snapshot) {
+                        if (snapshot.hasError) {
+                    return const Center(child: Text('Something went wrong'));
+                  }
 
-                      // padding: EdgeInsets.all(15.sp),
-                      margin: EdgeInsets.only(bottom: 10.h),
-                      decoration: BoxDecoration(
-                          color: AppColors.appColor.withOpacity(.10),
-                          border: Border.all(
-                              color: AppColors.blackColor.withOpacity(.1)),
-                          borderRadius: BorderRadius.circular(8.sp)),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Image.asset(
-                            "assets/images/old_scrap.png",
-                            height: 150.h,
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const Center(child: CircularProgressIndicator());
+                  }
+                  if (!snapshot.hasData) {
+                    return const Center(child: Text('No products found'));
+                  }
+                  var snapDocsData = snapshot.data;
+                  
+                  
+                    return ListView.builder(
+                      itemCount: snapDocsData!.length,
+                      itemBuilder: (context,index){
+                       var data = snapDocsData[index];
+                      return ClipRRect(
+                          borderRadius: BorderRadius.circular(8.sp),
+                          child: Container(
                             width: double.infinity,
-                            fit: BoxFit.cover,
-                          ),
-                          Padding(
-                            padding: EdgeInsets.all(10.0.sp),
-                            child: Row(
-                              children: [
-                                Text(
-                                  "Old Table",
-                                  style: TextStyle(
-                                      color: AppColors.blackColor,
-                                      fontSize: 18.sp,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                                const Spacer(),
-                                Text(
-                                  "1000 PKR",
-                                  style: TextStyle(
-                                      color: AppColors.appColor,
-                                      fontSize: 18.sp,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Padding(
-                            padding: EdgeInsets.all(10.0.sp),
+                              
+                            // padding: EdgeInsets.all(15.sp),
+                            margin: EdgeInsets.only(bottom: 10.h),
+                            decoration: BoxDecoration(
+                                color: AppColors.appColor.withOpacity(.10),
+                                border: Border.all(
+                                    color: AppColors.blackColor.withOpacity(.1)),
+                                borderRadius: BorderRadius.circular(8.sp)),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text(
-                                  "Description:",
-                                  style: TextStyle(
-                                      color: AppColors.blackColor,
-                                      fontSize: 14.sp,
-                                      fontWeight: FontWeight.bold),
+                                Image.network(
+                                  data.images.first,
+                                  height: 150.h,
+                                  width: double.infinity,
+                                  fit: BoxFit.cover,
                                 ),
-                                10.h.sizedBoxHeight,
-                                Text(
-                                  "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur",
-                                  style: TextStyle(
-                                      color:
-                                          AppColors.blackColor.withOpacity(.5),
-                                      fontSize: 14.sp,
-                                      fontWeight: FontWeight.w500),
+                                Padding(
+                                  padding: EdgeInsets.all(10.0.sp),
+                                  child: Row(
+                                    children: [
+                                      Text(
+                                        data.name,
+                                        style: TextStyle(
+                                            color: AppColors.blackColor,
+                                            fontSize: 18.sp,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                      const Spacer(),
+                                      Text(
+                                        "${data.price} PKR",
+                                        style: TextStyle(
+                                            color: AppColors.appColor,
+                                            fontSize: 18.sp,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                    ],
+                                  ),
                                 ),
+                                Padding(
+                                  padding: EdgeInsets.all(10.0.sp),
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        "Description:",
+                                        style: TextStyle(
+                                            color: AppColors.blackColor,
+                                            fontSize: 14.sp,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                      10.h.sizedBoxHeight,
+                                      Text(
+                                        data.description,
+                                        style: TextStyle(
+                                            color:
+                                                AppColors.blackColor.withOpacity(.5),
+                                            fontSize: 14.sp,
+                                            fontWeight: FontWeight.w500),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                Padding(
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal: 8.0.w, vertical: 10.h),
+                                    child: CustomButton(
+                                      text: "Delete",
+                                      onPressed: () {
+                                        deletePostedMaterial(context,data.docId);
+                                      },
+                                    ))
                               ],
                             ),
                           ),
-                          Padding(
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: 8.0.w, vertical: 10.h),
-                              child: CustomButton(
-                                text: "Delete",
-                                onPressed: () {
-                                  deletePostedMaterial(context);
-                                },
-                              ))
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
+                        );
+                    
+                    });
+                  }
+                )
               ),
-            ),
-          ],
+            ],
+          ),
         ),
         floatingActionButton: CustomButton(
           text: "Post New",
@@ -121,7 +145,7 @@ class _PostedMaterialViewState extends State<PostedMaterialView> {
           textColor: AppColors.blackColor,
           border: BorderSide(color: AppColors.blackColor.withOpacity(.5)),
           onPressed: () {
-            push(context,AddPostScreen());
+            push(context,const AddPostScreen());
           },
         ));
   }
@@ -130,10 +154,13 @@ class _PostedMaterialViewState extends State<PostedMaterialView> {
 // deletePostedMaterial Dialogue
 void deletePostedMaterial(
   BuildContext context,
+  final docId,
 ) {
   showDialog(
     context: context,
     builder: (context) {
+SellerProductController controller = Get.put(SellerProductController());
+
       return AlertDialog(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(40)),
         backgroundColor: AppColors.whiteColor,
@@ -180,7 +207,9 @@ void deletePostedMaterial(
                   Expanded(
                       child: CustomButton(
                     text: "Confirm",
-                    onPressed: () {},
+                    onPressed: () {
+                      controller.deleteProduct(docId,context);
+                    },
                   )),
                   10.w.sizedBoxWidth,
                   Expanded(
@@ -203,3 +232,4 @@ void deletePostedMaterial(
     },
   );
 }
+

@@ -1,17 +1,15 @@
 import 'package:digital_kabaria_app/common/custom_app_bar.dart';
+import 'package:digital_kabaria_app/controllers/collector_controllers/collector_state_controller.dart';
 import 'package:digital_kabaria_app/utils/app_colors.dart';
 import 'package:digital_kabaria_app/utils/sized_box_extension.dart';
 
-import 'package:digital_kabaria_app/view/Seller%20View/User%20State/user_state.dart';
-import 'package:digital_kabaria_app/view/Seller%20View/bids_view.dart';
-import 'package:digital_kabaria_app/view/Seller%20View/buy_scraps_view.dart';
-import 'package:digital_kabaria_app/view/Seller%20View/deals_view.dart';
 import 'package:digital_kabaria_app/view/Seller%20View/home_view/home_view.dart';
 import 'package:digital_kabaria_app/view/Seller%20View/home_view/seller_profile.dart';
-import 'package:digital_kabaria_app/view/Seller%20View/posted_materials_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+
+import 'collector_product_view.dart';
 
 class CollectorBottomNavBar extends StatefulWidget {
   const CollectorBottomNavBar({super.key});
@@ -21,12 +19,11 @@ class CollectorBottomNavBar extends StatefulWidget {
 }
 
 class _CollectorBottomNavBarState extends State<CollectorBottomNavBar> {
-  final userState = Get.put(UserState());
+  final collectorState = Get.put(CollectorStateController());
   final List<Widget> pages = [
     const HomeView(),
-    const PostedMaterialView(),
-    const BidsView(),
-    const SellerProfileView()
+    const CollectorProductView(),
+    SellerProfileView()
   ];
   @override
   Widget build(BuildContext context) {
@@ -34,13 +31,14 @@ class _CollectorBottomNavBarState extends State<CollectorBottomNavBar> {
       appBar: const CustomAppBar(
         flag: true,
       ),
-      body: Obx(() {
-        return pages[userState.currentIndex.value];
-      }),
+      body:Obx(() {
+
+  return pages[collectorState.currentIndex.value];
+}),
       bottomNavigationBar: Obx(() {
         return BottomNavigationBar(
-            currentIndex: userState.currentIndex.value,
-            onTap: userState.updateSelectedIndex,
+            currentIndex: collectorState.currentIndex.value,
+            onTap: collectorState.updateSelectedIndex,
             type: BottomNavigationBarType.fixed,
             // showSelectedLabels: false,
             selectedItemColor: AppColors.appColor,
@@ -63,26 +61,21 @@ class _CollectorBottomNavBarState extends State<CollectorBottomNavBar> {
               BottomNavigationBarItem(
                 icon: Image.asset(
                   "assets/images/home.png",
-                  height: userState.currentIndex.value == 0 ? 40.h : 25.h,
+                  height: collectorState.currentIndex.value == 0 ? 40.h : 25.h,
                 ),
                 label: "Home",
               ),
               BottomNavigationBarItem(
                   icon: Image.asset(
                     "assets/images/my_posts.png",
-                    height: userState.currentIndex.value == 1 ? 40.h : 25.h,
+                    height: collectorState.currentIndex.value == 1 ? 40.h : 25.h,
                   ),
                   label: "Sell"),
-                  BottomNavigationBarItem(
-                  icon: Image.asset(
-                    "assets/images/bidings.png",
-                    height: userState.currentIndex.value == 1 ? 40.h : 25.h,
-                  ),
-                  label: "Bid"),
+   
               BottomNavigationBarItem(
                   icon: Image.asset(
                     "assets/images/profile.png",
-                    height: userState.currentIndex.value == 2 ? 40.h : 25.h,
+                    height: collectorState.currentIndex.value == 2 ? 40.h : 25.h,
                   ),
                   label: "Profile"),
             ]);

@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:digital_kabaria_app/common/app_loader.dart';
 import 'package:digital_kabaria_app/common/custom_app_bar.dart';
 import 'package:digital_kabaria_app/common/custom_button.dart';
@@ -163,48 +165,15 @@ class _LoginViewState extends State<LoginView> {
                         text: "Login".tr,
                         onPressed: authState.enableLoginButton
                             ? () {
-                                if (authState.emailCTRL.value.text ==
-                                    "admin@gmail.com") {
-                                  push(context, const AdminSideView());
-                                } else {
-                                  authState.login(context,
+                                 authState.login(context,
                                       emailAddress:
                                           authState.emailCTRL.value.text,
                                       password:
                                           authState.passwordCTRL.value.text,
                                       );
-                                }
                               }
                             : null
-                        // onPressed: authState.enableLoginButton
-                        //     ? () {
-                        //         if (formKey.currentState!.validate()) {
-                        //           if (authState.emailCTRL.value.text ==
-                        //               "ban@gmail.com") {
-                        //             Navigator.push(
-                        //                 context,
-                        //                 PageTransition(
-                        //                     child: const BannedAccountView(),
-                        //                     type: PageTransitionType.fade));
-                        //           } else if (authState.emailCTRL.value.text ==
-                        //               "admin@gmail.com") {
-                        //             Navigator.push(
-                        //                 context,
-                        //                 PageTransition(
-                        //                     child: const AdminSideView(),
-                        //                     type: PageTransitionType.fade));
-                        //           } else {
-                        //             Navigator.push(
-                        //                 context,
-                        //                 PageTransition(
-                        //                     child: const UserHomeView(),
-                        //                     type: PageTransitionType.fade));
-                        //           }
-                        //         } else {
-                        //           authState.autoValidate.value = true;
-                        //         }
-                        //       }
-                        //     : null,
+                       
                         );
               }),
               //
@@ -223,6 +192,7 @@ class _LoginViewState extends State<LoginView> {
                           type: PageTransitionType.fade));
                 },
               ),
+             
               10.h.sizedBoxHeight,
             ],
           ),
@@ -292,7 +262,7 @@ void resetPasswordDialogue(
               ),
               Center(
                   child:Obx((){
-                    return resetState.isLoading.value ? AppLoader():CustomButton(
+                    return resetState.isLoading.value ? const AppLoader():CustomButton(
                 text: "Continue",
                 onPressed: () {
                   resetState.resetPassword(context,email: emailController.text);

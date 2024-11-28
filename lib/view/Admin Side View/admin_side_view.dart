@@ -73,7 +73,7 @@ class _AdminSideViewState extends State<AdminSideView>
             GetBuilder<AdminState>(builder: (myVideoState) {
               return TabBar(
                   indicatorColor: AppColors.appColor,
-                  overlayColor: MaterialStateProperty.all(
+                  overlayColor: WidgetStateProperty.all(
                       AppColors.tealColor.withOpacity(.10)),
                   onTap: myVideoState.updateCurrenttab,
                   dividerColor: AppColors.blackColor.withOpacity(.25),
@@ -81,21 +81,22 @@ class _AdminSideViewState extends State<AdminSideView>
                   controller: _tabController,
                   tabs: [
                     buildTab(
+                      
                         tabColor: _tabController.index == 0
                             ? AppColors.appColor
-                            : AppColors.blackColor.withOpacity(.3),
+                            : AppColors.blackColor,
                         tabIcon: Icons.person,
                         tabName: "Users"),
                     buildTab(
                         tabColor: _tabController.index == 1
                             ? AppColors.appColor
-                            : AppColors.blackColor.withOpacity(.3),
+                            : AppColors.blackColor,
                         tabIcon: Icons.report,
                         tabName: "Complaints"),
                     buildTab(
                         tabColor: _tabController.index == 2
                             ? AppColors.appColor
-                            : AppColors.blackColor.withOpacity(.3),
+                            : AppColors.blackColor,
                         tabIcon: Icons.group,
                         tabName: "Approvals"),
                   ]);
@@ -196,7 +197,7 @@ buildHorizotalData({
         ),
         const Spacer(),
         SizedBox(
-          width: 150.w,
+          // width: 150.w,
           child: Text(
             value,
             maxLines: 1,

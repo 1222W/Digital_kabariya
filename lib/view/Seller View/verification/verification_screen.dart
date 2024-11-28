@@ -1,18 +1,13 @@
+import 'dart:async';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:digital_kabaria_app/common/custom_button.dart';
 import 'package:digital_kabaria_app/utils/app_colors.dart';
-import 'package:digital_kabaria_app/utils/app_strings.dart';
 import 'package:digital_kabaria_app/utils/app_text.dart';
 import 'package:digital_kabaria_app/utils/custom_navigation.dart';
-import 'package:digital_kabaria_app/utils/enums.dart';
 import 'package:digital_kabaria_app/utils/firebase_data.dart';
 import 'package:digital_kabaria_app/utils/sized_box_extension.dart';
-import 'package:digital_kabaria_app/utils/utils.dart';
-import 'package:digital_kabaria_app/view/Collector%20View/collector_bottom_nav_view.dart';
-import 'package:digital_kabaria_app/view/Company%20View/company_bottom_view.dart';
 import 'package:digital_kabaria_app/view/Seller%20View/Auth%20View/login_view.dart';
-import 'package:digital_kabaria_app/view/Seller%20View/home_view/seller_home_view.dart';
-import 'package:digital_kabaria_app/view/Seller%20View/user_home_view.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -29,32 +24,43 @@ class VerfificationScreen extends StatefulWidget {
 
 class _RequestApprovalScreenState extends State<VerfificationScreen> {
   final controller = Get.put(SignUpController());
+  User? user;
+  late Timer timer;
 
   @override
   void initState() {
-    checkApproval();
     super.initState();
+    user = FirebaseAuth.instance.currentUser;
+    user?.reload();
+    checkApproval();
+    timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      checkApproval();
+    });
   }
 
-  checkApproval() {
-    final id = FirebaseAuth.instance.currentUser!.uid;
-    final userEmail = FirebaseAuth.instance.currentUser!.emailVerified;
-    if (userEmail == true) {
-      // pushReplacement(context, User)
-      if (controller.selectedDropdownItem.value == ROLENAME.Seller) {
-        pushReplacement(context, SellerHomeView());
-      } else if (controller.selectedDropdownItem.value == ROLENAME.Collector) {
-        pushReplacement(context, CollectorBottomNavBar());
-      } else if (controller.selectedDropdownItem.value == ROLENAME.Buyer) {
-        pushReplacement(context, CompanyBottomBar());
+  @override
+  void dispose() {
+    timer.cancel();
+    super.dispose();
+  }
+
+  checkApproval() async {
+    user = FirebaseAuth.instance.currentUser;
+    await user?.reload();
+    final userEmailVerified = user?.emailVerified ?? false;
+
+    if (userEmailVerified) {
+      // Check role and navigate accordingly
+      final id = user?.uid;
+      if (id != null) {
+        final userDoc = await FirebaseFirestore.instance.collection(Collection.user).doc(id).get();
+        final role = userDoc.data()?['role'];
+
+       
+          pushReplacement(context, const LoginView());
+        
       }
     }
-    // FirebaseFirestore.instance.collection(Collection.user).doc(id).snapshots().listen((event) {
-    //   if (event.get("is_verify")) {
-    //     pushReplacement(context, const UserHomeView());
-    //     Utils.successBar("Admin Approved SuccessFully!", context);
-    //   }
-    // });
   }
 
   @override
@@ -87,9 +93,23 @@ class _RequestApprovalScreenState extends State<VerfificationScreen> {
                 text: "Resend Email",
                 onPressed: () {
                   controller.sendEmailVerificationLink(context);
-                  // pushUntil(context,const LoginView());
                 },
-              )
+              ),
+              10.h.sizedBoxHeight,
+              InkWell(
+                onTap: (){
+                  push(context,const LoginView());
+                },
+                child: const AppText(
+                  textAlign: TextAlign.center,
+                  textDecoration: TextDecoration.underline,
+                  text:
+                      "Go to Back",
+                  fontSize: 14,
+                  fontWeight: FontWeight.w600,
+                  color: AppColors.blackColor,
+                ),
+              ),
             ],
           ),
         ),

@@ -6,7 +6,7 @@ class CustomCheckboxListTile extends StatefulWidget {
   final String? text;
   final void Function(bool?)? onChanged;
 
-  CustomCheckboxListTile({this.value, this.onChanged, this.text});
+  const CustomCheckboxListTile({super.key, this.value, this.onChanged, this.text});
 
   @override
   _CustomCheckboxListTileState createState() => _CustomCheckboxListTileState();

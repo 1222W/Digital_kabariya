@@ -8,10 +8,11 @@ import 'package:digital_kabaria_app/utils/firebase_data.dart';
 import 'package:digital_kabaria_app/utils/sized_box_extension.dart';
 import 'package:digital_kabaria_app/utils/utils.dart';
 import 'package:digital_kabaria_app/view/Seller%20View/Auth%20View/login_view.dart';
-import 'package:digital_kabaria_app/view/Seller%20View/user_home_view.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+import '../../Company View/company_bottom_view.dart';
 
 class RequestApprovalScreen extends StatefulWidget {
   const RequestApprovalScreen({super.key});
@@ -31,7 +32,7 @@ class _RequestApprovalScreenState extends State<RequestApprovalScreen> {
    final id = FirebaseAuth.instance.currentUser!.uid;
     FirebaseFirestore.instance.collection(Collection.user).doc(id).snapshots().listen((event) {
       if (event.get("is_verify")) {
-        pushReplacement(context, const UserHomeView());
+        pushReplacement(context, const CompanyBottomBar());
         Utils.successBar("Admin Approved SuccessFully!", context);
       }
     });

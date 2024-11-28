@@ -1,5 +1,6 @@
 import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:digital_kabaria_app/Utils/preferences.dart';
 import 'package:digital_kabaria_app/common/app_toast_message.dart';
 import 'package:digital_kabaria_app/model/users.model.dart';
 import 'package:digital_kabaria_app/utils/custom_navigation.dart';
@@ -7,9 +8,11 @@ import 'package:digital_kabaria_app/utils/firebase_data.dart';
 import 'package:digital_kabaria_app/utils/utils.dart';
 import 'package:digital_kabaria_app/view/Collector%20View/collector_bottom_nav_view.dart';
 import 'package:digital_kabaria_app/view/Company%20View/company_bottom_view.dart';
+import 'package:digital_kabaria_app/view/Seller%20View/Auth%20View/login_view.dart';
 import 'package:digital_kabaria_app/view/Seller%20View/approval/approval_screen.dart';
 import 'package:digital_kabaria_app/view/Seller%20View/home_view/seller_home_view.dart';
 import 'package:digital_kabaria_app/view/Seller%20View/user_home_view.dart';
+import 'package:digital_kabaria_app/view/Seller%20View/verification/verification_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
@@ -87,32 +90,41 @@ class AuthStateController extends GetxController {
     if (enableLoginButton) {
       try {
         setLoading(true);
-
-        final credential =  FirebaseAuth.instance
+        final credential = await FirebaseAuth.instance
             .signInWithEmailAndPassword(
                 email: emailAddress, password: password);
+        // debugger();
 
         String id = FirebaseAuth.instance.currentUser!.uid;
         final user = await FirebaseFirestore.instance
             .collection(Collection.user)
             .doc(id)
             .get();
+        // debugger();
+
         UsersModel userModel = UsersModel.fromJson(user.data()!);
-        setLoading(false);
-        if (userModel.isVerify) {
-          if (userModel.role == ROLENAME.Seller.name) {
-            pushReplacement(context, const SellerHomeView());
-          } else if (userModel.role == ROLENAME.Collector.name) {
-            pushReplacement(context, const CollectorBottomNavBar());
-          } else if (userModel.role == ROLENAME.Buyer.name) {
-            pushReplacement(context, const CompanyBottomBar());
+        // debugger();
+        if (FirebaseAuth.instance.currentUser!.emailVerified) {
+          if (userModel.isVerify!) {
+            if (userModel.role == ROLENAME.Seller.name) {
+              pushReplacement(context, const SellerHomeView());
+            } else if (userModel.role == ROLENAME.Collector.name) {
+              pushReplacement(context, const CollectorBottomNavBar());
+            } else if (userModel.role == ROLENAME.Buyer.name) {
+              pushReplacement(context, const CompanyBottomBar());
+            }
+          } else {
+            pushReplacement(context, const RequestApprovalScreen());
           }
         } else {
-          pushReplacement(context, const RequestApprovalScreen());
+          pushReplacement(context, const VerfificationScreen());
         }
+      
+        setLoading(false);
         Utils.successBar("User Sign in SuccessFully!", context);
-
       } on FirebaseAuthException catch (e) {
+        // debugger();
+
         log(e.toString());
         setLoading(false);
         Utils.flushBarErrorMessage(e.toString(), context);
@@ -121,7 +133,24 @@ class AuthStateController extends GetxController {
         } else if (e.code == 'wrong-password') {
           print('Wrong password provided for that user.');
         }
+        setLoading(false);
       }
+    }
+  }
+
+  logOut(context) {
+    try {
+      setLoading(true);
+      FirebaseAuth auth = FirebaseAuth.instance;
+      auth.signOut();
+      Preferences.clear();
+      setLoading(false);
+      pushReplacement(context, const LoginView());
+      Utils.flushBarErrorMessage("Logout SuccessFully!", context);
+    } catch (e) {
+      setLoading(false);
+
+      print(e.toString());
     }
   }
 }

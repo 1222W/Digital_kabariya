@@ -1,6 +1,7 @@
 import 'dart:developer';
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:digital_kabaria_app/Common/constants/constants.dart';
 import 'package:digital_kabaria_app/utils/utils.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -8,12 +9,14 @@ import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
+import 'package:get/get_connect/http/src/utils/utils.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:google_maps_place_picker_mb/google_maps_place_picker.dart';
 import 'package:image_picker/image_picker.dart';
 
 class AddProductController extends GetxController {
-  late LatLng center;
+  
+  LatLng center = const LatLng(40.7128, -74.0060);
   PickResult? selectedPlace;
   String? address;
   String appBarTitle = 'Pick a Location';
@@ -28,6 +31,10 @@ class AddProductController extends GetxController {
   final productNumberError = RxnString(null);
   final productSecondNumberError = RxnString(null);
   final productPriceError = RxnString(null);
+  final isLoading = false.obs;
+  void setLoading(value) {
+    isLoading.value = value;
+  }
   void validateName(String value) {
     if (value.isEmpty) {
       productNameError.value = "Please enter product Name";
@@ -86,7 +93,7 @@ class AddProductController extends GetxController {
 
   void pickImages() async {
     final ImagePicker picker = ImagePicker();
-    final List<XFile>? images = await picker.pickMultiImage();
+    final List<XFile> images = await picker.pickMultiImage();
     if (images == null || images.isEmpty) return;
 
     for (XFile image in images) {
@@ -133,9 +140,11 @@ class AddProductController extends GetxController {
     required String productPrice,
     required String address,
     required File recordedFilePath,
+    final lat,lng,
   }) async {
     checkValidations();
     try {
+      setLoading(true);
       final currentUser = FirebaseAuth.instance.currentUser!.uid;
       final db = FirebaseFirestore.instance;
       final storage = FirebaseStorage.instance;
@@ -168,12 +177,31 @@ class AddProductController extends GetxController {
         "price": productPrice,
         "address": address,
         "voice": voiceDownloadUrl,
+        "lat":lat,
+        "lng":lng,
+         "userId":auth.currentUser!.uid,
       };
-      print("dataa ${data}");
-       db.collection("products").doc(currentUser).set(data);
+      print("dataa $data");
+       clear();
+       db.collection("products").doc().set(data);
        Utils.successBar("Product Added SuccessFully!", context);
+       setLoading(false);
     } catch (e) {
+       setLoading(false);
+
       print(e);
     }
   }
+  clear(){
+    productName.clear();
+    productDescription.clear();
+    productNumber.clear();
+    productSecondNumber.clear();
+    productPrice.clear();
+    imgFiles.clear();
+    
+  }
+
+
 }
+
