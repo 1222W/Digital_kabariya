@@ -126,7 +126,26 @@ class _SellerProfileViewState extends State<SellerProfileView> {
 
                 
                   20.h.sizedBoxHeight,
-                  Obx(() {
+             
+
+                  CustomButton(
+          onPressed: () {
+          push(context, const FeedbackScreen());
+          },
+          text: "Send Feedback",
+        ),
+
+                  20.h.sizedBoxHeight,
+
+        CustomButton(
+          onPressed: () {
+          push(context, const AllFeedBackScreens());
+          },
+          text: "View Reply",
+        ),
+
+                  20.h.sizedBoxHeight,
+             Obx(() {
                     return authState.isLoading.value
                         ? const AppLoader()
                         : CustomButton(
@@ -137,23 +156,6 @@ class _SellerProfileViewState extends State<SellerProfileView> {
                             text: "Log out",
                           );
                   }),
-                  20.h.sizedBoxHeight,
-
-                  CustomButton(
-          onPressed: () {
-          push(context, const FeedbackScreen());
-          },
-          text: "Feed back",
-        ),
-
-                  20.h.sizedBoxHeight,
-
-        CustomButton(
-          onPressed: () {
-          push(context, const AllFeedBackScreens());
-          },
-          text: "All Feed backs",
-        )
                 ],
               ),
             );

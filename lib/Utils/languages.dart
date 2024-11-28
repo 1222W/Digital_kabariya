@@ -15,6 +15,8 @@ class AppTranslations extends Translations {
           "Reset Password?": "Reset Password?",
           "Login": "Login",
           "Create Account": "Create Account",
+          "Welcome! Create your\naccount":"Welcome! Create your\naccount",
+          "Full Name":"Full Name"
         },
         'ur': {
           "Digital Kabariya": "ڈیجیٹل کباریہ",
@@ -28,6 +30,8 @@ class AppTranslations extends Translations {
           "Reset Password?": "پاس ورڈ ری سیٹ کریں؟",
           "Login": "لاگ ان",
           "Create Account": "اکاؤنٹ بنائیں",
+          "Welcome! Create your\naccount":"خوش آمدید! اپنا\nاکاؤنٹ بنائیں",
+          "Full Name":"پورا نام"
         },
       };
 }

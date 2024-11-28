@@ -75,6 +75,15 @@ class _CollectorAddProductViewState extends State<CollectorAddProductView> {
     });
   }
 
+
+    deleteVoice()async{
+    await _audioRecorder.stop();
+    setState(() {
+      _recordedFilePath = "";
+      _hasRecordedFile = false;
+    });
+  }
+
   Future<bool> _checkPermissions() async {
     var status = await Permission.microphone.status;
     if (status.isDenied) {
@@ -270,28 +279,37 @@ class _CollectorAddProductViewState extends State<CollectorAddProductView> {
 
                 20.h.sizedBoxHeight,
                 if(_hasRecordedFile)
-                VoiceMessageView(
-                  circlesColor: AppColors.appColor,
-                  activeSliderColor: AppColors.greyColor,
-                  controller: VoiceController(
-                    audioSrc: _recordedFilePath,
-                    maxDuration: const Duration(minutes: 1000),
-                    isFile: true,
-                    onComplete: () {
-                      print('Recording complete');
-                    },
-                    onPause: () {
-                      print('Playback paused');
-                    },
-                    onPlaying: () {
-                      print('Playback started');
-                    },
-                    onError: (err) {
-                      print('Voice recording error: $err');
-                    },
-                  ),
-                  innerPadding: 12,
-                  cornerRadius: 20,
+                Row(
+                  children: [
+                    VoiceMessageView(
+                      circlesColor: AppColors.appColor,
+                      activeSliderColor: AppColors.greyColor,
+                      controller: VoiceController(
+                        audioSrc: _recordedFilePath,
+                        maxDuration: const Duration(minutes: 1000),
+                        isFile: true,
+                        onComplete: () {
+                          print('Recording complete');
+                        },
+                        onPause: () {
+                          print('Playback paused');
+                        },
+                        onPlaying: () {
+                          print('Playback started');
+                        },
+                        onError: (err) {
+                          print('Voice recording error: $err');
+                        },
+                      ),
+                      innerPadding: 12,
+                      cornerRadius: 20,
+                    ),
+                       InkWell(
+                      onTap: (){
+                        deleteVoice();
+                      },
+                      child: Icon(Icons.delete, color: Colors.red,))
+                  ],
                 ),
 
 

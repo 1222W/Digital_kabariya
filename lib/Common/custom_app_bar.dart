@@ -165,32 +165,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                   ),
                 ),
                 10.w.sizedBoxWidth,
-                IconButton(
-                  padding: EdgeInsets.zero,
-                  onPressed: () {
-                    userState.currentIndex.value = 0;
-                    Navigator.push(
-                        context,
-                        PageTransition(
-                            child: const UserProfile(userId: ""),
-                            type: PageTransitionType.fade));
-                  },
-                  icon: Container(
-                    height: 45.h,
-                    width: 45.w,
-                    decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: AppColors.blackColor.withOpacity(.15)),
-                    child: Center(
-                      child: Icon(
-                        CupertinoIcons.person,
-                        color: AppColors.blackColor,
-                        size: 20.sp,
-                      ),
-                    ),
-                  ),
-                ),
-                10.w.sizedBoxWidth
+           10.w.sizedBoxWidth
               ],
       );
     });

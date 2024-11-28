@@ -1,3 +1,5 @@
+import 'package:digital_kabaria_app/Common/custom_button.dart';
+import 'package:digital_kabaria_app/Utils/custom_navigation.dart';
 import 'package:digital_kabaria_app/controllers/add_product_controller.dart';
 import 'package:digital_kabaria_app/utils/app_colors.dart';
 import 'package:flutter/cupertino.dart';
@@ -31,10 +33,12 @@ class _LocationScreenState extends State<LocationScreen> {
         builder: (_) {
           return Stack(
             children: [
+              
               PlacePicker(
                 apiKey: 'AIzaSyDka8c0sYp6KgWOnnwJwHsAzBxUZJTJZYY',
                 initialPosition: _.center,
-                useCurrentLocation: true,
+                useCurrentLocation: true,     
+                        
                 onPlacePicked: (result) {
                   setState(() {
                     _.selectedPlace = result;
@@ -42,6 +46,24 @@ class _LocationScreenState extends State<LocationScreen> {
                   });
                 },
               ),
+                Align(
+                  alignment: Alignment.bottomCenter,
+                  child:  Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      CustomButton(
+                        btnColor: AppColors.greenColor,
+                      btnWidth: 150,
+                      text: "Confirm",
+                      onPressed: () {
+                        pop(context);
+                      },
+                                      ),
+
+                                      SizedBox(height: 20,)
+                    ],
+                  ),),
+
               if (_.address != null)
                 Positioned(
                   top: 300.h,
@@ -61,8 +83,12 @@ class _LocationScreenState extends State<LocationScreen> {
                     ),
                   ),
                 ),
+
+              
             ],
           );
+
+        
                 },
       ),
     );

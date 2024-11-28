@@ -13,8 +13,10 @@ class SignUpController extends GetxController {
   final emailCTRL = TextEditingController();
   final phoneCTRL = TextEditingController();
   final passwordCTRL = TextEditingController().obs;
+  final confirmPasswordCTRL = TextEditingController().obs;
   final fullNameCTRL = TextEditingController();
   final obsecurePassword = true.obs;
+  final obsecureConfirmPassword = true.obs;
   var isLoading = false.obs;
 
   void setLoading(bool loading) {
@@ -24,6 +26,7 @@ class SignUpController extends GetxController {
   final fullNameError = RxnString(null);
   final emailError = RxnString(null);
   final passwordError = RxnString(null);
+  final passwordConfirmError = RxnString(null);
   final phoneError = RxnString(null);
   final dropdownError = RxnString(null);
 
@@ -32,6 +35,10 @@ class SignUpController extends GetxController {
 
   void togglePassword() {
     obsecurePassword.value = !obsecurePassword.value;
+  }
+
+  void toggleConfirmPassword() {
+    obsecureConfirmPassword.value = !obsecureConfirmPassword.value;
   }
 
   void validateFullName(String value) {
@@ -70,6 +77,19 @@ class SignUpController extends GetxController {
     updateSignUpButton();
   }
 
+
+    void validateConfirmPassword(String value) {
+    if (value.isEmpty) {
+      passwordConfirmError.value = "Please Enter a Confirm Password";
+    }
+    else if(value != passwordCTRL.value){
+      passwordConfirmError.value = "Password not Match!";
+    } else {
+      passwordConfirmError.value = null;
+    }
+    updateSignUpButton();
+  }
+
   void validateDropdown(String value) {
     if (value.isEmpty || value == "Sign Up As!") {
       dropdownError.value = "Please select a role";
@@ -84,6 +104,7 @@ class SignUpController extends GetxController {
         emailCTRL.text.isNotEmpty &&
         phoneCTRL.text.isNotEmpty &&
         passwordCTRL.value.text.isNotEmpty &&
+        confirmPasswordCTRL.value.text.isNotEmpty &&
         selectedDropdownItem.value != null &&
         fullNameError.value == null &&
         emailError.value == null &&

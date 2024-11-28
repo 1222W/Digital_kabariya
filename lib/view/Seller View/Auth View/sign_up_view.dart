@@ -40,7 +40,7 @@ class _SignUpViewState extends State<SignUpView> {
               children: [
                 20.h.sizedBoxHeight,
                 Text(
-                  "Welcome! Create your\naccount",
+                  "Welcome! Create your\naccount".tr,
                   style: TextStyle(
                     fontSize: 20.sp,
                     color: AppColors.blackColor,
@@ -50,7 +50,7 @@ class _SignUpViewState extends State<SignUpView> {
                 20.h.sizedBoxHeight,
                 Obx(() => CustomTextFormField(
                       controller: controller.fullNameCTRL,
-                      hintText: "Full Name/ Organization Name",
+                      hintText: "Full Name".tr,
                       flag: true,
                       onChanged: controller.validateFullName,
                       errorText: controller.fullNameError.value,
@@ -121,6 +121,29 @@ class _SignUpViewState extends State<SignUpView> {
                               : Icons.visibility,
                           size: 20.sp,
                           color: controller.obsecurePassword.value
+                              ? AppColors.blackColor.withOpacity(.30)
+                              : AppColors.appColor,
+                        ),
+                      ),
+                    )),
+                         10.h.sizedBoxHeight,
+                Obx(() => CustomTextFormField(
+                      controller: controller.confirmPasswordCTRL.value,
+                      hintText: "Confirm Password",
+                      flag: true,
+                      obscureText: controller.obsecureConfirmPassword.value,
+                      onChanged: controller.validateConfirmPassword,
+                      errorText: controller.passwordConfirmError.value,
+                      suffixIcon: IconButton(
+                        onPressed: () {
+                          controller.toggleConfirmPassword();
+                        },
+                        icon: Icon(
+                          controller.obsecureConfirmPassword.value
+                              ? Icons.visibility_off
+                              : Icons.visibility,
+                          size: 20.sp,
+                          color: controller.obsecureConfirmPassword.value
                               ? AppColors.blackColor.withOpacity(.30)
                               : AppColors.appColor,
                         ),
